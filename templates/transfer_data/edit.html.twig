@@ -4,8 +4,6 @@
 {% block sub_title %}Edit{% endblock %}
 
 {% block content %}
-    <h1>Edit TransferData</h1>
-
     {{ include('transfer_data/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('transfer_data_index') }}">back to list</a>
