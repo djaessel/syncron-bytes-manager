@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %}SyncronBytes Manager{% endblock %}</title>
+        <title>{% block title %}SyncronBytes Manager{% endblock %} {% block sub_title %}Default{% endblock %}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -146,12 +146,13 @@
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Dashboard
-                            <small>Control panel</small>
+                            {% block page_title %}{{ block('title') }}{% endblock %}
+                            <small>{% block page_sub_title %}{{ block('sub_title') }}{% endblock %}</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Dashboard</li>
+                            <li class="">{{ block('title') }}</li>
+                            <li class="active">{{ block('sub_title') }}</li>
                         </ol>
                     </section>
 
