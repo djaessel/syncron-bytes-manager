@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TransferData index{% endblock %}
+
+{% block body %}
+    <h1>TransferData index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FileName</th>
+                <th>Link</th>
+                <th>IsUsed</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transfer_datum in transfer_datas %}
+            <tr>
+                <td>{{ transfer_datum.id }}</td>
+                <td>{{ transfer_datum.fileName }}</td>
+                <td>{{ transfer_datum.link }}</td>
+                <td>{{ transfer_datum.isUsed ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('transfer_data_show', {'id': transfer_datum.id}) }}">show</a>
+                    <a href="{{ path('transfer_data_edit', {'id': transfer_datum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('transfer_data_new') }}">Create new</a>
+{% endblock %}

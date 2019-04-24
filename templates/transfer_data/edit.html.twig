@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TransferData{% endblock %}
+
+{% block body %}
+    <h1>Edit TransferData</h1>
+
+    {{ include('transfer_data/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('transfer_data_index') }}">back to list</a>
+
+    {{ include('transfer_data/_delete_form.html.twig') }}
+{% endblock %}
