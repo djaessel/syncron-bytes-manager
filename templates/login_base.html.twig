@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "log_in"|trans }}{% endblock %}
+{% block sub_title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="wrapper">
+
+        <div class="content-wrapper" style="margin-left: 0;">
+            <section class="content">
+                {% block content %}
+                {% endblock %}
+            </section>
+        </div>
+
+        <footer class="main-footer" style="margin-left: 0;">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 0.0.1a
+            </div>
+            <strong>Copyright &copy; 2019 J.SYS</strong> All rights reserved.
+        </footer>
+
+    </div>
+
+    {#    <div class="" style="padding: 1.5rem; margin-right: 0; margin-left: 0; border-width: .2rem; background-color: #0a0a0a;">#}
+    {#        #}
+    {#    </div>#}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+{% endblock %}

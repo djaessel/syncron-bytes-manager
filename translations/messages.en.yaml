@@ -1,1 +1,8 @@
-log_in: Log in
+log_in: Sign in
+log_out: Sign out
+email: Email address
+password: Password
+email_or_password_invalid: Email address or password are invalid.
+Email could not be found.: Email address or password are invalid.
+email_address:
+  nosharemsg: We'll never share your email address with anyone else.

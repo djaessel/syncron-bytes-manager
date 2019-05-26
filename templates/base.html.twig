@@ -41,9 +41,12 @@
 
             <!-- Google Font -->
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+            <!-- Custom styles -->
+            <link rel="stylesheet" href="{{ asset('css/skin-jsys.css') }}">
         {% endblock %}
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-jsys sidebar-mini">
         {% block body %}
             <div class="wrapper">
 
@@ -67,13 +70,13 @@
                                 <!-- User Account: style can be found in dropdown.less -->
                                 <li class="dropdown user user-menu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="" class="user-image" alt="User Image">
+{#                                        <img src="" class="user-image" alt="User Image">#}
                                         <span class="hidden-xs">John Doe</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <!-- User image -->
                                         <li class="user-header">
-                                            <img src="" class="img-circle" alt="User Image">
+{#                                            <img src="" class="img-circle" alt="User Image">#}
                                             <p>
                                                 John Doe - Web Developer
                                                 <small>Member since Nov. 2012</small>
@@ -94,7 +97,9 @@
                                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                                             </div>
                                             <div class="pull-right">
-                                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                                <a href="{{ path('app_logout') }}" class="btn btn-default btn-flat">
+                                                    {{ "log_out"|trans }}
+                                                </a>
                                             </div>
                                         </li>
                                     </ul>
@@ -171,7 +176,7 @@
                 </footer>
 
                 <!-- Control Sidebar -->
-                <aside class="control-sidebar control-sidebar-dark">
+                <aside class="control-sidebar control-sidebar-jsys">
                     <!-- Create the tabs -->
                     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                         <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
@@ -231,8 +236,16 @@
             <script src="{{ asset('AdminLTE-2.4.10/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
             <!-- FastClick -->
             <script src="{{ asset('AdminLTE-2.4.10/bower_components/fastclick/lib/fastclick.js') }}"></script>
+            <!-- iCheck -->
+            <script src="{{ asset('AdminLTE-2.4.10/plugins/iCheck/icheck.min.js') }}"></script>
             <!-- AdminLTE App -->
             <script src="{{ asset('AdminLTE-2.4.10/dist/js/adminlte.min.js') }}"></script>
+
+            <script>
+                $(function () {
+                    // $('input').iCheck();
+                });
+            </script>
         {% endblock %}
     </body>
 </html>

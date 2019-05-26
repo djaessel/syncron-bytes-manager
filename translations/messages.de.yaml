@@ -1,1 +1,8 @@
 log_in: Anmelden
+log_out: Abmelden
+email: E-Mail-Adresse
+password: Kennwort
+email_or_password_invalid: E-Mail-Adresse oder Kennwort sind falsch.
+Email could not be found.: E-Mail-Adresse oder Kennwort sind falsch.
+email_address:
+  nosharemsg: Wir werden deine E-Mail-Adresse an niemanden weitergeben.
