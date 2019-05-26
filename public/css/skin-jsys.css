@@ -208,3 +208,7 @@
 .bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
     background-color: #a0604f !important;
 }
+
+li.header {
+    color: whitesmoke !important;
+}
