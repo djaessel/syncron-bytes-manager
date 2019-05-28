@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,19 @@ class TransferData
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isUsed;
+
+    /**
+     * @var User
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="transferData")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
+
+    // - - - - - auto generate - - - - -
 
     public function getId(): ?int
     {
@@ -68,6 +83,32 @@ class TransferData
     public function setIsUsed(?bool $isUsed): self
     {
         $this->isUsed = $isUsed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+        }
 
         return $this;
     }

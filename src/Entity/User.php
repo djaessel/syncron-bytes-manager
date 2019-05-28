@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,17 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var TransferData
+     * @ORM\ManyToMany(targetEntity="TransferData", inversedBy="user")
+     */
+    private $transferData;
+
+    public function __construct()
+    {
+        $this->transferData = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,5 +122,31 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|TransferData[]
+     */
+    public function getTransferData(): Collection
+    {
+        return $this->transferData;
+    }
+
+    public function addTransferData(TransferData $transferData): self
+    {
+        if (!$this->transferData->contains($transferData)) {
+            $this->transferData[] = $transferData;
+        }
+
+        return $this;
+    }
+
+    public function removeTransferData(TransferData $transferData): self
+    {
+        if ($this->transferData->contains($transferData)) {
+            $this->transferData->removeElement($transferData);
+        }
+
+        return $this;
     }
 }
