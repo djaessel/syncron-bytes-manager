@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\TransferData;
+use App\Entity\User;
 use App\Form\TransferDataType;
 use App\Repository\TransferDataRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,8 +25,15 @@ class TransferDataController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        $user = $this->getUser();
+        $transferData = $transferDataRepository->findBy(
+            array(
+                'user' => $user,
+            )
+        );
+
         return $this->render('transfer_data/index.html.twig', [
-            'transfer_datas' => $transferDataRepository->findAll(),
+            'transfer_datas' => $transferData,
         ]);
     }
 
@@ -44,6 +52,7 @@ class TransferDataController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $transferDatum->setUser($this->getUser());
             $entityManager->persist($transferDatum);
             $entityManager->flush();
 
@@ -65,6 +74,16 @@ class TransferDataController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        if (empty($transferDatum->getUser())) {
+            return $this->redirectToRoute("index");
+        }
+
+        /** @var User $userId */
+        $userId = $this->getUser()->getId();
+        if ($transferDatum->getUser()->getId() !== $userId) {
+            return $this->redirectToRoute("index");
+        }
+
         return $this->render('transfer_data/show.html.twig', [
             'transfer_datum' => $transferDatum,
         ]);
@@ -79,6 +98,16 @@ class TransferDataController extends AbstractController
     public function edit(Request $request, TransferData $transferDatum): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (empty($transferDatum->getUser())) {
+            return $this->redirectToRoute("index");
+        }
+
+        /** @var User $userId */
+        $userId = $this->getUser()->getId();
+        if ($transferDatum->getUser()->getId() !== $userId) {
+            return $this->redirectToRoute("index");
+        }
 
         $form = $this->createForm(TransferDataType::class, $transferDatum);
         $form->handleRequest($request);
@@ -106,6 +135,16 @@ class TransferDataController extends AbstractController
     public function delete(Request $request, TransferData $transferDatum): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (empty($transferDatum->getUser())) {
+            return $this->redirectToRoute("index");
+        }
+
+        /** @var User $userId */
+        $userId = $this->getUser()->getId();
+        if ($transferDatum->getUser()->getId() !== $userId) {
+            return $this->redirectToRoute("index");
+        }
 
         if ($this->isCsrfTokenValid('delete'.$transferDatum->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
