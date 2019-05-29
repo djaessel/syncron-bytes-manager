@@ -12,6 +12,8 @@ class BaseController extends AbstractController
      */
     public function index()
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('web/base/index.html.twig', [
             'controller_name' => 'BaseController',
         ]);
