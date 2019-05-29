@@ -37,7 +37,7 @@ class User implements UserInterface
 
     /**
      * @var TransferData
-     * @ORM\ManyToMany(targetEntity="TransferData", inversedBy="user")
+     * @ORM\OneToMany(targetEntity="TransferData", mappedBy="user")
      */
     private $transferData;
 
