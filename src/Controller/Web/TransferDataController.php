@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Web;
 
 use App\Entity\TransferData;
 use App\Entity\User;
@@ -33,7 +33,7 @@ class TransferDataController extends AbstractController
         );
 
         return $this->render('transfer_data/index.html.twig', [
-            'transfer_datas' => $transferData,
+            'transfer_data' => $transferData,
         ]);
     }
 
@@ -75,13 +75,13 @@ class TransferDataController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (empty($transferDatum->getUser())) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         /** @var User $userId */
         $userId = $this->getUser()->getId();
         if ($transferDatum->getUser()->getId() !== $userId) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         return $this->render('transfer_data/show.html.twig', [
@@ -100,13 +100,13 @@ class TransferDataController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (empty($transferDatum->getUser())) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         /** @var User $userId */
         $userId = $this->getUser()->getId();
         if ($transferDatum->getUser()->getId() !== $userId) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         $form = $this->createForm(TransferDataType::class, $transferDatum);
@@ -137,13 +137,13 @@ class TransferDataController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (empty($transferDatum->getUser())) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         /** @var User $userId */
         $userId = $this->getUser()->getId();
         if ($transferDatum->getUser()->getId() !== $userId) {
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("home");
         }
 
         if ($this->isCsrfTokenValid('delete'.$transferDatum->getId(), $request->request->get('_token'))) {

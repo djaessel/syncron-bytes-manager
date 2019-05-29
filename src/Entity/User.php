@@ -35,6 +35,8 @@ class User implements UserInterface
      */
     private $password;
 
+    // - - - - - auto generate - - - - -
+
     /**
      * @var TransferData
      * @ORM\OneToMany(targetEntity="TransferData", mappedBy="user")
