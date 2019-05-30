@@ -49,7 +49,13 @@ class WeTransferController extends AbstractFOSRestController
             $password = $this->encoder->encodePassword($newUser, $password);
             $newUser->setPassword($password);
 
+            $newUser->setIsActive(false);
+
             //$newUser->setRoles(array('ROLE_USER'));
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($newUser);
+            $manager->flush();
         }
     }
 }
