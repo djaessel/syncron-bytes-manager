@@ -2,8 +2,8 @@
 
 namespace App\Controller\Rest;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManager;
+use App\Entity\TransferData;
+use App\Helper\UserHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -31,82 +31,82 @@ class WeTransferController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/user/register")
-     * @Rest\Get("/user/register")
      */
     public function registerUser()
     {
-        $request = $this->get('request_stack')->getCurrentRequest();
-        $requestData = $request->getContent();
+        $jsonData = $this->getJsonData();
+
+        $manager = $this->getDoctrine()->getManager();
+        $userHelper = new UserHelper($manager, $this->encoder);
 
         try {
-            $jsonData = json_decode($requestData, true);
-            $validUser = $this->checkUserJsonData($jsonData);
+            $validUser = $userHelper->checkUserJsonData($jsonData);
             if ($validUser) {
-                $this->addNewUser($jsonData);
+                $userHelper->addNewUser($jsonData);
             }
         } catch (Throwable $exception) {
             $validUser = false;
         }
 
-        $jsonData = array(
-            'success' => boolval($validUser),
-        );
+        // TODO: Send activation email code / link
+
+        $jsonData = array('success' => boolval($validUser));
         $view = $this->view($jsonData, 200);
         return $view;
     }
 
     /**
-     * @param array $jsonData
-     * @return bool
+     * @Rest\Post("/link/add")
      */
-    private function checkUserJsonData($jsonData)
+    public function addLink()
     {
-        /** @var EntityManager $manager */
-        $manager = $this->getDoctrine()->getManager();
+        $jsonData = $this->getJsonData();
 
-        $validUser = array_key_exists("email", $jsonData);
-        $validUser &= array_key_exists("pass", $jsonData);
-
-        if ($validUser) {
-            $validUser = !empty($jsonData["email"]) && !empty($jsonData["pass"]);
+        if (empty($jsonData["json_web_token"])) {
+            $view = $this->view("Invalid Token", 401);
+            return $view;
         }
 
-        if ($validUser) {
-            $dataObj = $manager->getRepository("App\\Entity\\User")->findOneBy(
-                array(
-                    'email' => $jsonData["email"],
-                )
-            );
-            $validUser = empty($dataObj); // is new user
+        $success = false;
+        $token = $jsonData["json_web_token"];
+
+        $jwtManager = $this->get('lexik_jwt_authentication.jwt_manager');
+        $user = $jwtManager->decode($token);
+        // TODO: Check token is valid otherwise return 403
+
+        $transferData = null;
+        if (!empty($jsonData["transferData"])) {
+            $transferData = $jsonData["transferData"];
         }
 
-        return $validUser;
+        if (is_array($transferData) && !empty($transferData)) {
+            $newTransferData = new TransferData();
+            $newTransferData->setUser($user);
+            $newTransferData->setFileName($transferData["fileName"]);
+            $newTransferData->setLink($transferData["link"]);
+            $newTransferData->setIsUsed(false);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($newTransferData);
+            $manager->flush();
+
+            $success = true;
+        }
+
+        $jsonData = array('success' => $success);
+
+        $view = $this->view($jsonData, 200);
+        return $view;
     }
 
     /**
-     * @param array $jsonData
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return mixed
      */
-    private function addNewUser($jsonData)
+    private function getJsonData()
     {
-        /** @var EntityManager $manager */
-        $manager = $this->getDoctrine()->getManager();
-
-        $newUser = new User();
-
-        $email = $jsonData["email"];
-        $newUser->setEmail($email);
-
-        $password = $jsonData["pass"];
-        $password = $this->encoder->encodePassword($newUser, $password);
-        $newUser->setPassword($password);
-
-        $newUser->setIsActive(false);
-
-        //$newUser->setRoles(array('ROLE_USER'));
-
-        $manager->persist($newUser);
-        $manager->flush();
+        $request = $this->get('request_stack')->getCurrentRequest();
+        $requestData = $request->getContent();
+        $jsonData = json_decode($requestData, true);
+        return $jsonData;
     }
 }
