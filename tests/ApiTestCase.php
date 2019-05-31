@@ -2,21 +2,24 @@
 
 namespace App\Tests;
 
-use FOS\RestBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiTestCase extends WebTestCase
 {
     public function testCreateToken()
     {
-        $options = array(
-            'test_case' => null,
-        );
-
-        $client = $this->createClient($options);
+        $client = $this->createClient();
         $client->request(
             "POST",
             "/api/user/register",
-            array()
+            array(
+                'jsonData' => json_encode(
+                    array(
+                        'email' => "testmail@syncronbytes-mgr.ddns.net",
+                        'pass' => "f62Hnwjen?ujw2S2",
+                    )
+                )
+            )
         );
 
         $response = $client->getResponse();
