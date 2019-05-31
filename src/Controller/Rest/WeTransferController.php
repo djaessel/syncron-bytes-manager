@@ -77,7 +77,7 @@ class WeTransferController extends AbstractFOSRestController
                     'email' => $jsonData["email"],
                 )
             );
-            $validUser = !empty($dataObj);
+            $validUser = empty($dataObj); // is new user
         }
 
         return $validUser;
