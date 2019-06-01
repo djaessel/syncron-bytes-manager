@@ -35,13 +35,21 @@ class User implements UserInterface
      */
     private $password;
 
-    // - - - - - auto generate - - - - -
-
     /**
      * @var TransferData
      * @ORM\OneToMany(targetEntity="TransferData", mappedBy="user")
      */
     private $transferData;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+
+    // - - - - - auto generate - - - - -
+
 
     public function __construct()
     {
@@ -148,6 +156,18 @@ class User implements UserInterface
         if ($this->transferData->contains($transferData)) {
             $this->transferData->removeElement($transferData);
         }
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
