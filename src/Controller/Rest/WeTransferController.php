@@ -56,9 +56,9 @@ class WeTransferController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post("/link/add")
+     * @Rest\Post("/add/transfer-link")
      */
-    public function addLink()
+    public function addTransferLink()
     {
         $jsonData = $this->getJsonData();
 
