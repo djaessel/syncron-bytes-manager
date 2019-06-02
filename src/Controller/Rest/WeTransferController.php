@@ -85,7 +85,7 @@ class WeTransferController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post("/user/add/transfer-link")
+     * @Rest\Post("/user/add/link")
      */
     public function addTransferLink()
     {
