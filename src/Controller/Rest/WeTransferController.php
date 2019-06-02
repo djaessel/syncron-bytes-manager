@@ -50,9 +50,11 @@ class WeTransferController extends AbstractFOSRestController
 
         // TODO: Send activation email code / link
 
-        $jsonData = array('success' => boolval($validUser));
-        $view = $this->view($jsonData, 200);
-        return $view;
+        if ($validUser) {
+            return $this->view(true, 200);
+        }
+
+        return $this->view(false, 400);
     }
 
     /**
@@ -63,7 +65,7 @@ class WeTransferController extends AbstractFOSRestController
         $jsonData = $this->getJsonData();
 
         if (empty($jsonData["email"]) || empty($jsonData["activation_code"])) {
-            $view = $this->view("Invalid data!", 400);
+            $view = $this->view(null, 400);
             return $view;
         }
 
@@ -81,7 +83,7 @@ class WeTransferController extends AbstractFOSRestController
             }
         }
 
-        return $this->view("Activation code expired or invalid!", 401);
+        return $this->view(null, 401);
     }
 
     /**
@@ -101,7 +103,7 @@ class WeTransferController extends AbstractFOSRestController
 
         $jwtManager = new JwtManager($this->container);
         if (!$jwtManager->validateToken($token)) {
-            return $this->view("ERROR", 403);
+            return $this->view(false, 403);
         }
 
         $transferData = null;
@@ -125,9 +127,11 @@ class WeTransferController extends AbstractFOSRestController
             $success = true;
         }
 
-        $jsonData = array('success' => $success);
+        $view = $this->view(false, 400);
+        if ($success) {
+            $view = $this->view(true, 200);
+        }
 
-        $view = $this->view($jsonData, 200);
         return $view;
     }
 
@@ -138,7 +142,9 @@ class WeTransferController extends AbstractFOSRestController
     {
         $request = $this->get('request_stack')->getCurrentRequest();
         $requestData = $request->getContent();
+
         $jsonData = json_decode($requestData, true);
+
         return $jsonData;
     }
 }
