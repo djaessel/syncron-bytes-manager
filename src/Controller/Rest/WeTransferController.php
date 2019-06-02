@@ -7,6 +7,7 @@ use App\Helper\JwtManager;
 use App\Helper\UserHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Throwable;
 
@@ -32,26 +33,29 @@ class WeTransferController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/user/register")
+     * @param UserPasswordEncoderInterface $encoder
+     * @return View
      */
-    public function registerUser()
+    public function registerUser(UserPasswordEncoderInterface $encoder)
     {
         $jsonData = $this->getJsonData();
 
+        $activationCode = null;
         $userHelper = new UserHelper($this->container);
 
         try {
             $validUser = $userHelper->checkUserJsonData($jsonData);
             if ($validUser) {
-                $userHelper->addNewUser($jsonData);
+                $activationCode = $userHelper->addNewUser($encoder, $jsonData);
             }
         } catch (Throwable $exception) {
             $validUser = false;
         }
 
-        // TODO: Send activation email code / link
-
-        if ($validUser) {
-            return $this->view(true, 200);
+        if ($validUser === true) {
+            // TODO: Send activation email code / link
+            // FIXME: remove activation code later and replace with true or null
+            return $this->view($activationCode, 200);
         }
 
         return $this->view(false, 400);
@@ -59,6 +63,7 @@ class WeTransferController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("user/activate")
+     * @return View
      */
     public function activateUser()
     {
@@ -76,6 +81,7 @@ class WeTransferController extends AbstractFOSRestController
 
         $activationCode = $jsonData["activation_code"];
         $userActivation = $jwtManager->getUserActivation($user, $activationCode);
+        // FIXME: no user activation is found or activation failed
         if (!empty($userActivation)) {
             if ($jwtManager->activateUser($user, $userActivation)) {
                 $token = $jwtManager->createToken($user);
@@ -88,6 +94,7 @@ class WeTransferController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/user/add/link")
+     * @return View
      */
     public function addTransferLink()
     {

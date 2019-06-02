@@ -3,8 +3,11 @@
 namespace App\Helper;
 
 use App\Entity\User;
+use App\Entity\UserActivation;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserHelper
 {
@@ -49,17 +52,20 @@ class UserHelper
     }
 
     /**
+     * @param UserPasswordEncoderInterface $encoder
      * @param array $jsonData
+     * @return string
      */
-    public function addNewUser($jsonData)
+    public function addNewUser($encoder, $jsonData)
     {
+        $manager = $this->container->get('doctrine')->getManager();
+
         $newUser = new User();
 
         $email = $jsonData["email"];
         $newUser->setEmail($email);
 
         $password = $jsonData["pass"];
-        $encoder = $this->container->get('lexik_jwt_authentication.encoder');
         $password = $encoder->encodePassword($newUser, $password);
         $newUser->setPassword($password);
 
@@ -67,9 +73,22 @@ class UserHelper
 
         //$newUser->setRoles(array('ROLE_USER'));
 
-        $manager = $this->container->get('doctrine')->getManager();
         $manager->persist($newUser);
         $manager->flush();
+
+        $user = $this->findUserByEmail($jsonData["email"]);
+
+        // TODO: generate random activation code
+        $activationCode = "Ce29a-md29aa2s2324346s-KKs3Ikwm2";
+
+        $userActivation = new UserActivation();
+        $userActivation->setUser($user);
+        $userActivation->setActivationCode($activationCode);
+
+        $manager->persist($userActivation);
+        $manager->flush();
+
+        return $activationCode;
     }
 
     /**
