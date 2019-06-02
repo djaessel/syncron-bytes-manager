@@ -3,30 +3,23 @@
 namespace App\Helper;
 
 use App\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Repository\UserRepository;
+use Psr\Container\ContainerInterface;
 
 class UserHelper
 {
     /**
-     * @var ObjectManager
+     * @var ContainerInterface
      */
-    private $manager;
-
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $encoder;
+    private $container;
 
     /**
      * UserHelper constructor.
-     * @param ObjectManager $manager
-     * @param UserPasswordEncoderInterface $encoder
+     * @param ContainerInterface $container
      */
-    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function __construct(ContainerInterface $container)
     {
-        $this->manager = $manager;
-        $this->encoder = $encoder;
+        $this->container = $container;
     }
 
     /**
@@ -43,7 +36,8 @@ class UserHelper
         }
 
         if ($validUser) {
-            $dataObj = $this->manager->getRepository("App\\Entity\\User")->findOneBy(
+            $manager = $this->container->get('doctrine')->getManager();
+            $dataObj = $manager->getRepository("App\\Entity\\User")->findOneBy(
                 array(
                     'email' => $jsonData["email"],
                 )
@@ -65,14 +59,31 @@ class UserHelper
         $newUser->setEmail($email);
 
         $password = $jsonData["pass"];
-        $password = $this->encoder->encodePassword($newUser, $password);
+        $encoder = $this->container->get('lexik_jwt_authentication.encoder');
+        $password = $encoder->encodePassword($newUser, $password);
         $newUser->setPassword($password);
 
         $newUser->setIsActive(false);
 
         //$newUser->setRoles(array('ROLE_USER'));
 
-        $this->manager->persist($newUser);
-        $this->manager->flush();
+        $manager = $this->container->get('doctrine')->getManager();
+        $manager->persist($newUser);
+        $manager->flush();
+    }
+
+    /**
+     * @param string $email
+     * @return User|null
+     */
+    public function findUserByEmail($email)
+    {
+        $manager = $this->container->get('doctrine')->getManager();
+
+        /** @var UserRepository $userRepo */
+        $userRepo = $manager->getRepository('App\Entity\User');
+        $user = $userRepo->findOneBy(array("email" => $email));
+
+        return $user;
     }
 }

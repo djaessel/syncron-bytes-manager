@@ -3,6 +3,7 @@
 namespace App\Controller\Rest;
 
 use App\Entity\TransferData;
+use App\Helper\JwtManager;
 use App\Helper\UserHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -36,8 +37,7 @@ class WeTransferController extends AbstractFOSRestController
     {
         $jsonData = $this->getJsonData();
 
-        $manager = $this->getDoctrine()->getManager();
-        $userHelper = new UserHelper($manager, $this->encoder);
+        $userHelper = new UserHelper($this->container);
 
         try {
             $validUser = $userHelper->checkUserJsonData($jsonData);
@@ -56,7 +56,36 @@ class WeTransferController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post("/add/transfer-link")
+     * @Rest\Post("user/activate")
+     */
+    public function activateUser()
+    {
+        $jsonData = $this->getJsonData();
+
+        if (empty($jsonData["email"]) || empty($jsonData["activation_code"])) {
+            $view = $this->view("Invalid data!", 400);
+            return $view;
+        }
+
+        $userHelper = new UserHelper($this->container);
+        $user = $userHelper->findUserByEmail($jsonData["email"]);
+
+        $jwtManager = new JwtManager($this->container);
+
+        $activationCode = $jsonData["activation_code"];
+        $userActivation = $jwtManager->getUserActivation($user, $activationCode);
+        if (!empty($userActivation)) {
+            if ($jwtManager->activateUser($user, $userActivation)) {
+                $token = $jwtManager->createToken($user);
+                return $this->view($token, 200);
+            }
+        }
+
+        return $this->view("Activation code expired or invalid!", 401);
+    }
+
+    /**
+     * @Rest\Post("/user/add/transfer-link")
      */
     public function addTransferLink()
     {
@@ -70,14 +99,17 @@ class WeTransferController extends AbstractFOSRestController
         $success = false;
         $token = $jsonData["json_web_token"];
 
-        $jwtManager = $this->get('lexik_jwt_authentication.jwt_manager');
-        $user = $jwtManager->decode($token);
-        // TODO: Check token is valid otherwise return 403
+        $jwtManager = new JwtManager($this->container);
+        if (!$jwtManager->validateToken($token)) {
+            return $this->view("ERROR", 403);
+        }
 
         $transferData = null;
         if (!empty($jsonData["transferData"])) {
             $transferData = $jsonData["transferData"];
         }
+
+        $user = $jwtManager->retrieveAuthenticatedUser($token);
 
         if (is_array($transferData) && !empty($transferData)) {
             $newTransferData = new TransferData();
