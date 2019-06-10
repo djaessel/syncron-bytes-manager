@@ -23,16 +23,28 @@ class UserActivation
     private $user;
 
     /**
-     * @ORM\Column(name="activation_code", type="string", length=32, nullable=false)
+     * @ORM\Column(name="activation_code", type="string", length=32, nullable=true)
      */
     private $activationCode;
 
-
     // - - - - - auto generate - - - - -
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getActivationCode(): ?string
+    {
+        return $this->activationCode;
+    }
+
+    public function setActivationCode(?string $activationCode): self
+    {
+        $this->activationCode = $activationCode;
+
+        return $this;
     }
 
     public function getUser(): ?User
@@ -43,18 +55,6 @@ class UserActivation
     public function setUser(User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getActivationCode(): ?string
-    {
-        return $this->activationCode;
-    }
-
-    public function setActivationCode(string $activationCode): self
-    {
-        $this->activationCode = $activationCode;
 
         return $this;
     }

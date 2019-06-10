@@ -10,7 +10,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Psr\Container\ContainerInterface;
 use Throwable;
 
-class JwtManager
+class JwtApiManager
 {
     /**
      * @var ContainerInterface
@@ -61,18 +61,6 @@ class JwtManager
 
     /**
      * @param User $user
-     * @return string
-     */
-    public function createToken(User $user)
-    {
-        $encoder = $this->container->get('lexik_jwt_authentication.jwt_manager');
-        $token = $encoder->create($user);
-
-        return $token;
-    }
-
-    /**
-     * @param User $user
      * @param string $activationCode
      * @return UserActivation|bool
      */
@@ -89,7 +77,7 @@ class JwtManager
                 )
             );
 
-        if (!empty($userActivation)) {
+        if (empty($userActivation)) {
             $userActivation = false;
         }
 
@@ -103,22 +91,40 @@ class JwtManager
      */
     public function activateUser(User $user, UserActivation $userActivation)
     {
-        $user->setIsActive(true);
+        $success = true;
+
+        /** @var EntityManager $manager */
+        $manager = $this->container->get('doctrine')->getManager();
 
         try {
-            $manager = $this->container->get('doctrine')->getManager();
+            $user->setIsActive(true);
             $manager->persist($user);
-            $manager->remove($userActivation);
             $manager->flush();
-
-            $success = true;
         } catch (Throwable $exception) {
             $success = false;
         }
 
+        try {
+            $userActivation->setActivationCode(null);
+            $manager->persist($userActivation);
+            $manager->flush();
+        } catch (Throwable $exception) {
+            $success = false;
+        }
+
+        // try to revert changes
+        // TODO: generate to auth code if null and isActive = false
+        if (!$success) {
+            try {
+                $user->setIsActive(false);
+                $manager->persist($user);
+                $manager->flush();
+            } catch (Throwable $exception) {
+            }
+        }
+
         return $success;
     }
-
 
     /**
      * @param string $securityJwtToken
