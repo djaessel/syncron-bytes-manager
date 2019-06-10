@@ -18,12 +18,19 @@ class JwtApiManager
     private $container;
 
     /**
+     * @var JWTEncoderInterface
+     */
+    private $jwtEncoder;
+
+    /**
      * JwtAuthenticator constructor.
      * @param ContainerInterface $container
+     * @param JWTEncoderInterface $jwtEncoder
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, JWTEncoderInterface $jwtEncoder)
     {
         $this->container = $container;
+        $this->jwtEncoder = $jwtEncoder;
     }
 
 
@@ -133,9 +140,7 @@ class JwtApiManager
     private function retrieveTokenData($securityJwtToken)
     {
         try {
-            /** @var JWTEncoderInterface $jwtEncoder */
-            $jwtEncoder = $this->container->get('lexik_jwt_authentication.encoder');
-            $tokenData = $jwtEncoder->decode($securityJwtToken);
+            $tokenData = $this->jwtEncoder->decode($securityJwtToken);
         } catch (JWTDecodeFailureException $e) {
             $tokenData = false; // false on decoding error
         }
@@ -150,7 +155,7 @@ class JwtApiManager
     private function retrieveUserFromToken($decodedTokenData)
     {
         $userHelper = new UserHelper($this->container);
-        $user = $userHelper->findUserByEmail($decodedTokenData["email"]);
+        $user = $userHelper->findUserByEmail($decodedTokenData["username"]); // username is email
 
         return $user;
     }

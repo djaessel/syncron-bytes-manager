@@ -3,11 +3,13 @@
 namespace App\Controller\Rest;
 
 use App\Entity\TransferData;
+use App\Entity\User;
 use App\Helper\JwtApiManager;
 use App\Helper\UserHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Throwable;
@@ -65,9 +67,10 @@ class WeTransferController extends AbstractFOSRestController
     /**
      * @Rest\Post("user/activate")
      * @param JWTTokenManagerInterface $jwtManager
+     * @param JWTEncoderInterface $jwtEncoder
      * @return View
      */
-    public function activateUser(JWTTokenManagerInterface $jwtManager)
+    public function activateUser(JWTTokenManagerInterface $jwtManager, JWTEncoderInterface $jwtEncoder)
     {
         $jsonData = $this->getJsonData();
 
@@ -82,7 +85,7 @@ class WeTransferController extends AbstractFOSRestController
         $userHelper = new UserHelper($this->container);
         $user = $userHelper->findUserByEmail($jsonData["email"]);
 
-        $jwtApiManager = new JwtApiManager($this->container);
+        $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
 
         $activationCode = $jsonData["activation_code"];
         $userActivation = $jwtApiManager->getUserActivation($user, $activationCode);
@@ -99,9 +102,10 @@ class WeTransferController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/user/add/link")
+     * @param JWTEncoderInterface $jwtEncoder
      * @return View
      */
-    public function addTransferLink()
+    public function addTransferLink(JWTEncoderInterface $jwtEncoder)
     {
         $jsonData = $this->getJsonData();
 
@@ -113,7 +117,7 @@ class WeTransferController extends AbstractFOSRestController
         $success = false;
         $token = $jsonData["json_web_token"];
 
-        $jwtApiManager = new JwtApiManager($this->container);
+        $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
         if (!$jwtApiManager->validateToken($token)) {
             return $this->view(false, 403);
         }
@@ -124,7 +128,34 @@ class WeTransferController extends AbstractFOSRestController
         }
 
         $user = $jwtApiManager->retrieveAuthenticatedUser($token);
+        $this->addTransferDataIfNew($user, $transferData);
 
+        $view = $this->view(false, 400);
+        if ($success) {
+            $view = $this->view(true, 200);
+        }
+
+        return $view;
+    }
+
+    /**
+     * @param User $user
+     * @param array $transferData
+     * @return bool
+     */
+    private function addTransferDataIfNew(User $user, array $transferData)
+    {
+        $existingData = $this->getDoctrine()->getRepository('App\Entity\TransferData')->findBy(
+            array(
+                'link' => $transferData["link"],
+            )
+        );
+
+        if (!empty($existingData)) {
+            return false;
+        }
+
+        $success = false;
         if (is_array($transferData) && !empty($transferData)) {
             $newTransferData = new TransferData();
             $newTransferData->setUser($user);
@@ -139,12 +170,7 @@ class WeTransferController extends AbstractFOSRestController
             $success = true;
         }
 
-        $view = $this->view(false, 400);
-        if ($success) {
-            $view = $this->view(true, 200);
-        }
-
-        return $view;
+        return $success;
     }
 
     /**
