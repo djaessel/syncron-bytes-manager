@@ -113,7 +113,6 @@ class WeTransferController extends BaseController
             return $this->handleView($view);
         }
 
-        $success = false;
         $token = $jsonData["json_web_token"];
 
         $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
@@ -140,10 +139,7 @@ class WeTransferController extends BaseController
         $generalHelper = new GeneralApiHelper();
         $generalHelper->addTransferDataIfNew($user, $transferData, $manager);
 
-        $view = $this->view(false, 400);
-        if ($success) {
-            $view = $this->view(true, 200);
-        }
+        $view = $this->view(true, 200);
 
         return $this->handleView($view);
     }
