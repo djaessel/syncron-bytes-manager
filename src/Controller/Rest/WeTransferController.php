@@ -77,6 +77,11 @@ class WeTransferController extends BaseController
         $userHelper = new UserHelper($this->container);
         $user = $userHelper->findUserByEmail($jsonData["email"]);
 
+        if (empty($user)) {
+            $view = $this->view("EMAIL_ERROR", 400);
+            return $this->handleView($view);
+        }
+
         $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
 
         $view = $this->view(null, 401);
@@ -124,6 +129,11 @@ class WeTransferController extends BaseController
 
         $user = $jwtApiManager->retrieveAuthenticatedUser($token);
 
+        if (empty($user)) {
+            $view = $this->view("Invalid Token", 401);
+            return $this->handleView($view);
+        }
+
         /** @var EntityManager $manager */
         $manager = $this->getDoctrine()->getManager();
 
@@ -156,6 +166,11 @@ class WeTransferController extends BaseController
         $jwtApiHelper = new JwtApiManager($this->container, $jwtEncoder);
         $user = $jwtApiHelper->retrieveAuthenticatedUser($token);
 
+        if (empty($user)) {
+            $view = $this->view("Invalid Token", 401);
+            return $this->handleView($view);
+        }
+
         $userHelper = new UserHelper($this->container);
         $accountInfo = $userHelper->buildAccountInfo($user);
 
@@ -183,6 +198,11 @@ class WeTransferController extends BaseController
         $token = $jsonData["json_web_token"];
         $jwtApiHelper = new JwtApiManager($this->container, $jwtEncoder);
         $user = $jwtApiHelper->retrieveAuthenticatedUser($token);
+
+        if (empty($user)) {
+            $view = $this->view("Invalid Token", 401);
+            return $this->handleView($view);
+        }
 
         $userHelper = new UserHelper($this->container);
         $accountSettings = $userHelper->buildAccountSettings($user);
