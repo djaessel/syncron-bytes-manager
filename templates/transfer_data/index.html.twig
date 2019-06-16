@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>FileName</th>
+                <th>DataInfo</th>
                 <th>Link</th>
                 <th>IsUsed</th>
                 <th>actions</th>
@@ -18,7 +18,7 @@
         {% for transfer_datum in transfer_data %}
             <tr>
                 <td>{{ transfer_datum.id }}</td>
-                <td>{{ transfer_datum.fileName }}</td>
+                <td>{{ transfer_datum.dataInfo }}</td>
                 <td>{{ transfer_datum.link }}</td>
                 <td>{{ transfer_datum.isUsed ? 'Yes' : 'No' }}</td>
                 <td>

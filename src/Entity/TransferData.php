@@ -19,7 +19,7 @@ class TransferData
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $fileName;
+    private $dataInfo;
 
     /**
      * @ORM\Column(type="string", length=16000)
@@ -41,18 +41,6 @@ class TransferData
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(string $fileName): self
-    {
-        $this->fileName = $fileName;
-
-        return $this;
     }
 
     public function getLink(): ?string
@@ -87,6 +75,18 @@ class TransferData
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDataInfo(): ?string
+    {
+        return $this->dataInfo;
+    }
+
+    public function setDataInfo(string $dataInfo): self
+    {
+        $this->dataInfo = $dataInfo;
 
         return $this;
     }

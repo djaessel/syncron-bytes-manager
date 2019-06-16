@@ -12,7 +12,7 @@ class TransferDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fileName')
+            ->add('dataInfo')
             ->add('link')
             ->add('isUsed')
         ;

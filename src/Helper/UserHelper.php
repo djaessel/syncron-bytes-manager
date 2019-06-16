@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Entity\TransferData;
 use App\Entity\User;
 use App\Entity\UserActivation;
 use App\Repository\UserRepository;
@@ -104,5 +105,48 @@ class UserHelper
         $user = $userRepo->findOneBy(array("email" => $email));
 
         return $user;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function buildAccountInfo(User $user)
+    {
+        $allLinks = array();
+
+        /** @var TransferData[] $transferData */
+        $transferData = $user->getTransferData();
+        foreach ($transferData as $data) {
+            $link = $data->getLink();
+            if (!empty($link)) {
+                $allLinks[] = $link;
+            }
+        }
+
+        $accountInfo = array(
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+            'links' => $allLinks,
+            // ...
+        );
+
+        return $accountInfo;
+    }
+
+    /**
+     * TODO: create settings entity for user
+     *
+     * @param User $user
+     * @return array
+     */
+    public function buildAccountSettings(User $user)
+    {
+        $accountSettings = array(
+            'active' => $user->getIsActive(),
+            // ...
+        );
+
+        return $accountSettings;
     }
 }
