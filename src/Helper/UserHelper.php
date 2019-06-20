@@ -6,8 +6,10 @@ use App\Entity\TransferData;
 use App\Entity\User;
 use App\Entity\UserActivation;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserHelper
@@ -30,7 +32,7 @@ class UserHelper
      * @param array $jsonData
      * @return bool
      */
-    public function checkUserJsonData($jsonData)
+    public function checkUserJsonData(array $jsonData)
     {
         $validUser = array_key_exists("email", $jsonData);
         $validUser &= array_key_exists("pass", $jsonData);
@@ -57,7 +59,7 @@ class UserHelper
      * @param array $jsonData
      * @return string
      */
-    public function addNewUser($encoder, $jsonData)
+    public function addNewUser(UserPasswordEncoderInterface $encoder, array $jsonData)
     {
         $manager = $this->container->get('doctrine')->getManager();
 
@@ -96,7 +98,7 @@ class UserHelper
      * @param string $email
      * @return User|null
      */
-    public function findUserByEmail($email)
+    public function findUserByEmail(string $email)
     {
         $manager = $this->container->get('doctrine')->getManager();
 
@@ -148,5 +150,34 @@ class UserHelper
         );
 
         return $accountSettings;
+    }
+
+    /**
+     * @param string $activationCode
+     * @param string $email
+     * @param string|null $name
+     * @return bool
+     */
+    public function sendUserActivationEmail(string $activationCode, string $email, $name = null)
+    {
+        $emailBody = "Activation Code: " . $activationCode; // just for now (testing)
+
+        /** @var Swift_Message $message */
+        $smtpTransport = new Swift_SmtpTransport('localhost', 25, null);
+        $mailer = new Swift_Mailer($smtpTransport);
+        $message = $mailer->createMessage();
+
+        $message->setFrom("info@syncronbytes-mgr.ddns.net", "SyncronBytes Manager");
+        $message->setReplyTo("no-reply@syncronbytes-mgr.ddns.net");
+        $message->setReturnPath("no-reply@syncronbytes-mgr.ddns.net");
+
+        $message->setTo($email, $name);
+        $message->setSubject("SyncronBytes Manager - Account Activation");
+        $message->setBody($emailBody);
+
+        $result = $mailer->send($message, $failedRecipients);
+        $success = ($result !== 0 && $failedRecipients === null);
+
+        return $success;
     }
 }

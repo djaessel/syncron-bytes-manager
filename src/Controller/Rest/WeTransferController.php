@@ -28,14 +28,26 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        $activationCode = null;
+        $view = null;
+        if (!is_array($jsonData)) {
+            $view = $this->view(null, 400);
+        }
+
+        if (empty($jsonData["email"]) || empty($jsonData["pass"])) {
+            $view = $this->view(array_keys($jsonData), 400);
+        }
+
+        if (!empty($view)) {
+            return $this->handleView($view);
+        }
+
         $userHelper = new UserHelper($this->container);
 
         try {
             $validUser = $userHelper->checkUserJsonData($jsonData);
             if ($validUser) {
-//                $activationCode = $userHelper->addNewUser($encoder, $jsonData);
-                $userHelper->addNewUser($encoder, $jsonData);
+                $activationCode = $userHelper->addNewUser($encoder, $jsonData);
+                $validUser = $userHelper->sendUserActivationEmail($activationCode, $jsonData["email"]);
             }
         } catch (Throwable $exception) {
             $validUser = false;
@@ -94,6 +106,46 @@ class WeTransferController extends BaseController
                 $token = $jwtManager->create($user);
                 $view = $this->view(array('token' => $token), 200);
             }
+        }
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\Post("/user/login")
+     * @param UserPasswordEncoderInterface $encoder
+     * @param JWTTokenManagerInterface $jwtManager
+     * @return Response
+     */
+    public function loginUser(UserPasswordEncoderInterface $encoder, JWTTokenManagerInterface $jwtManager)
+    {
+        $jsonData = $this->getJsonData();
+
+        $view = null;
+        if (!is_array($jsonData)) {
+            $view = $this->view(null, 400);
+        }
+
+        if (empty($jsonData["email"]) || empty($jsonData["pass"])) {
+            $view = $this->view(array_keys($jsonData), 400);
+        }
+
+        if (!empty($view)) {
+            return $this->handleView($view);
+        }
+
+        $email = $jsonData["email"];
+        $password = $jsonData["pass"];
+
+        $userHelper = new UserHelper($this->container);
+        $user = $userHelper->findUserByEmail($email);
+
+        $encodedPassword = $encoder->encodePassword($user, $password);
+
+        $view = $this->view(null, 401);
+        if (strcmp($encodedPassword, $user->getPassword()) === 0) {
+            $token = $jwtManager->create($user);
+            $view = $this->view(array('token' => $token), 200);
         }
 
         return $this->handleView($view);
