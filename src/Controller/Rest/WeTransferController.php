@@ -47,17 +47,15 @@ class WeTransferController extends BaseController
             $validUser = $userHelper->checkUserJsonData($jsonData);
             if ($validUser) {
                 $activationCode = $userHelper->addNewUser($encoder, $jsonData);
-                $validUser = $userHelper->sendUserActivationEmail($activationCode, $jsonData["email"]);
             }
         } catch (Throwable $exception) {
             $validUser = false;
         }
 
-        $view = $this->view(false, 400);
-        if ($validUser === true) {
-            // TODO: Send activation email code / link
-            // FIXME: remove activation code later and replace with true or null
-            $view = $this->view(true, 200);
+        $view = $this->view($validUser, 400);
+        if ($validUser === true && !empty($activationCode)) {
+            $sentMail = $userHelper->sendUserActivationEmail($activationCode, $jsonData["email"]);
+            $view = $this->view($sentMail, 200);
         }
 
         return $this->handleView($view);
@@ -134,16 +132,15 @@ class WeTransferController extends BaseController
             return $this->handleView($view);
         }
 
-        $email = $jsonData["email"];
-        $password = $jsonData["pass"];
-
         $userHelper = new UserHelper($this->container);
+
+        $email = $jsonData["email"];
         $user = $userHelper->findUserByEmail($email);
 
-        $encodedPassword = $encoder->encodePassword($user, $password);
-
         $view = $this->view(null, 401);
-        if (strcmp($encodedPassword, $user->getPassword()) === 0) {
+
+        $password = $jsonData["pass"];
+        if ($encoder->isPasswordValid($user, $password)) {
             $token = $jwtManager->create($user);
             $view = $this->view(array('token' => $token), 200);
         }
