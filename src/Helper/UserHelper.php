@@ -80,9 +80,7 @@ class UserHelper
         $manager->flush();
 
         $user = $this->findUserByEmail($jsonData["email"]);
-
-        // TODO: generate random activation code
-        $activationCode = "Ce29a-md29aa2s2324346s-KKs3Ikwm2";
+        $activationCode = $this->generateActivationCode();
 
         $userActivation = new UserActivation();
         $userActivation->setUser($user);
@@ -176,8 +174,35 @@ class UserHelper
         $message->setBody($emailBody);
 
         $result = $mailer->send($message, $failedRecipients);
-        $success = ($result !== 0 && $failedRecipients === null);
+        $success = ($result > 0 && empty($failedRecipients));
 
         return $success;
+    }
+
+    /**
+     * @param int $maxRandom
+     * @param int $x
+     * @param int $y
+     * @return bool|string
+     */
+    private function generateActivationCode($maxRandom = 65356, $x = 8, $y = 64)
+    {
+        $randomX = rand($x, $maxRandom);
+        $randomY = rand($y, $maxRandom);
+
+        $activationCodeData = strval($randomX . $randomY);
+        $activationCodeHash = hash("md5", $activationCodeData);
+        $activationCodeArray = str_split($activationCodeHash, 4);
+
+        $activationCode = "";
+        for ($i = 0; $i < count($activationCodeArray); $i++) {
+            $activationCode .= "-" . $activationCodeArray[$i];
+            if ($i % 3 === 0) {
+                $i++;
+                $activationCode .= $activationCodeArray[$i];
+            }
+        }
+
+        return substr($activationCode, 1);
     }
 }

@@ -23,7 +23,7 @@ class UserActivation
     private $user;
 
     /**
-     * @ORM\Column(name="activation_code", type="string", length=32, nullable=true)
+     * @ORM\Column(name="activation_code", type="string", length=36, nullable=true)
      */
     private $activationCode;
 
