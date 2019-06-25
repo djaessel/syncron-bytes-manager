@@ -5,6 +5,21 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(function() {
+			$("#register-user").on("click", function(e) {
+				//e.preventDefault();
+				
+				var href = $(this).data("href");
+				console.log(href)
+				window.location = href;
+			});
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
     <div class="login-body">
 
@@ -51,8 +66,10 @@
                 {#                #}{#  </div>#}
 
                 <button class="btn btn-primary" type="submit" style="width: 100%;">{{ "log_in" | trans }}</button>
-
+				
             </form>
+			
+			<button id="register-user" class="btn btn-secondary" data-href={{ path("user_register") }} type="submit" style="width: 100%;">{{ "register_now" | trans }}</button>
 
         </div>
     </div>

@@ -1,5 +1,7 @@
 log_in: Sign in
 log_out: Sign out
+register: Register
+register_now: Register NOW!
 email: Email address
 password: Password
 email_or_password_invalid: Email address or password are invalid.

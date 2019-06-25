@@ -1,5 +1,7 @@
 log_in: Anmelden
 log_out: Abmelden
+register: Registrieren
+register_now: Jetzt registieren!
 email: E-Mail-Adresse
 password: Kennwort
 email_or_password_invalid: E-Mail-Adresse oder Kennwort sind falsch.

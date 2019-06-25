@@ -1,0 +1,29 @@
+{% extends 'login_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="login-body {#register-body#}">
+
+        <div style="padding: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 16px 0 rgba(0, 0, 0, 0.4);">
+
+            <form method="post">
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages') }}</div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal login-headline" style="padding-bottom: 16px;">
+                    <b>{{ "SyncronBytes" }}</b> Manager
+                </h1>
+				
+                <button class="btn btn-primary" href={{ path("user_register") }} type="submit" style="width: 100%;">{{ "register" | trans }}</button>
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
