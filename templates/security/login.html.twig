@@ -65,11 +65,16 @@
                 {#                #}{#      </label>#}
                 {#                #}{#  </div>#}
 
-                <button class="btn btn-primary" type="submit" style="width: 100%;">{{ "log_in" | trans }}</button>
+                <button class="btn btn-primary" type="submit" style="width: 100%;">
+                    {{ "log_in" | trans }}
+                </button>
 				
             </form>
 			
-			<button id="register-user" class="btn btn-secondary" data-href={{ path("user_register") }} type="submit" style="width: 100%;">{{ "register_now" | trans }}</button>
+			<button id="register-user" class="btn btn-secondary" data-href={{ path("user_register") }}
+                    type="submit" style="width: 100%;">
+                {{ "register_now" | trans }}
+            </button>
 
         </div>
     </div>

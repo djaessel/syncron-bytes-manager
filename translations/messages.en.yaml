@@ -9,3 +9,13 @@ email_or_password_invalid: Email address or password are invalid.
 Email could not be found.: Email address or password are invalid.
 email_address:
   nosharemsg: We'll never share your email address with anyone else.
+
+enter_activation_code: Enter activation code
+activate_account: Activate account
+
+email_is_invalid: Email is invalid
+password_is_invalid: Password is invalid
+activation_code_invalid: Activation code is invalid
+
+passwords_are_different: Passwords are different
+user_taken_or_other_error: User already taken (or other intern error)

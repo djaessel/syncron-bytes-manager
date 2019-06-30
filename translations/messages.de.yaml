@@ -9,3 +9,13 @@ email_or_password_invalid: E-Mail-Adresse oder Kennwort sind falsch.
 Email could not be found.: E-Mail-Adresse oder Kennwort sind falsch.
 email_address:
   nosharemsg: Wir werden deine E-Mail-Adresse an niemanden weitergeben.
+
+enter_activation_code: Aktivierungscode eingeben
+activate_account: Account aktivieren
+
+email_is_invalid: Email ist ungültig
+password_is_invalid: Kennwort ist ungültig
+activation_code_invalid: Aktivierungscode is ungültig
+
+passwords_are_different: Kennwörter stimmen nicht überein
+user_taken_or_other_error: Benutzer existiert bereits (oder interner Fehler)

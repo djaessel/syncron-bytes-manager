@@ -1,0 +1,42 @@
+{% extends 'login_base.html.twig' %}
+
+{% block title %}{{ "activate_account"|trans }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="login-body {#activate-body#}">
+
+        <div style="padding: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 16px 0 rgba(0, 0, 0, 0.4);">
+
+            <form method="post">
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages') }}</div>
+                {% endif %}log_in
+
+                <h1 class="h3 mb-3 font-weight-normal login-headline" style="padding-bottom: 16px;">
+                    <b>{{ "SyncronBytes" }}</b> Manager
+                </h1>
+
+                <div class="form-group">
+                    <label for="inputActivationCode" class="sr-only">{{ "enter_activation_code"|trans }}</label>
+                    <input type="text" class="form-control text-center" id="inputActivationCode"
+                           placeholder="{{ "enter_activation_code"|trans }}" name="activation" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary" href={{ path("home") }} type="submit" style="width: 100%;">
+                    {{ "activate_account" | trans }}
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'login_base.html.twig' %}
 
+{% block title %}{{ "register"|trans }}{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
