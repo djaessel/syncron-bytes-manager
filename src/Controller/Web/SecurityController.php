@@ -68,7 +68,7 @@ class SecurityController extends AbstractController
         }
 
 		if ($success) {
-		    return $this->redirectToRoute("login", array(
+		    return $this->redirectToRoute("app_login", array(
                 // parameters ...
             ));
         }
