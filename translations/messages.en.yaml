@@ -4,6 +4,7 @@ register: Register
 register_now: Register NOW!
 email: Email address
 password: Password
+re_enter_password: Re-enter password
 email_or_password_invalid: Email address or password are invalid.
 Email could not be found.: Email address or password are invalid.
 email_address:

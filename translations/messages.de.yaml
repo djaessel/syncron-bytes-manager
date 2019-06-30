@@ -4,6 +4,7 @@ register: Registrieren
 register_now: Jetzt registieren!
 email: E-Mail-Adresse
 password: Kennwort
+re_enter_password: Kennwort erneut eingeben
 email_or_password_invalid: E-Mail-Adresse oder Kennwort sind falsch.
 Email could not be found.: E-Mail-Adresse oder Kennwort sind falsch.
 email_address:

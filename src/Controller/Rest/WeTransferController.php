@@ -11,7 +11,6 @@ use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Throwable;
 
 /**
  * Class WeTransferController
@@ -41,21 +40,11 @@ class WeTransferController extends BaseController
             return $this->handleView($view);
         }
 
+        $view = $this->view(false, 400);
+
         $userHelper = new UserHelper($this->container);
-
-        try {
-            $validUser = $userHelper->checkUserJsonData($jsonData);
-            if ($validUser) {
-                $activationCode = $userHelper->addNewUser($encoder, $jsonData);
-            }
-        } catch (Throwable $exception) {
-            $validUser = false;
-        }
-
-        $view = $this->view($validUser, 400);
-        if ($validUser === true && !empty($activationCode)) {
-            $sentMail = $userHelper->sendUserActivationEmail($activationCode, $jsonData["email"]);
-            $view = $this->view($sentMail, 200);
+        if ($userHelper->registerNewUser($encoder, $jsonData)) {
+            $view = $this->view(true, 200);
         }
 
         return $this->handleView($view);

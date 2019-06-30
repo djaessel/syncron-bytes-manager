@@ -11,6 +11,7 @@ use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Throwable;
 
 class UserHelper
 {
@@ -204,5 +205,34 @@ class UserHelper
         }
 
         return substr($activationCode, 1);
+    }
+
+    /**
+     * @param UserPasswordEncoderInterface $encoder
+     * @param array $jsonData   Contains the fields email and pass
+     * @return bool
+     */
+    public function registerNewUser(UserPasswordEncoderInterface $encoder, array $jsonData)
+    {
+        try {
+            $validUser = $this->checkUserJsonData($jsonData);
+            if ($validUser) {
+                $activationCode = $this->addNewUser($encoder, $jsonData);
+            }
+        } catch (Throwable $exception) {
+            $validUser = false;
+        }
+
+        $sentMail = false;
+        if ($validUser === true && !empty($activationCode)) {
+            $email = $jsonData["email"];
+            try {
+                $sentMail = $this->sendUserActivationEmail($activationCode, $email);
+            } catch (Throwable $exception) {
+                $sentMail = false;
+            }
+        }
+
+        return $sentMail;
     }
 }

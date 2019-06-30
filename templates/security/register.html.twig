@@ -19,7 +19,32 @@
                 <h1 class="h3 mb-3 font-weight-normal login-headline" style="padding-bottom: 16px;">
                     <b>{{ "SyncronBytes" }}</b> Manager
                 </h1>
-				
+
+                <div class="form-group text-center">
+                    <label for="inputEmail" class="sr-only">{{ "email"|trans }}</label>
+                    <input type="email" class="form-control text-center" id="inputEmail"
+                           aria-describedby="emailHelp" placeholder="{{ "email"|trans }}"
+                           value="{{ last_email }}" name="email" required autofocus>
+                    <small id="emailHelp" class="form-text text-muted">
+                        {{ "email_address.nosharemsg"|trans }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">{{ "password"|trans }}</label>
+                    <input type="password" class="form-control text-center" id="inputPassword"
+                           placeholder="{{ "password"|trans }}" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword2" class="sr-only">{{ "re_enter_password"|trans }}</label>
+                    <input type="password" class="form-control text-center" id="inputPassword2"
+                           placeholder="{{ "re_enter_password"|trans }}" name="password2" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+
                 <button class="btn btn-primary" href={{ path("user_register") }} type="submit" style="width: 100%;">{{ "register" | trans }}</button>
 
             </form>
