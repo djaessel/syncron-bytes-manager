@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
         }
 
 		if ($success) {
-		    return $this->redirectToRoute("user_activate");
+		    return $this->redirectToRoute("web_base");
         }
 
 		$error = null;
