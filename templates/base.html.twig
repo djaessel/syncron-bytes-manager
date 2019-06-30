@@ -8,8 +8,8 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
         {% block stylesheets %}
-            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
+            <!-- favicon -->
+            <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             <!-- Bootstrap 3.3.7 -->
             <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
             <!-- Font Awesome -->
@@ -140,11 +140,27 @@
                                 </a>
                             </li>
                             <li class="header">Downloads</li>
-                            <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> <span>WeTransfer Manager</span></a></li>
-                            <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> <span>SyncronBytes Manager</span></a></li>
+                            <li>
+                                <a href="{{ asset('downloads/WeTransferManager.7z') }}">
+                                    <i class="fa fa-circle-o text-light-blue"></i> <span>WeTransfer Manager</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o text-light-blue"></i> <span>SyncronBytes Manager</span>
+                                </a>
+                            </li>
                             <li class="header">APIs</li>
-                            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>WeTransfer API</span></a></li>
-                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>SyncronBytes API</span></a></li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o text-red"></i> <span>WeTransfer API</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o text-yellow"></i> <span>SyncronBytes API</span>
+                                </a>
+                            </li>
                         </ul>
                     </section>
                     <!-- /.sidebar -->
