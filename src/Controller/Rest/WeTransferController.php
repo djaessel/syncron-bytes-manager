@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -242,6 +243,25 @@ class WeTransferController extends BaseController
         $accountSettings = $userHelper->buildAccountSettings($user);
 
         $jsonData = array('settings' => $accountSettings);
+
+        $view = $this->view($jsonData, 200);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\Post("/file/upload")
+     */
+    public function fileUpload()
+    {
+        $request = $this->get('request_stack')->getCurrentRequest();
+
+        $jsonData = array();
+
+        $files = $request->files->all();
+        foreach ($files as $key => $file) {
+            $jsonData[] = $key;
+        }
 
         $view = $this->view($jsonData, 200);
 

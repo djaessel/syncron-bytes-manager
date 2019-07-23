@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TransferFile index{% endblock %}
+
+{% block body %}
+    <h1>TransferFile index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Filename</th>
+                <th>FileType</th>
+                <th>FileSize</th>
+                <th>UploadDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transfer_file in transfer_files %}
+            <tr>
+                <td>{{ transfer_file.id }}</td>
+                <td>{{ transfer_file.filename }}</td>
+                <td>{{ transfer_file.fileType }}</td>
+                <td>{{ transfer_file.fileSize }}</td>
+                <td>{{ transfer_file.uploadDate ? transfer_file.uploadDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('transfer_file_show', {'id': transfer_file.id}) }}">show</a>
+                    <a href="{{ path('transfer_file_edit', {'id': transfer_file.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('transfer_file_new') }}">Create new</a>
+{% endblock %}

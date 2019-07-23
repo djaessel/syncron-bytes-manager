@@ -47,6 +47,11 @@ class User implements UserInterface
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TransferFile", mappedBy="owner")
+     */
+    private $transferFiles;
+
 
     // - - - - - auto generate - - - - -
 
@@ -54,6 +59,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->transferData = new ArrayCollection();
+        $this->transferFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,6 +174,37 @@ class User implements UserInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TransferFile[]
+     */
+    public function getTransferFiles(): Collection
+    {
+        return $this->transferFiles;
+    }
+
+    public function addTransferFile(TransferFile $transferFile): self
+    {
+        if (!$this->transferFiles->contains($transferFile)) {
+            $this->transferFiles[] = $transferFile;
+            $transferFile->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransferFile(TransferFile $transferFile): self
+    {
+        if ($this->transferFiles->contains($transferFile)) {
+            $this->transferFiles->removeElement($transferFile);
+            // set the owning side to null (unless already changed)
+            if ($transferFile->getOwner() === $this) {
+                $transferFile->setOwner(null);
+            }
+        }
 
         return $this;
     }

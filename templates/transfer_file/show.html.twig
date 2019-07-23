@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TransferFile{% endblock %}
+
+{% block body %}
+    <h1>TransferFile</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ transfer_file.id }}</td>
+            </tr>
+            <tr>
+                <th>Filename</th>
+                <td>{{ transfer_file.filename }}</td>
+            </tr>
+            <tr>
+                <th>FileType</th>
+                <td>{{ transfer_file.fileType }}</td>
+            </tr>
+            <tr>
+                <th>FileSize</th>
+                <td>{{ transfer_file.fileSize }}</td>
+            </tr>
+            <tr>
+                <th>UploadDate</th>
+                <td>{{ transfer_file.uploadDate ? transfer_file.uploadDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('transfer_file_index') }}">back to list</a>
+
+    <a href="{{ path('transfer_file_edit', {'id': transfer_file.id}) }}">edit</a>
+
+    {{ include('transfer_file/_delete_form.html.twig') }}
+{% endblock %}

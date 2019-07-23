@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TransferFile{% endblock %}
+
+{% block body %}
+    <h1>Edit TransferFile</h1>
+
+    {{ include('transfer_file/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('transfer_file_index') }}">back to list</a>
+
+    {{ include('transfer_file/_delete_form.html.twig') }}
+{% endblock %}

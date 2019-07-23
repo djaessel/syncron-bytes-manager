@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TransferFile{% endblock %}
+
+{% block body %}
+    <h1>Create new TransferFile</h1>
+
+    {{ include('transfer_file/_form.html.twig') }}
+
+    <a href="{{ path('transfer_file_index') }}">back to list</a>
+{% endblock %}
