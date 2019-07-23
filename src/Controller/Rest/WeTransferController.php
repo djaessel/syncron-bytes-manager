@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Symfony\Component\HttpFoundation\FileBag;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -192,15 +192,7 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        if (empty($jsonData["json_web_token"])) {
-            $view = $this->view("Invalid Token", 401);
-            return $this->handleView($view);
-        }
-
-        $token = $jsonData["json_web_token"];
-        $jwtApiHelper = new JwtApiManager($this->container, $jwtEncoder);
-        $user = $jwtApiHelper->retrieveAuthenticatedUser($token);
-
+        $user = $this->checkForValidJwtToken($jwtEncoder, $jsonData);
         if (empty($user)) {
             $view = $this->view("Invalid Token", 401);
             return $this->handleView($view);
@@ -225,15 +217,7 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        if (empty($jsonData["json_web_token"])) {
-            $view = $this->view("Invalid Token", 401);
-            return $this->handleView($view);
-        }
-
-        $token = $jsonData["json_web_token"];
-        $jwtApiHelper = new JwtApiManager($this->container, $jwtEncoder);
-        $user = $jwtApiHelper->retrieveAuthenticatedUser($token);
-
+        $user = $this->checkForValidJwtToken($jwtEncoder, $jsonData);
         if (empty($user)) {
             $view = $this->view("Invalid Token", 401);
             return $this->handleView($view);
@@ -251,17 +235,31 @@ class WeTransferController extends BaseController
 
     /**
      * @Rest\Post("/file/upload")
+     * @param JWTEncoderInterface $jwtEncoder
+     * @return Response
      */
-    public function fileUpload()
+    public function fileUpload(JWTEncoderInterface $jwtEncoder)
     {
-        $request = $this->get('request_stack')->getCurrentRequest();
+//        $request = $this->get('request_stack')->getCurrentRequest();
 
-        $jsonData = array();
+        $jsonData = $this->getJsonData();
 
-        $files = $request->files->all();
-        foreach ($files as $key => $file) {
-            $jsonData[] = $key;
+        $user = $this->checkForValidJwtToken($jwtEncoder, $jsonData);
+        if (empty($user)) {
+            $view = $this->view("Invalid Token", 401);
+            return $this->handleView($view);
         }
+
+//        $files = $request->files->all();
+
+//        /**
+//         * @var string $key
+//         * @var UploadedFile $file
+//         */
+//        foreach ($files as $key => $file) {
+////            $curFileData = file_get_contents($file->getPathname());
+////            $jsonData[$key] = base64_encode($curFileData);
+//        }
 
         $view = $this->view($jsonData, 200);
 
