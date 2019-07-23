@@ -50,7 +50,7 @@ class BaseController extends AbstractFOSRestController
     protected function checkForValidJwtToken(JWTEncoderInterface $jwtEncoder, $jsonData)
     {
         if (empty($jsonData["json_web_token"])) {
-            return null;
+            return false;
         }
 
         $token = $jsonData["json_web_token"];

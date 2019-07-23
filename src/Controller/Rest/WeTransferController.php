@@ -2,6 +2,8 @@
 
 namespace App\Controller\Rest;
 
+use App\Entity\TransferFile;
+use App\Entity\User;
 use App\Helper\GeneralApiHelper;
 use App\Helper\JwtApiManager;
 use App\Helper\UserHelper;
@@ -10,8 +12,10 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Throwable;
 
 /**
  * Class WeTransferController
@@ -240,9 +244,9 @@ class WeTransferController extends BaseController
      */
     public function fileUpload(JWTEncoderInterface $jwtEncoder)
     {
-//        $request = $this->get('request_stack')->getCurrentRequest();
+        $request = $this->get('request_stack')->getCurrentRequest();
 
-        $jsonData = $this->getJsonData();
+        $jsonData = json_decode($request->request->get("jsonData"), true);
 
         $user = $this->checkForValidJwtToken($jwtEncoder, $jsonData);
         if (empty($user)) {
@@ -250,19 +254,46 @@ class WeTransferController extends BaseController
             return $this->handleView($view);
         }
 
-//        $files = $request->files->all();
-
-//        /**
-//         * @var string $key
-//         * @var UploadedFile $file
-//         */
-//        foreach ($files as $key => $file) {
-////            $curFileData = file_get_contents($file->getPathname());
-////            $jsonData[$key] = base64_encode($curFileData);
-//        }
-
-        $view = $this->view($jsonData, 200);
+        try {
+            $this->uploadAndSaveTransferFile($request, $user);
+            $view = $this->view(true, 200);
+        } catch (Throwable $exception) {
+            $view = $this->view(false, 500);
+        }
 
         return $this->handleView($view);
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     */
+    private function uploadAndSaveTransferFile(Request $request, User $user)
+    {
+        /** @var UploadedFile[] $fileParts */
+        $fileParts = $request->files->all();
+        $uploadFolder = $this->getParameter("upload_folder");
+
+        $transferFile = new TransferFile();
+
+        if (count($fileParts) > 0) {
+            $firstPart = $fileParts["file-part-0"];
+            $manager = $this->getDoctrine()->getManager();
+
+            $transferFile->setFilename($firstPart->getClientOriginalName());
+            $transferFile->setFileSize($firstPart->getSize());
+            $transferFile->setFileType($firstPart->getMimeType());
+            $transferFile->setUploadDate(date_create("now"));
+            $transferFile->setOwner($user);
+
+            $manager->persist($transferFile);
+            $manager->flush();
+        }
+
+        $index = 0;
+        foreach ($fileParts as $key => $filePart) {
+            $filePart->move($uploadFolder, $transferFile->getId() . "_" . $filePart->getClientOriginalName() . "_" . $index . ".jsys");
+            $index++;
+        }
     }
 }
