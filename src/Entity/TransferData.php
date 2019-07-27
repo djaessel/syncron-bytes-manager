@@ -32,15 +32,33 @@ class TransferData
     private $isUsed;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="transferData")
      */
     private $user;
 
     // - - - - - auto generate - - - - -
 
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDataInfo(): ?string
+    {
+        return $this->dataInfo;
+    }
+
+    public function setDataInfo(string $dataInfo): self
+    {
+        $this->dataInfo = $dataInfo;
+
+        return $this;
     }
 
     public function getLink(): ?string
@@ -67,6 +85,18 @@ class TransferData
         return $this;
     }
 
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -75,18 +105,6 @@ class TransferData
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getDataInfo(): ?string
-    {
-        return $this->dataInfo;
-    }
-
-    public function setDataInfo(string $dataInfo): self
-    {
-        $this->dataInfo = $dataInfo;
 
         return $this;
     }

@@ -43,6 +43,9 @@ class TransferFile
      */
     private $owner;
 
+    // - - - - - auto generate - - - - -
+
+
     public function getId(): ?int
     {
         return $this->id;
