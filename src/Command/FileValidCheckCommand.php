@@ -99,32 +99,32 @@ class FileValidCheckCommand extends Command
 
         $io->text("Checking files ...");
 
-        $perc = $this->setupProgressBar($io, count($allFiles), $adder);
+        $percenter = $this->setupProgressBar($io, count($allFiles), $adder);
 
-        foreach ($allFiles as $key => $file) {
+        foreach ($allFiles as $index => $file) {
             $fileZeroed = $file->getCreationDate()->getTimestamp() - $dateLastValid->getTimestamp();
             if ($fileZeroed <= 0) {
                 $invalidFiles[] = $file;
                 $io->comment("Adding " . $file->getId() . ":'" . $file->getDataInfo() . "'' to invalid list");
             }
 
-            if (($key % $perc) === 0) {
+            if (($index % $percenter) === 0) {
                 $io->progressAdvance($adder);
             }
         }
 
         $io->progressFinish();
 
-        $io->text("Removing invalid files ...");
+        $io->text("Deactivate invalid files ...");
 
         $countInvalidFiles = count($invalidFiles);
         if ($countInvalidFiles > 0) {
-            $perc = $this->setupProgressBar($io, $countInvalidFiles, $adder);
+            $percenter = $this->setupProgressBar($io, $countInvalidFiles, $adder);
 
-            foreach ($invalidFiles as $key => $file) {
-                $this->manager->remove($file);
+            foreach ($invalidFiles as $index => $file) {
+                $file->setActive(false);
 
-                if (($key % $perc) === 0) {
+                if (($index % $percenter) === 0) {
                     $io->progressAdvance($adder);
                 }
             }
@@ -146,20 +146,20 @@ class FileValidCheckCommand extends Command
      */
     private function setupProgressBar(SymfonyStyle $io, int $count, ?int &$adder)
     {
-        $perc = $count / 100;
-        $adder = (int)(1 / $perc);
+        $percenter = $count / 100;
+        $adder = (int)(1 / $percenter);
         if ($adder <= 0) {
             $adder++; // = 1
         }
 
-        if ($perc < 1) {
-            $perc = 1;
+        if ($percenter < 1) {
+            $percenter = 1;
         }
 
-//        $io->comment("Files: " . $count . PHP_EOL . "Itemstep: " . $perc . PHP_EOL . "Stepcount: " . $adder);
+        $io->comment("Files: " . $count . PHP_EOL . "Itemstep: " . $percenter . PHP_EOL . "Stepcount: " . $adder);
 
         $io->progressStart(100);
 
-        return (int)$perc;
+        return (int)$percenter;
     }
 }

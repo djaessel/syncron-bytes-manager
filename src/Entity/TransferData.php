@@ -37,6 +37,11 @@ class TransferData
     private $creationDate;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="transferData")
      */
     private $user;
@@ -93,6 +98,18 @@ class TransferData
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

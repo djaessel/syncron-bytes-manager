@@ -5,6 +5,7 @@ namespace App\Helper;
 use App\Entity\TransferData;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Throwable;
 
 /**
  * Class GeneralApiHelper
@@ -20,6 +21,10 @@ class GeneralApiHelper
      */
     public function addTransferDataIfNew(User $user, array $transferData, EntityManagerInterface $manager)
     {
+        if (!is_array($transferData) || empty($transferData)) {
+            return false;
+        }
+
         $existingData = $manager->getRepository('App\Entity\TransferData')->findBy(
             array(
                 'link' => $transferData["link"],
@@ -30,8 +35,7 @@ class GeneralApiHelper
             return false;
         }
 
-        $success = false;
-        if (is_array($transferData) && !empty($transferData)) {
+        try {
             $newTransferData = new TransferData();
             $newTransferData->setUser($user);
             $newTransferData->setDataInfo($transferData["dataInfo"]);
@@ -42,6 +46,8 @@ class GeneralApiHelper
             $manager->flush();
 
             $success = true;
+        } catch (Throwable $exception) {
+            $success = false;
         }
 
         return $success;

@@ -14,7 +14,9 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Throwable;
 
 /**
@@ -25,6 +27,7 @@ class WeTransferController extends BaseController
 {
     /**
      * @Rest\Post("/user/register")
+     *
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
@@ -32,31 +35,27 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        $view = null;
         if (!is_array($jsonData)) {
-            $view = $this->view(null, 400);
+            throw new BadRequestHttpException();
         }
 
         if (empty($jsonData["email"]) || empty($jsonData["pass"])) {
-            $view = $this->view(array_keys($jsonData), 400);
+            throw new BadRequestHttpException(implode(",", array_keys($jsonData)));
         }
-
-        if (!empty($view)) {
-            return $this->handleView($view);
-        }
-
-        $view = $this->view(false, 400);
 
         $userHelper = new UserHelper($this->container);
-        if ($userHelper->registerNewUser($encoder, $jsonData)) {
-            $view = $this->view(true, 200);
+        if (!$userHelper->registerNewUser($encoder, $jsonData)) {
+            throw new BadRequestHttpException(false);
         }
+
+        $view = $this->view(true, 200);
 
         return $this->handleView($view);
     }
 
     /**
      * @Rest\Post("user/activate")
+     *
      * @param JWTTokenManagerInterface $jwtManager
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response
@@ -65,17 +64,12 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        $view = null;
         if (!is_array($jsonData)) {
-            $view = $this->view(null, 400);
+            throw new BadRequestHttpException();
         }
 
         if (empty($jsonData["email"]) || empty($jsonData["activation_code"])) {
-            $view = $this->view(array_keys($jsonData), 400);
-        }
-
-        if (!empty($view)) {
-            return $this->handleView($view);
+            throw new BadRequestHttpException(implode(",", array_keys($jsonData)));
         }
 
         $userHelper = new UserHelper($this->container);
@@ -105,6 +99,7 @@ class WeTransferController extends BaseController
 
     /**
      * @Rest\Post("/user/login")
+     *
      * @param UserPasswordEncoderInterface $encoder
      * @param JWTTokenManagerInterface $jwtManager
      * @return Response
@@ -113,17 +108,12 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        $view = null;
         if (!is_array($jsonData)) {
-            $view = $this->view(null, 400);
+            throw new BadRequestHttpException();
         }
 
         if (empty($jsonData["email"]) || empty($jsonData["pass"])) {
-            $view = $this->view(array_keys($jsonData), 400);
-        }
-
-        if (!empty($view)) {
-            return $this->handleView($view);
+            throw new BadRequestHttpException(implode(",", array_keys($jsonData)));
         }
 
         $userHelper = new UserHelper($this->container);
@@ -144,6 +134,7 @@ class WeTransferController extends BaseController
 
     /**
      * @Rest\Post("/user/add/link")
+     *
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response
      */
@@ -151,17 +142,14 @@ class WeTransferController extends BaseController
     {
         $jsonData = $this->getJsonData();
 
-        if (empty($jsonData["json_web_token"])) {
-            $view = $this->view("Invalid Token", 401);
-            return $this->handleView($view);
+        $user = null;
+        if (!empty($jsonData["json_web_token"])) {
+            $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
+            $user = $jwtApiManager->retrieveAuthenticatedUser($jsonData["json_web_token"]);
         }
 
-        $token = $jsonData["json_web_token"];
-
-        $jwtApiManager = new JwtApiManager($this->container, $jwtEncoder);
-        if (!$jwtApiManager->validateToken($token)) {
-            $view = $this->view(false, 403);
-            return $this->handleView($view);
+        if (empty($user)) {
+            throw new AuthenticationException();
         }
 
         $transferData = null;
@@ -169,26 +157,20 @@ class WeTransferController extends BaseController
             $transferData = $jsonData["transferData"];
         }
 
-        $user = $jwtApiManager->retrieveAuthenticatedUser($token);
-
-        if (empty($user)) {
-            $view = $this->view("Invalid Token", 401);
-            return $this->handleView($view);
-        }
-
         /** @var EntityManager $manager */
         $manager = $this->getDoctrine()->getManager();
 
         $generalHelper = new GeneralApiHelper();
-        $generalHelper->addTransferDataIfNew($user, $transferData, $manager);
+        $success = $generalHelper->addTransferDataIfNew($user, $transferData, $manager);
 
-        $view = $this->view(true, 200);
+        $view = $this->view($success, 200);
 
         return $this->handleView($view);
     }
 
     /**
      * @Rest\Post("/user/account/info")
+     *
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response
      */
@@ -214,6 +196,7 @@ class WeTransferController extends BaseController
 
     /**
      * @Rest\Post("/user/account/settings")
+     *
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response
      */
@@ -239,6 +222,7 @@ class WeTransferController extends BaseController
 
     /**
      * @Rest\Post("/file/upload")
+     *
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response
      */
@@ -260,6 +244,48 @@ class WeTransferController extends BaseController
         } catch (Throwable $exception) {
             $view = $this->view(false, 500);
         }
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\Post("/user/use/link")
+     *
+     * @param JWTEncoderInterface $jwtEncoder
+     * @return Response
+     */
+    public function useLink(JWTEncoderInterface $jwtEncoder)
+    {
+        $jsonData = $this->getJsonData();
+
+        $user = $this->checkForValidJwtToken($jwtEncoder, $jsonData);
+        if (empty($user)) {
+            throw new AuthenticationException();
+        }
+
+        try {
+            $manager = $this->getDoctrine()->getManager();
+
+            $transferData = $manager->getRepository('App\Entity\TransferData')
+                ->findOneBy(
+                    array(
+                        'link' => $jsonData["link"]
+                    )
+                );
+
+            if (!empty($transferData)) {
+                $transferData->setIsUsed(true);
+
+                $manager->persist($transferData);
+                $manager->flush();
+            }
+
+            $success = true;
+        } catch (Throwable $exception) {
+            $success = false;
+        }
+
+        $view = $this->view($success, 200);
 
         return $this->handleView($view);
     }
