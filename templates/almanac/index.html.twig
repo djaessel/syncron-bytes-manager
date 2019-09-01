@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The J.SYS Almanac{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+
+        .content-wrapper, .content {
+            background-color: #8F8F8F;
+        }
+
+        .almanac-text-input,
+        .almanac-text-preview {
+            outline: none;
+
+            padding: 12px;
+            width: 100%;
+
+            color: white;
+
+            border-style: solid;
+        }
+
+        .almanac-text-input {
+            height: 3em;
+
+            font-size: 24px;
+
+            border-radius: 24px;
+            border-color: #98ba44;
+
+            /*color: #dfd;*/
+            background-color: #323232;
+
+            overflow: hidden;
+            resize: none;
+        }
+
+        .almanac-text-preview {
+            background-color: #323232;
+            border-color: #323232;
+            /*border-color: black;*/
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+
+            var inputTest = $("#inputTest");
+
+            var startHeight = inputTest.height();
+            $("#adder").data("height", startHeight * 0.7);
+
+            inputTest.keyup(function (event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+
+                    var oldHeight = $(this).height();
+                    var extraHeight = $("#adder").data("height");
+                    var newHeight = oldHeight + extraHeight;
+
+                    $(this).height(newHeight);
+                }
+            });
+
+            // set interval
+            var tid = setInterval(updatePreview, 2500);
+
+            function abortTimer() { // to be called when you want to stop the timer
+                clearInterval(tid);
+            }
+
+            function updatePreview() {
+                var currentInput = inputTest.val();
+
+                var indexH = currentInput.indexOf("http://");
+                if (indexH < 0) {
+                    indexH = currentInput.indexOf("https://")
+                }
+
+                if (indexH >= 0) {
+                    var realText = currentInput.substr(0, indexH);
+                    $("#previewTest").html(realText);
+
+                    var link = currentInput.substring(indexH);
+                    var restText = link.substr(link.indexOf("\n"));
+                    link = link.split(" ")[0];
+
+                    console.log("Link: " + link);
+                    console.log("Rest: " + restText);
+
+                    var a = $('<a id="dynamicLink">');
+                    a.attr("href", link);
+                    a.appendTo('#previewTest');
+
+                    var img = $('<br><img id="dynamicImage"><br>'); //Equivalent: $(document.createElement('img'))
+                    img.attr('src', link);
+                    img.attr('width', "auto");
+                    img.attr('height', "auto");
+                    img.appendTo('#previewTest');
+
+                    var restP = $('<p></p>');
+                    restP.html(restText);
+                    restP.appendTo('#previewTest');
+                }
+                else {
+                    $("#previewTest").html(currentInput);
+                }
+            }
+
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <p>Hello!</p>
+
+    <div id="adder" hidden data-height="0"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <textarea id="inputTest" class="almanac-text-input"
+                      placeholder="{{ "Paste some lines..." | trans }}">
+            </textarea>
+        </div>
+
+        <div class="col-md-6">
+            <div id="previewTest" class="almanac-text-preview"></div>
+        </div>
+
+    </div>
+
+{% endblock %}
