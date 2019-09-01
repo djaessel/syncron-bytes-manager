@@ -11,6 +11,8 @@
             background-color: #8F8F8F;
         }
 
+        .almanac-element,
+        .almanac-button,
         .almanac-text-input,
         .almanac-text-preview {
             outline: none;
@@ -19,8 +21,29 @@
             width: 100%;
 
             color: white;
+            background-color: #323232 !important;
 
+            border-radius: 24px;
+            border-color: black;
             border-style: solid;
+        }
+
+        .almanac-button,
+        .almanac-button-top,
+        .almanac-button-bottom {
+            border-style: none;
+            border-left-style: solid;
+            border-color: #4f4f4f;
+        }
+
+        .almanac-button-top {
+            border-radius: 0 24px 0 0;
+            border-bottom-style: solid;
+        }
+
+        .almanac-button-bottom {
+            border-radius: 0 0 24px 0;
+            border-top-style: solid;
         }
 
         .almanac-text-input {
@@ -28,20 +51,16 @@
 
             font-size: 24px;
 
-            border-radius: 24px;
-            border-color: #98ba44;
-
             /*color: #dfd;*/
-            background-color: #323232;
+            border-color: #98ba44;
+            border-radius: 24px 0 0 24px;
 
             overflow: hidden;
             resize: none;
         }
 
         .almanac-text-preview {
-            background-color: #323232;
             border-color: #323232;
-            /*border-color: black;*/
         }
 
     </style>
@@ -58,6 +77,13 @@
             var startHeight = inputTest.height();
             $("#adder").data("height", startHeight * 0.7);
 
+            $('#clearButton').on('click', function () {
+                inputTest.val("");
+
+                var heightX = $("#adder").data("height") / 0.7;
+                inputTest.height(heightX);
+            });
+
             inputTest.keyup(function (event) {
                 if (event.which === 13) {
                     event.preventDefault();
@@ -66,19 +92,19 @@
                     var extraHeight = $("#adder").data("height");
                     var newHeight = oldHeight + extraHeight;
 
-                    $(this).height(newHeight);
+                    $('.inputTestX').height(newHeight);
                 }
             });
 
             // set interval
-            var tid = setInterval(updatePreview, 2500);
+            var tid = setInterval(updatePreview, 3200);
 
             function abortTimer() { // to be called when you want to stop the timer
                 clearInterval(tid);
             }
 
             function updatePreview() {
-                var currentInput = inputTest.val();
+                var currentInput = inputTest.val().replace("\n", "<br>");
 
                 var indexH = currentInput.indexOf("http://");
                 if (indexH < 0) {
@@ -90,11 +116,16 @@
                     $("#previewTest").html(realText);
 
                     var link = currentInput.substring(indexH);
-                    var restText = link.substr(link.indexOf("\n"));
-                    link = link.split(" ")[0];
+                    var leign = link.indexOf("\n");
+                    if (leign < 0) {
+                        leign = link.indexOf(" ");
+                    }
 
-                    console.log("Link: " + link);
-                    console.log("Rest: " + restText);
+                    var restText = "";
+                    if (leign >= 0) {
+                        restText = link.substr(leign);
+                    }
+                    link = link.split(" ")[0];
 
                     var a = $('<a id="dynamicLink">');
                     a.attr("href", link);
@@ -102,8 +133,8 @@
 
                     var img = $('<br><img id="dynamicImage"><br>'); //Equivalent: $(document.createElement('img'))
                     img.attr('src', link);
-                    img.attr('width', "auto");
-                    img.attr('height', "auto");
+                    img.attr('width', "100%");
+                    img.attr('height', "50%");
                     img.appendTo('#previewTest');
 
                     var restP = $('<p></p>');
@@ -120,16 +151,23 @@
 {% endblock %}
 
 {% block content %}
-    <p>Hello!</p>
 
     <div id="adder" hidden data-height="0"></div>
 
     <div class="row">
 
-        <div class="col-md-6">
-            <textarea id="inputTest" class="almanac-text-input"
+{#        <div class="col-md-6">#}
+        <div class="col-md-5">
+            <textarea id="inputTest" class="almanac-text-input inputTestX"
                       placeholder="{{ "Paste some lines..." | trans }}">
             </textarea>
+        </div>
+
+        <div class="col-md-1 inputTestX">
+            <a id="sendButton" class="pull-right btn btn-primary almanac-button almanac-button-top"
+               href="#">Send</a>
+            <a id="clearButton" class="pull-right btn btn-primary almanac-button almanac-button-bottom"
+               href="#">Clear</a>
         </div>
 
         <div class="col-md-6">
