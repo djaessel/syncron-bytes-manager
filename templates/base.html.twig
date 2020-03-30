@@ -9,15 +9,15 @@
 
         {% if user is defined %}
           {% set username = user.email %}
-          {% set userrole = user.roles|join(", ", " and ") %}
+          {% set userrole = user.roles | join(", ", " and ") %}
         {% endif %}
 
-        {% if username is not defined %}
-          {% set username = "John Doe" %}
+        {% if username is not defined or username is empty %}
+          {% set username = "Anonymous" %}
         {% endif %}
 
-        {% if userrole is not defined %}
-          {% set userrole = "User" %}
+        {% if userrole is not defined  or userrole is empty %}
+          {% set userrole = "Undefined" %}
         {% endif %}
 
         {% block stylesheets %}

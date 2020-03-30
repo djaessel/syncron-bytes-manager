@@ -7,7 +7,7 @@
     {{ parent() }}
     <style>
         .content-wrapper, .content, .dark {
-            background-color: black;
+          background-color: #8F8F8F;
         }
     </style>
 {% endblock %}
@@ -30,9 +30,12 @@
 			</h3>
 		</div>
 
-		<video class="dark" width="100%" height="90%" controls preload="auto">
-			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
-		  <p>Your browser does not support the video tag.</p>
-		</video>
+    <div>
+  		<video class="dark" width="100%" controls preload="auto">
+  			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
+        {#<source src="/audios/{{ videoId }}.ogg" type="audio/ogg">#}
+  		  <p>Your browser does not support the video tag.</p>
+  		</video>
+    </div>
 
 {% endblock %}

@@ -54,3 +54,5 @@ security:
 
         # matches /admin/* except for anything matching the above rule
         - { path: ^/admin, roles: ROLE_ADMIN }
+
+        - { path: ^/star*, roles: ROLE_USER }
