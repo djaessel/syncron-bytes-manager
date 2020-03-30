@@ -6,9 +6,15 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+
         .content-wrapper, .content, .dark {
           background-color: #808080;
         }
+
+        .center-block {
+          text-align: center;
+        }
+
     </style>
 {% endblock %}
 
@@ -24,14 +30,18 @@
 
 {% block content %}
 
-		<h3{# style="text-align: center;"#}>
-			<font id="titleFont"{# color="whitesmoke"#}>{{ videoTitle }}</font>
-		</h3>
+    <div class="center-block">
+  		<h3>
+  			<font id="titleFont">{{ videoTitle }}</font>
+  		</h3>
+    </div>
 
-		<video class="dark" width="100%" controls preload="auto">
-			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
-      {#<source src="/audios/{{ videoId }}.ogg" type="audio/ogg">#}
-		  <p>Your browser does not support the video tag.</p>
-		</video>
+    <div class="center-block">
+  		<video class="dark" controls preload="auto">
+  			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
+        {#<source src="/audios/{{ videoId }}.ogg" type="audio/ogg">#}
+  		  <p>Your browser does not support the video tag.</p>
+  		</video>
+    </div>
 
 {% endblock %}
