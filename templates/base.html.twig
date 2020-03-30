@@ -10,7 +10,7 @@
         {% if user is defined %}
           {% set username = user.email %}
           {% set userrole = user.roles|join(", ", " and ") %}
-        {% end if %}
+        {% endif %}
 
         {% if username is not defined %}
           {% set username = "John Doe" %}

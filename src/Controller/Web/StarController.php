@@ -48,7 +48,7 @@ class StarController extends AbstractController
       $videoFiles = $this->retrieveVideoNames();
 
       $videoTitle = "";
-      if (array_key_exists($videoFiles, $videoId)) {
+      if (array_key_exists($videoId, $videoFiles)) {
         $videoTitle = $videoFiles[$videoId];
       }
 
