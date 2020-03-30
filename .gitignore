@@ -25,3 +25,5 @@ build/
 ###< lexik/jwt-authentication-bundle ###
 
 public/downloads/WeTransferManager.7z
+
+public/videos/*
