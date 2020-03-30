@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Star{% endblock %}
-{% block sub_title %}Videos{% endblock %}
+{% block sub_title %}Video{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -24,15 +24,15 @@
 
 {% block content %}
 
-  <ul>
-    {% for i, videoName in videoFiles %}
-      <li>
-        <a class="btn btn-primary"
-           href="{{ path('star-video', {'videoId': i}) }}">
-          {{ videoName }}
-        </a>
-      </li>
-    {% endblock %}
-  </ul>
+		<div>
+			<h3 style="text-align: center;">
+				<font id="titleFont" color="whitesmoke">{{ videoTitle }}</font>
+			</h3>
+		</div>
+
+		<video class="dark" width="100%" height="90%" controls preload="auto">
+			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
+		  <p>Your browser does not support the video tag.</p>
+		</video>
 
 {% endblock %}
