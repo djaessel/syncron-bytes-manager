@@ -12,7 +12,7 @@ class StarController extends AbstractController
      */
     public function index()
     {
-      $videoFiles = retrieveVideoNames();
+      $videoFiles = $this->retrieveVideoNames();
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
@@ -26,7 +26,7 @@ class StarController extends AbstractController
      */
     public function starVideo($videoId)
     {
-      $videoFiles = retrieveVideoNames();
+      $videoFiles = $this->retrieveVideoNames();
 
       $videoTitle = "";
       if (array_key_exists($videoFiles, $videoId)) {
@@ -58,16 +58,16 @@ class StarController extends AbstractController
       return $videoFiles;
     }
 
-    private function retrieveVideoNamesOld()
-    {
-      $videoPath = "./videos"; // SG1_SEASON1_DISC2_SKU1_Title2.mp4
-      $videoFiles = scandir($videoPath);
-
-      $videoCount = count($videoFiles);
-      for ($i=0; $i < $videoCount; $i++) {
-        $videoFiles[$i] = basename($videoFiles[$i], ".mp4");
-      }
-
-      return $videoFiles;
-    }
+//    private function retrieveVideoNamesOld()
+//    {
+//      $videoPath = "./videos"; // SG1_SEASON1_DISC2_SKU1_Title2.mp4
+//      $videoFiles = scandir($videoPath);
+//
+//      $videoCount = count($videoFiles);
+//      for ($i=0; $i < $videoCount; $i++) {
+//        $videoFiles[$i] = basename($videoFiles[$i], ".mp4");
+//      }
+//
+//      return $videoFiles;
+//    }
 }
