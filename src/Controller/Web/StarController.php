@@ -67,7 +67,7 @@ class StarController extends AbstractController
       if (($handle = fopen($videoFilesNamePath, "r")) !== FALSE) {
           while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
             if (count($data) > 1) {
-              $videoFiles[$data[0]] = str_replace("/", "-", $data[1]);
+              $videoFiles[$data[0]] = $data[1];
             }
           }
           fclose($handle);
