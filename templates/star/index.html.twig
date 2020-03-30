@@ -7,7 +7,11 @@
     {{ parent() }}
     <style>
         .content-wrapper, .content, .dark {
-            background-color: black;
+          background-color: #888;
+        }
+
+        .list-group, .list-group-item {
+          background-color: #aba;
         }
     </style>
 {% endblock %}
@@ -24,15 +28,13 @@
 
 {% block content %}
 
-  <ul>
+  <div class="list-group">
     {% for i, videoName in videoFiles %}
-      <li>
-        <a class="btn btn-primary"
-           href="{{ path('star-video', {'videoId': i}) }}">
-          {{ videoName }}
-        </a>
-      </li>
+      <a class="list-group-item"
+         href="{{ path('star-video', {'videoId': i}) }}">
+        {{ videoName }}
+      </a>
     {% endfor %}
-  </ul>
+  </div>
 
 {% endblock %}
