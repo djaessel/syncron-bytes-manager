@@ -7,7 +7,7 @@
     {{ parent() }}
     <style>
         .content-wrapper, .content, .dark {
-          background-color: #8F8F8F;
+          background-color: #4F4F4F;
         }
     </style>
 {% endblock %}
@@ -25,13 +25,13 @@
 {% block content %}
 
 		<div>
-			<h3 style="text-align: center;">
-				<font id="titleFont" color="whitesmoke">{{ videoTitle }}</font>
+			<h3{# style="text-align: center;"#}>
+				<font id="titleFont"{# color="whitesmoke"#}>{{ videoTitle }}</font>
 			</h3>
 		</div>
 
     <div>
-  		<video class="dark" width="100%" controls preload="auto">
+  		<video class="dark" width="100%" height="75%" controls preload="auto">
   			<source src="/videos/{{ videoId }}.mp4" type="video/mp4">
         {#<source src="/audios/{{ videoId }}.ogg" type="audio/ogg">#}
   		  <p>Your browser does not support the video tag.</p>
