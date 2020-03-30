@@ -16,7 +16,7 @@ class StarController extends AbstractController
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
-        'videoFiles' => $videoFiles;
+        'videoFiles' => $videoFiles,
       ]);
     }
 
