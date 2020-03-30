@@ -12,8 +12,8 @@ class StarController extends AbstractController
      */
     public function index()
     {
-		$videoPath = "/../videos/SG1_SEASON1_DISC2_SKU1_Title2.mp4";
-		$videoTitle = "Test";
+		$videoPath = "/videos/SG1_SEASON1_DISC2_SKU1_Title2.mp4";
+		$videoTitle = "";
 		
         return $this->render('star/index.html.twig', [
 			'controller_name' => 'StarController',
