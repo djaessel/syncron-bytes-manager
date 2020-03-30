@@ -30,9 +30,12 @@ class StarController extends AbstractController
     {
       $videoFiles = $this->retrieveVideoNames();
 
+      $user = $this->getUser();
+
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
         'videoFiles' => $videoFiles,
+        'user' => $user,
       ]);
     }
 
@@ -49,10 +52,13 @@ class StarController extends AbstractController
         $videoTitle = $videoFiles[$videoId];
       }
 
+      $user = $this->getUser();
+
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
         'videoTitle' => $videoTitle,
         'videoId' => $videoId,
+        'user' => $user,
       ]);
     }
 
