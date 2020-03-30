@@ -7,6 +7,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StarController extends AbstractController
 {
+
+    /**
+     * @var KernelInterface $kernel
+     */
+    private $kernel;
+
+    /**
+     * Constructor
+     *
+     * @param KernelInterface $kernel
+     */
+    public function __construct(KernelInterface $kernel) {
+      $this->kernel = $kernel;
+    }
+
     /**
      * @Route("/star", name="star")
      */
@@ -40,9 +55,12 @@ class StarController extends AbstractController
       ]);
     }
 
+    /**
+     * list with all video files by id
+     */
     private function retrieveVideoNames()
     {
-      $projectRoot = $this->get('kernel')->getProjectDir();
+      $projectRoot = $this->kernel->getProjectDir();
       $videoFilesNamePath = $projectRoot . "/_tools/videoFileNames.csv";
       $videoFiles = array();
 
