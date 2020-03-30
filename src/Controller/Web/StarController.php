@@ -51,7 +51,7 @@ class StarController extends AbstractController
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
         'videoTitle' => $videoTitle,
-        'videoId' => $videoId,
+        'videoId' => str_replace("-", "/", $videoId),
       ]);
     }
 
@@ -67,7 +67,7 @@ class StarController extends AbstractController
       if (($handle = fopen($videoFilesNamePath, "r")) !== FALSE) {
           while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
             if (count($data) > 1) {
-              $videoFiles[$data[0]] = $data[1];
+              $videoFiles[$data[0]] = str_replace("/", "-", $data[1]);
             }
           }
           fclose($handle);
