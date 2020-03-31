@@ -33,9 +33,9 @@
   
     {% for i, videoData in videoFiles %}
 	
-		{% set middle = " - Extra" %}
-		{% if videoData[5] == 0 %}
-			{% set middle = "- Episode " ~ videoData[3] %}
+		{% set middle = "- Episode " ~ videoData[3] %}
+		{% if videoData[3] == 0 %}
+			{% set middle = " - Extra" %}
 		{% endif %}
 		{# TODO: use php function later #}
 		{% set videoTitle = "Staffel " ~ videoData[2] ~ " - Episode " ~ videoData[3] ~ ": " ~ videoData[1] %}
