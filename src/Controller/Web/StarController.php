@@ -43,15 +43,20 @@ class StarController extends AbstractController
     {
       $videoFiles = $this->retrieveVideoNames();
 
-      $videoTitle = "";
+      $videoData = "";
       if (array_key_exists($videoId, $videoFiles)) {
-        $videoTitle = $videoFiles[$videoId];
+        $videoData = $videoFiles[$videoId];
       }
+
+      $videoPathId = str_replace("-", "/", $videoId);
+      $videoPath = "/videos/" . $videoPathId . ".mp4"; // static for now
+      $audioPath = "/audios/" . $videoPathId . ".ogg"; // static for now
 
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
-        'videoTitle' => $videoTitle,
-        'videoId' => str_replace("-", "/", $videoId),
+        'videoData' => $videoData,
+        'videoPath' => videoPath,
+		'audioPath' => audioPath,
       ]);
     }
 
@@ -65,14 +70,15 @@ class StarController extends AbstractController
       $videoFiles = array();
 
       if (($handle = fopen($videoFilesNamePath, "r")) !== FALSE) {
+		  $titles = fgetcsv($handle, 1000, ";"); // read title row
           while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
             if (count($data) > 1) {
-              $videoFiles[$data[0]] = $data[1];
+              $videoFiles[$data[0]] = $data;
             }
           }
           fclose($handle);
       }
-
+	  
       return $videoFiles;
     }
 }

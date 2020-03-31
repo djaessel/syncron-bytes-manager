@@ -1,23 +1,46 @@
-SG1-Season1-S01E0102;Kinder der Götter / Children of the Gods
-SG1-Season1-S01E03;Der Feind in seinem Körper / The Enemy Within
-SG1-Season1-S01E04;Verraten und verkauft / Emancipation
-SG1-Season1-S01E05;Die Seuche / The Broca Divide
-SG1-Season1-S01E06;Das Erste Gebot / The First Commandment
-SG1-Season1-S01E07;Die Auferstehung / Cold Lazarus
-SG1-Season1-S01E08;Die Macht Der Weisen / The Nox
-SG1-Season1-S01E09;Die Auserwählten / Brief Candle
-SG1-Season1-S01E10;Im Reich des Donnergottes / Thor’s Hammer
-SG1-Season1-S01E11;Die Qualen des Tantalus / The Torment of Tantalus
-SG1-Season1-S01E12;Blutsbande / Bloodlines
-SG1-Season1-S01E13;Feuer und Wasser / Fire and Water
-SG1-Season1-S01E14;Der Kuss der Göttin / Hathor
-SG1-Season1-S01E15;Cassandra / Singularity
-SG1-Season1-S01E16;Vergeltung / Cor-Ai
-SG1-Season1-S01E17;Enigma / Enigma
-SG1-Season1-S01E18;Im Ewigen Eis / Solitudes
-SG1-Season1-S01E19;Übermenschen / Tin Man
-SG1-Season1-S01E20;Die Invasion, Teil 1 / There But for the Grace of God
-SG1-Season1-S01E21;Die Invasion, Teil 2 / Politics
-SG1-Season1-S01E22;Die Invasion, Teil 3 / Within the Serpent’s Grasp
-SG1-Season1-S01XCOMMENT;Short directors comment (English)
-SG1-Season1-S01XFINALCUT;Final Cut (English)
+Path;Name German / English;Season;Episode;EpisodeAll;IsExtra
+SG1-Season1-S01E0102;Kinder der Götter / Children of the Gods;1;1,2;1,2;0
+SG1-Season1-S01E03;Der Feind in seinem Körper / The Enemy Within;1;3;3;0
+SG1-Season1-S01E04;Verraten und verkauft / Emancipation;1;4;4;0
+SG1-Season1-S01E05;Die Seuche / The Broca Divide;1;5;5;0
+SG1-Season1-S01E06;Das Erste Gebot / The First Commandment;1;6;6;0
+SG1-Season1-S01E07;Die Auferstehung / Cold Lazarus;1;7;7;0
+SG1-Season1-S01E08;Die Macht Der Weisen / The Nox;1;8;8;0
+SG1-Season1-S01E09;Die Auserwählten / Brief Candle;1;9;9;0
+SG1-Season1-S01E10;Im Reich des Donnergottes / Thor’s Hammer;1;10;10;0
+SG1-Season1-S01E11;Die Qualen des Tantalus / The Torment of Tantalus;1;11;11;0
+SG1-Season1-S01E12;Blutsbande / Bloodlines;1;12;12;0
+SG1-Season1-S01E13;Feuer und Wasser / Fire and Water;1;13;13;0
+SG1-Season1-S01E14;Der Kuss der Göttin / Hathor;1;14;14;0
+SG1-Season1-S01E15;Cassandra / Singularity;1;15;15;0
+SG1-Season1-S01E16;Vergeltung / Cor-Ai;1;16;16;0
+SG1-Season1-S01E17;Enigma / Enigma;1;17;17;0
+SG1-Season1-S01E18;Im Ewigen Eis / Solitudes;1;18;18;0
+SG1-Season1-S01E19;Übermenschen / Tin Man;1;19;19;0
+SG1-Season1-S01E20;Die Invasion, Teil 1 / There But for the Grace of God;1;20;20;0
+SG1-Season1-S01E21;Die Invasion, Teil 2 / Politics;1;21;21;0
+SG1-Season1-S01E22;Die Invasion, Teil 3 / Within the Serpent’s Grasp;1;22;22;0
+SG1-Season1-S01XCOMMENT;Short directors comment (English);1;0;0;1
+SG1-Season1-S01XFINALCUT;Final Cut (English);1;0;0;1
+SG1-Season2-S02E01;Die Invasion, Teil 4 / The Serpent’s Lair;2;1;23;0
+SG1-Season2-S02E02;Freund oder Feind? / In the Line of Duty;2;2;24;0
+SG1-Season2-S02E03;Zerstörerin der Welten / Prisoners;2;3;25;0
+SG1-Season2-S02E04;Virtueller Alptraum / The Gamekeeper;2;4;26;0
+SG1-Season2-S02E05;Der Sarkophag / Need;2;5;27;0
+SG1-Season2-S02E06;Rückkehr des Thor / Thor’s Chariot;2;6;28;0
+SG1-Season2-S02E07;Trojanische Kugel / Message in a Bottle;2;7;29;0
+SG1-Season2-S02E08;Der verlorene Sohn / Family;2;8;30;0
+SG1-Season2-S02E09;Sha’res Rückkehr / Secrets;2;9;31;0
+SG1-Season2-S02E10;Insekten des Todes / Bane;2;10;32;0
+SG1-Season2-S02E11;Die Tok’ra, Teil 1 / The Tok’ra, Part 1;2;11;33;0
+SG1-Season2-S02E12;Die Tok’ra, Teil 2 / The Tok’ra, Part 2;2;12;34;0
+SG1-Season2-S02E13;Geister / Spirits;2;13;35;0
+SG1-Season2-S02E14;Das zweite Tor / Touchstone;2;14;36;0
+SG1-Season2-S02E15;Die fünfte Spezies / The Fifth Race;2;15;37;0
+SG1-Season2-S02E16;Das schwarze Loch / A Matter of Time;2;16;38;0
+SG1-Season2-S02E17;Seelenwanderung / Holiday;2;17;39;0
+SG1-Season2-S02E18;Der Sturz des Sonnengottes / Serpent’s Song;2;18;40;0
+SG1-Season2-S02E19;Tödliche Klänge / One False Step;2;19;41;0
+SG1-Season2-S02E20;Neue Feinde / Show and Tell;2;20;42;0
+SG1-Season2-S02E21;1969 / 1969;2;21;43;0
+SG1-Season2-S02E22;Die Höhle des Löwen, Teil 1 / Out of Mind;2;22;44;0

@@ -30,10 +30,10 @@
 {% block content %}
 
   <div class="list-group">
-    {% for i, videoName in videoFiles %}
+    {% for i, videoData in videoFiles %}
       <a class="list-group-item"
          href="{{ path('star-video', {'videoId': i}) }}">
-        {{ videoName }}
+        Staffel {{ videoData[2] }} - Episode {{ videoData[3] }}: {{ videoData[1] }}
       </a>
     {% endfor %}
   </div>
