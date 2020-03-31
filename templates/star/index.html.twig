@@ -38,7 +38,7 @@
 			{% set middle = " - Extra" %}
 		{% endif %}
 		{# TODO: use php function later #}
-		{% set videoTitle = "Staffel " ~ videoData[2] ~ " - Episode " ~ videoData[3] ~ ": " ~ videoData[1] %}
+		{% set videoTitle = "Staffel " ~ videoData[2] ~ middle ~ ": " ~ videoData[1] %}
 		
       <a class="list-group-item"
          href="{{ path('star-video', {'videoId': i}) }}">
