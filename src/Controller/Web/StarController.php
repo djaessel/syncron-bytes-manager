@@ -52,13 +52,34 @@ class StarController extends AbstractController
       $videoPath = "/videos/" . $videoPathId . ".mp4"; // static for now
       $audioPath = "/audios/" . $videoPathId . ".ogg"; // static for now
 
+      $videoTitle = $this->retrieveVideoTitle($videoData);
+
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
         'videoData' => $videoData,
+		'videoTitle' => $videoTitle,
         'videoPath' => $videoPath,
 		'audioPath' => $audioPath,
       ]);
     }
+
+    /**
+	 * Generate video title from array data
+	 *
+	 * @param array $videoData
+	 * @return string
+	 */
+	private function retrieveVideoTitle($videoData)
+	{		
+		$middle = " - Extra";
+		if ($videoData[5] != 1) {
+			$middle = " - Episode " . $videoData[3];
+		}
+		
+		$videoTitle = "Staffel " . $videoData[2] . $middle . ": " . $videoData[1];
+		
+		return $videoTitle;
+	}
 
     /**
      * list with all video files by id

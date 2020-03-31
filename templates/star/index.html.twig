@@ -30,12 +30,23 @@
 {% block content %}
 
   <div class="list-group">
+  
     {% for i, videoData in videoFiles %}
+	
+		{% set middle = " - Extra" %}
+		{% if videoData[5] == 0 %}
+			{% set middle = "- Episode " ~ videoData[3] %}
+		{% endif %}
+		{# TODO: use php function later #}
+		{% set videoTitle = "Staffel " ~ videoData[2] ~ " - Episode " ~ videoData[3] ~ ": " ~ videoData[1] %}
+		
       <a class="list-group-item"
          href="{{ path('star-video', {'videoId': i}) }}">
-        Staffel {{ videoData[2] }} - Episode {{ videoData[3] }}: {{ videoData[1] }}
+        {{ videoTitle }}
       </a>
+	  
     {% endfor %}
+	
   </div>
 
 {% endblock %}
