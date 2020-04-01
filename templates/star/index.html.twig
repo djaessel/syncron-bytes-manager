@@ -14,6 +14,11 @@
           background-color: #444;
           color: whitesmoke !important;
         }
+
+        .list-group:hover, .list-group-item:hover {
+          background-color: #888;
+          color: whitesmoke !important;
+        }
     </style>
 {% endblock %}
 
@@ -55,11 +60,11 @@
 
         <div class="panel panel-default">
            <div class="panel-heading">
-                 <button class="panel-title"
+                 <a class="btn list-group-item panel-title"
                      data-toggle="collapse"
                      data-target="#collapse{{ seasonCur }}">
                      {{ seasonCur }}. Staffel
-                 </button>
+                 </a>
             </div>
             <div id="collapse{{ videoData[2] }}"
                  class="panel-collapse collapse">
