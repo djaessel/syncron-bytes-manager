@@ -13,6 +13,7 @@ class StarController extends AbstractController
      */
     private $kernel;
 
+
     /**
      * Constructor
      *
@@ -21,6 +22,7 @@ class StarController extends AbstractController
     public function __construct(KernelInterface $kernel) {
       $this->kernel = $kernel;
     }
+
 
     /**
      * @Route("/star", name="star")
@@ -43,43 +45,59 @@ class StarController extends AbstractController
     {
       $videoFiles = $this->retrieveVideoNames();
 
-      $videoData = "";
+      $videoData = array();
+      $previousId = null;
+      $nextId = null;
+
       if (array_key_exists($videoId, $videoFiles)) {
         $videoData = $videoFiles[$videoId];
+
+        $keys = array_keys($videoFiles);
+        $keyX = array_search($videoId, $keys);
+
+        if ($keyX > 0) {
+          $previousId = $videoFiles[$keyX - 1][0];
+        }
+
+        if ($keyX < count($videoFiles) - 1) {
+          $nextId = $videoFiles[$keyX + 1][0];
+        }
       }
 
       $videoPathId = str_replace("-", "/", $videoId);
-      $videoPath = "/videos/" . $videoPathId . ".mp4"; // static for now
-      $audioPath = "/audios/" . $videoPathId . ".ogg"; // static for now
+      $videoPath = "/videos/"; // static for now
+      $audioPath = "/audios/"; // static for now
 
       $videoTitle = $this->retrieveVideoTitle($videoData);
 
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
         'videoData' => $videoData,
-		'videoTitle' => $videoTitle,
+        'previousId' => $previousId,
+        'nextId' => $nextId,
+		    'videoTitle' => $videoTitle,
         'videoPath' => $videoPath,
-		'audioPath' => $audioPath,
+		    'audioPath' => $audioPath,
       ]);
     }
 
     /**
-	 * Generate video title from array data
-	 *
-	 * @param array $videoData
-	 * @return string
-	 */
-	private function retrieveVideoTitle($videoData)
-	{		
-		$middle = " - Episode " . $videoData[3];
-		if ($videoData[3] == 0) {
-			$middle = " - Extra";
-		}
-		
-		$videoTitle = "Staffel " . $videoData[2] . $middle . ": " . $videoData[1];
-		
-		return $videoTitle;
-	}
+  	 * Generate video title from array data
+  	 *
+  	 * @param array $videoData
+  	 * @return string
+  	 */
+  	private function retrieveVideoTitle($videoData)
+  	{
+      $middle = " - Episode " . $videoData[3];
+      if ($videoData[3] == 0) {
+      	$middle = " - Extra";
+      }
+
+      $videoTitle = "Staffel " . $videoData[2] . $middle . ": " . $videoData[1];
+
+      return $videoTitle;
+  	}
 
     /**
      * list with all video files by id
@@ -99,7 +117,7 @@ class StarController extends AbstractController
           }
           fclose($handle);
       }
-	  
+
       return $videoFiles;
     }
 }

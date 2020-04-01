@@ -28,26 +28,39 @@
 
 {% block content %}
 
+    {# videoData : {
+      0 = ID / Path,
+      1 = Name,
+      2 = Season,
+      3 = Episode,
+      4 = EpisodeAll,
+      5 = IsExtra
+    #}
+
     <div class="center-block">
   		<h3>
-			{# videoData : {
-				0 = ID / Path,
-				1 = Name,
-				2 = Season,
-				3 = Episode,
-				4 = EpisodeAll,
-				5 = IsExtra
-			#}
   			<font id="titleFont">{{ videoTitle }}</font>
   		</h3>
     </div>
 
-    <div class="center-block">
-  		<video class="dark" width="80%" controls preload="auto">
-  			<source src="{{ videoPath }}" type="video/mp4">
-			{#<source src="{{ audioPath }}" type="audio/ogg">#}
-  		  <p>Your browser does not support the video tag.</p>
-  		</video>
+    <div class="row">
+      <div class="col-md-2">
+        {% if previousId != null %}
+          <a class="btn btn-primary" href="{{ videoPath ~ previousId }}"></a>
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+    		<video class="dark" controls preload="auto">
+    			<source src="{{ videoPath ~ videoId }}.mp4" type="video/mp4">
+  			{#<source src="{{ audioPath ~ videoId }}.ogg" type="audio/ogg">#}
+    		  <p>Your browser does not support the video tag.</p>
+    		</video>
+      </div>
+      <div class="col-md-2">
+        {% if nextId != null %}
+          <a class="btn btn-primary" href="{{ videoPath ~ nextId }}"></a>
+        {% endif %}
+      </div>
     </div>
 
 {% endblock %}
