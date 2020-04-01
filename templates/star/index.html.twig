@@ -10,12 +10,12 @@
           background-color: #888;
         }
 
-        .list-group, .list-group-item {
+        .list-group, .list-group-item, .gray-hover {
           background-color: #444;
           color: whitesmoke !important;
         }
 
-        .panel-heading:hover {
+       .gray-hover:hover {
           background-color: #888;
           color: whitesmoke !important;
         }
@@ -59,8 +59,8 @@
         {% set seasonCur = videoData[2] %}
 
         <div class="panel panel-default">
-           <div class="panel-heading">
-                 <a class="btn list-group-item panel-title"
+           <div class="panel-heading gray-hover">
+                 <a class="btn list-group-item panel-title gray-hover"
                      data-toggle="collapse"
                      data-target="#collapse{{ seasonCur }}">
                      {{ seasonCur }}. Staffel
