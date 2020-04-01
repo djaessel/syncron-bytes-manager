@@ -52,18 +52,8 @@ class StarController extends AbstractController
       if (array_key_exists($videoId, $videoFiles)) {
         $videoData = $videoFiles[$videoId];
 
-        $keys = array_keys($videoFiles);
-        $keyX = array_search($videoId, $keys);
-
-        if ($keyX > 0) {
-          $keyX2 = $keys[$keyX - 1];
-          $previousId = $videoFiles[$keyX2][0];
-        }
-
-        if ($keyX < count($keys) - 1) {
-          $keyX2 = $keys[$keyX + 1];
-          $nextId = $videoFiles[$keyX2][0];
-        }
+        $previousId = this->findPreviousId($videoFiles, $videoId);
+        $nextId = this->findNextId($videoFiles, $videoId);
       }
 
       $videoPathId = str_replace("-", "/", $videoId);
@@ -82,6 +72,53 @@ class StarController extends AbstractController
         'videoPath' => $videoPath,
 		    'audioPath' => $audioPath,
       ]);
+    }
+
+    /**
+     * @param array $videoFiles
+     * @param string $videoId
+     */
+    private function findPreviousId(array $videoFiles, string $videoId)
+    {
+      $previousId = null;
+
+      $keys = array_keys($videoFiles);
+      $curIndex = array_search($videoId, $keys);
+
+      if ($curIndex > 0) {
+        for ($i = $curIndex - 1; empty($previousId) && $i >= 0; $i--) {
+          $xData = $videoFiles[$keys[$i]];
+          if ($xData[5] == 0) {
+            $previousId = $xData[0];
+          }
+        }
+      }
+
+      return $previousId;
+    }
+
+    /**
+     * @param array $videoFiles
+     * @param string $videoId
+     */
+    private function findNextId(array $videoFiles, string $videoId)
+    {
+      $nextId = null;
+
+      $keys = array_keys($videoFiles);
+      $curIndex = array_search($videoId, $keys);
+
+      $keyCount = count($keys);
+      if ($curIndex < $keyCount - 1) {
+        for ($i = $curIndex + 1; empty($nextId) && $i < $keyCount; $i++) {
+          $xData = $videoFiles[$keys[$i]];
+          if ($xData[5] == 0) {
+            $nextId = $xData[0];
+          }
+        }
+      }
+
+      return $nextId;
     }
 
     /**
