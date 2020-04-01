@@ -30,23 +30,50 @@
 {% block content %}
 
   <div class="list-group">
-  
+
+    {% set seasonCur = 0 %}
+
     {% for i, videoData in videoFiles %}
-	
-		{% set middle = "- Episode " ~ videoData[3] %}
-		{% if videoData[3] == 0 %}
-			{% set middle = " - Extra" %}
-		{% endif %}
-		{# TODO: use php function later #}
-		{% set videoTitle = "Staffel " ~ videoData[2] ~ middle ~ ": " ~ videoData[1] %}
-		
+
+  		{% set middle = "- Episode " ~ videoData[3] %}
+  		{% if videoData[3] == 0 %}
+  			{% set middle = " - Extra" %}
+  		{% endif %}
+  		{# TODO: use php function later #}
+  		{% set videoTitle = "Staffel " ~ videoData[2] ~ middle ~ ": " ~ videoData[1] %}
+
+      {% if seasonCur < videoData[2] %}
+
+        {% if seasonCur > 0 %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        {% endif %}
+
+        {% set seasonCur = videoData[2] %}
+
+        <div class="panel panel-default">
+           <div class="panel-heading">
+                 <button class="panel-title"
+                     data-toggle="collapse"
+                     data-target="#collapse{{ seasonCur }}">
+                     {{ seasonCur }}. Staffel
+                 </button>
+            </div>
+            <div id="collapse{{ videoData[2] }}"
+                 class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+      {% endif %}
+
       <a class="list-group-item"
          href="{{ path('star-video', {'videoId': i}) }}">
         {{ videoTitle }}
       </a>
-	  
+
     {% endfor %}
-	
+
   </div>
 
 {% endblock %}
