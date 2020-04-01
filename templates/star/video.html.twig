@@ -37,30 +37,37 @@
       5 = IsExtra
     #}
 
-    <div class="center-block">
-  		<h3>
-  			<font id="titleFont">{{ videoTitle }}</font>
-  		</h3>
-    </div>
-
     <div class="row">
+
       <div class="col-md-2">
         {% if previousId != null %}
-          <a class="btn btn-primary" href="{{ videoPath ~ previousId }}"></a>
+          <a class="btn btn-primary" href="{{ videoPath ~ previousId }}">
+            {{ "Previous" }}
+          </a>
         {% endif %}
       </div>
-      <div class="col-md-8">
+
+      <div class="center-block col-md-8">
+    		<h3>
+    			<font id="titleFont">{{ videoTitle }}</font>
+    		</h3>
+      </div>
+
+      <div class="col-md-2">
+        {% if nextId != null %}
+          <a class="btn btn-primary" href="{{ videoPath ~ nextId }}">
+            {{ "Next" }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="center-block">
     		<video class="dark" controls preload="auto">
     			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
   			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
     		  <p>Your browser does not support the video tag.</p>
     		</video>
-      </div>
-      <div class="col-md-2">
-        {% if nextId != null %}
-          <a class="btn btn-primary" href="{{ videoPath ~ nextId }}"></a>
-        {% endif %}
-      </div>
     </div>
 
 {% endblock %}
