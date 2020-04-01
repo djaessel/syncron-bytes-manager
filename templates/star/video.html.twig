@@ -47,7 +47,7 @@
 
       <div class="col-md-2 col-sm-1">
         {% if previousId is not empty %}
-          <a class="btn btn-primary pull-right"
+          <a class="btn btn-primary pull-left"
              href="{{ path('star-video', {'videoId': previousId}) }}">
             {{ "Previous" }}
           </a>
@@ -58,7 +58,7 @@
 
       <div class="col-md-2 col-sm-1">
         {% if nextId is not empty %}
-          <a class="btn btn-primary"
+          <a class="btn btn-primary pull-right"
              href="{{ path('star-video', {'videoId': nextId}) }}">
             {{ "Next" }}
           </a>
