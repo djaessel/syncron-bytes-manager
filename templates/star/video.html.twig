@@ -40,7 +40,7 @@
     <div class="row">
 
       <div class="col-md-2">
-        {% if previousId != null %}
+        {% if previousId is not empty %}
           <a class="btn btn-primary" href="{{ videoPath ~ previousId }}">
             {{ "Previous" }}
           </a>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="col-md-2">
-        {% if nextId != null %}
+        {% if nextId is not empty %}
           <a class="btn btn-primary" href="{{ videoPath ~ nextId }}">
             {{ "Next" }}
           </a>

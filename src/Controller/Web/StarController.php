@@ -56,11 +56,13 @@ class StarController extends AbstractController
         $keyX = array_search($videoId, $keys);
 
         if ($keyX > 0) {
-          $previousId = $videoFiles[$keyX - 1][0];
+          $keyX2 = $keys[$keyX - 1];
+          $previousId = $videoFiles[$keyX2][0];
         }
 
-        if ($keyX < count($videoFiles) - 1) {
-          $nextId = $videoFiles[$keyX + 1][0];
+        if ($keyX < count($keys) - 1) {
+          $keyX2 = $keys[$keyX + 1];
+          $nextId = $videoFiles[$keyX2][0];
         }
       }
 
