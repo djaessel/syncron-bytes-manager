@@ -52,8 +52,8 @@ class StarController extends AbstractController
       if (array_key_exists($videoId, $videoFiles)) {
         $videoData = $videoFiles[$videoId];
 
-        $previousId = this->findPreviousId($videoFiles, $videoId);
-        $nextId = this->findNextId($videoFiles, $videoId);
+        $previousId = $this->findPreviousId($videoFiles, $videoId);
+        $nextId = $this->findNextId($videoFiles, $videoId);
       }
 
       $videoPathId = str_replace("-", "/", $videoId);
