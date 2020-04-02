@@ -33,10 +33,11 @@ class StarController extends AbstractController
 
       // TODO: use database later
       // id, season_number, series_number, title
+      // FIXME: episode count and years should be separated later
       $seasons = array(
-        array(1, 1, 1, "Die Reise geht weiter"),
-        array(2, 2, 1, "Entdecke neue Welten"),
-        array(3, 3, 1, "Galaktische Abenteuer"),
+        array(1, 1, 1, "Die Reise geht weiter (1997–1998, #1–22)"),
+        array(2, 2, 1, "Entdecke neue Welten (1998–1999, #23–44)"),
+        array(3, 3, 1, "Galaktische Abenteuer (1999–2000, #45–66)"),
       );
       // TODO: use database later
 
