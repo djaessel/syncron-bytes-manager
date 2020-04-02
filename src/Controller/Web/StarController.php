@@ -31,9 +31,19 @@ class StarController extends AbstractController
     {
       $videoFiles = $this->retrieveVideoNames();
 
+      // TODO: use database later
+      // id, season_number, series_number, title
+      $seasons = array(
+        array(1, 1, 1, "Die Reise geht weiter"),
+        array(2, 2, 1, "Entdecke neue Welten"),
+        array(3, 3, 1, "Galaktische Abenteuer"),
+      );
+      // TODO: use database later
+
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
         'videoFiles' => $videoFiles,
+        'seasons' => $seasons,
       ]);
     }
 
