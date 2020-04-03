@@ -76,20 +76,18 @@
           	}
           }
 
-          function ppx() {
-            if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
-              RunPrefixMethod(document, "CancelFullScreen");
-            }
-            else {
-              RunPrefixMethod($("#containerX"), "RequestFullScreen");
-            }
-          }
-
           $("#containerX").on('click', function() {
-            ppx();
+          	if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
+          		RunPrefixMethod(document, "CancelFullScreen");
+          	}
+          	else {
+          		RunPrefixMethod(this, "RequestFullScreen");
+          	}
           });
 
           // created by https://www.sitepoint.com/html5-full-screen-api/
+
+          
 
         });
     </script>
