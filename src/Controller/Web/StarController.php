@@ -96,7 +96,7 @@ class StarController extends AbstractController
      *
      * @param SessionInterface $session
      */
-    public function starVideo(SessionInterface $session)
+    public function starVideoNext(SessionInterface $session)
     {
       //$nextId = $session->get("nextVideoId");
 
