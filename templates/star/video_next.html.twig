@@ -14,6 +14,10 @@
         .container {
           position: relative;
           width: auto;
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: 0;
+          padding-right: 0;
         }
 
         /* Make the image responsive */
@@ -25,8 +29,8 @@
         /* Style the button and place it in the middle of the container/image */
         .container .btn {
           position: absolute;
-          top: 10%;
-          right: 90%;
+          top: 8%;
+          right: 0%;
           transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%);
           color: white;
@@ -54,8 +58,8 @@
 
 {% block body %}
 
-    <div class="container container-fluid">
-      <img "img img-responsive" src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
+    <div class="container">
+      <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
       <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
         {{ "Next Episode" }}
       </a>
