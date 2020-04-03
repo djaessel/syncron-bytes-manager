@@ -118,7 +118,7 @@ class StarController extends AbstractController
       if ($curIndex > 0) {
         for ($i = $curIndex - 1; empty($previousId) && $i >= 0; $i--) {
           $xData = $videoFiles[$keys[$i]];
-          if ($xData[5] == 0) {
+          if ($xData[6] == 0) {
             $previousId = $xData[0];
           }
         }
@@ -142,7 +142,7 @@ class StarController extends AbstractController
       if ($curIndex < $keyCount - 1) {
         for ($i = $curIndex + 1; empty($nextId) && $i < $keyCount; $i++) {
           $xData = $videoFiles[$keys[$i]];
-          if ($xData[5] == 0) {
+          if ($xData[6] == 0) {
             $nextId = $xData[0];
           }
         }
