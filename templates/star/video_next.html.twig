@@ -85,7 +85,9 @@
           	}
           }
 
-          $("#containerX").on('click', toogleOnClick);
+          $("#containerX").on('click', function() {
+            toogleOnClick();
+          });
 
           toogleOnClick();
 
