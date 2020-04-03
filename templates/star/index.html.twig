@@ -43,14 +43,19 @@
 
     {% for i, videoData in videoFiles %}
 
-  		{% set middle = " - Episode " ~ videoData[3] %}
-  		{% if videoData[3] == 0 %}
+      {# TODO: use php functions later #}
+  		{% set middle = " - Episode " ~ videoData[4]  %}
+  		{% if videoData[6] == 1 %}
   			{% set middle = " - Extra" %}
   		{% endif %}
-  		{# TODO: use php function later #}
-  		{% set videoTitle = "Staffel " ~ videoData[2] ~ middle ~ ": " ~ videoData[1] %}
 
-      {% if seasonCur < videoData[2] %}
+      {# FIXME: check for language later and whether to show both titles #}
+      {% set langTitle = videoData[1] ~ " / " ~ videoData[2] %}
+
+  		{% set videoTitle = "Staffel " ~ videoData[3] ~ middle ~ ": " ~ langTitle %}
+      {# TODO: use php functions later #}
+
+      {% if seasonCur < videoData[3] %}
 
         {% if seasonCur > 0 %}
                       </div>
@@ -59,17 +64,17 @@
           </div>
         {% endif %}
 
-        {% set seasonCur = videoData[2] %}
+        {% set seasonCur = videoData[3] %}
 
         <div class="panel panel-default">
            <div class="panel-heading">
                  <a class="btn panel-title list-group-item"
                      data-toggle="collapse"
                      data-target="#collapse{{ seasonCur }}">
-                     {{ seasonCur }}. Staffel - {{ seasons[seasonCur - 1][3] }}
+                     {{ seasonCur }}. Staffel - {{ seasons[seasonCur - 1][4] }}
                  </a>
             </div>
-            <div id="collapse{{ videoData[2] }}"
+            <div id="collapse{{ videoData[3] }}"
                  class="panel-collapse collapse">
                 <div class="panel-body">
                   <div class="list-group">

@@ -5,6 +5,7 @@ namespace App\Controller\Web;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StarController extends AbstractController
 {
@@ -38,6 +39,7 @@ class StarController extends AbstractController
         array(1, 1, 1, "Die Reise geht weiter (1997–1998, #1–22)"),
         array(2, 2, 1, "Entdecke neue Welten (1998–1999, #23–44)"),
         array(3, 3, 1, "Galaktische Abenteuer (1999–2000, #45–66)"),
+        array(4, 4, 1, "Ferne Welten, neue Gefahren (2000-2001, #67-88)"),
       );
       // TODO: use database later
 
@@ -50,9 +52,11 @@ class StarController extends AbstractController
 
     /**
      * @Route("/star/video/{videoId}", name="star-video")
+     *
+     * @param SessionInterface $session
      * @param int $videoId
      */
-    public function starVideo($videoId)
+    public function starVideo(SessionInterface $session, $videoId)
     {
       $videoFiles = $this->retrieveVideoNames();
 
@@ -66,6 +70,8 @@ class StarController extends AbstractController
         $previousId = $this->findPreviousId($videoFiles, $videoId);
         $nextId = $this->findNextId($videoFiles, $videoId);
       }
+
+      $session->set("nextVideoId", $nextId);
 
       $videoPathId = str_replace("-", "/", $videoId);
       $videoPath = "/videos/"; // static for now
@@ -82,6 +88,20 @@ class StarController extends AbstractController
 		    'videoTitle' => $videoTitle,
         'videoPath' => $videoPath,
 		    'audioPath' => $audioPath,
+      ]);
+    }
+
+    /**
+     * @Route("/star/video-next", name="star-video-next")
+     *
+     * @param SessionInterface $session
+     */
+    public function starVideo(SessionInterface $session)
+    {
+      //$nextId = $session->get("nextVideoId");
+
+      return $this->render('star/video_next.html.twig', [
+        'controller_name' => 'StarController',
       ]);
     }
 
@@ -140,12 +160,17 @@ class StarController extends AbstractController
   	 */
   	private function retrieveVideoTitle($videoData)
   	{
-      $middle = " - Episode " . $videoData[3];
+      $middle = " - Episode " . $videoData[4];
       if ($videoData[3] == 0) {
       	$middle = " - Extra";
       }
 
-      $videoTitle = "Staffel " . $videoData[2] . $middle . ": " . $videoData[1];
+      // FIXME: check for language later
+      $videoTitle = "Staffel " . $videoData[3] . $middle . ": ";
+
+      // FIXME: decide which title according to language settings later
+      // (e.g. en, de, both)
+      $videoTitle .= $videoData[1] . " / " . $videoData[2];
 
       return $videoTitle;
   	}

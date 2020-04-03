@@ -21,25 +21,31 @@
     </style>
 {% endblock %}
 
-{#
+
 {% block javascripts %}
     {{ parent() }}
-    <script>
+    <script type='text/javascript'>
         $(function () {
+
+          $('#myVideo').on('ended', function(e) {
+            window.location = $("#nextVid").data("url");
+          });
+
         });
     </script>
 {% endblock %}
-#}
+
 
 {% block content %}
 
     {# videoData : {
       0 = ID / Path,
-      1 = Name,
-      2 = Season,
-      3 = Episode,
-      4 = EpisodeAll,
-      5 = IsExtra
+      1 = Name_English,
+      2 = Name_German,
+      3 = Season,
+      4 = Episode,
+      5 = EpisodeAll,
+      6 = IsExtra
     #}
 
     <div class="center-block">
@@ -54,7 +60,7 @@
         {% if previousId is not empty %}
           <a class="btn btn-primary pull-left"
              href="{{ path('star-video', {'videoId': previousId}) }}">
-            {{ "Previous" }}
+            {{ "< Previous" }}
           </a>
         {% endif %}
       </div>
@@ -65,7 +71,7 @@
         {% if nextId is not empty %}
           <a class="btn btn-primary pull-right"
              href="{{ path('star-video', {'videoId': nextId}) }}">
-            {{ "Next" }}
+            {{ "Next >" }}
           </a>
         {% endif %}
       </div>
@@ -80,6 +86,8 @@
   			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
     		  <p>Your browser does not support the video tag.</p>
     		</video>
+
+        <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
     </div>
 
 {% endblock %}
