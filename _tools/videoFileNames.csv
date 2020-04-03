@@ -20,8 +20,8 @@ SG1-Season1-S01E19;Übermenschen;Tin Man;1;19;19;0
 SG1-Season1-S01E20;Die Invasion, Teil 1;There But for the Grace of God;1;20;20;0
 SG1-Season1-S01E21;Die Invasion, Teil 2;Politics;1;21;21;0
 SG1-Season1-S01E22;Die Invasion, Teil 3;Within the Serpent’s Grasp;1;22;22;0
-SG1-Season1-S01XCOMMENT;Short directors comment (English);1;0;0;1
-SG1-Season1-S01XFINALCUT;Final Cut (English);1;0;0;1
+SG1-Season1-S01XCOMMENT;;Short directors comment (English);1;0;0;1
+SG1-Season1-S01XFINALCUT;;Final Cut (English);1;0;0;1
 SG1-Season2-S02E01;Die Invasion, Teil 4;The Serpent’s Lair;2;1;23;0
 SG1-Season2-S02E02;Freund oder Feind?;In the Line of Duty;2;2;24;0
 SG1-Season2-S02E03;Zerstörerin der Welten;Prisoners;2;3;25;0
@@ -66,6 +66,6 @@ SG1-Season3-S03E19;Tödlicher Verrat;New Ground;3;19;63;0
 SG1-Season3-S03E20;Harsesis’ Rettung;Maternal Instinct;3;20;64;0
 SG1-Season3-S03E21;Der Kristallschädel;Crystal Skull;3;21;65;0
 SG1-Season3-S03E22;Nemesis, Teil 1;Nemesis;3;22;66;0
-SG1-Season3-S03X01;Timeline to the future - Part 1 - Legacy of the Gate;3;0;0;1
-SG1-Season3-S03X02;Timeline to the future - Part 2 - Secrets of the Gate;3;0;0;1
-SG1-Season3-S03X03;Timeline to the future - Part 3 - Beyond the Gate;3;0;0;1
+SG1-Season3-S03X01;;Timeline to the future - Part 1 - Legacy of the Gate;3;0;0;1
+SG1-Season3-S03X02;;Timeline to the future - Part 2 - Secrets of the Gate;3;0;0;1
+SG1-Season3-S03X03;;Timeline to the future - Part 3 - Beyond the Gate;3;0;0;1

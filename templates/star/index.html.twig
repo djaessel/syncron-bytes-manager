@@ -50,7 +50,11 @@
   		{% endif %}
 
       {# FIXME: check for language later and whether to show both titles #}
-      {% set langTitle = videoData[1] ~ " / " ~ videoData[2] %}
+      {% set langTitle = "" %}
+      {% if videoData[1] is not empty %}
+        {% set langTitle = videoData[1] ~ " / " %}
+      {% endif %}
+      {% set langTitle = langTitle ~ videoData[2] %}
 
   		{% set videoTitle = "Staffel " ~ videoData[3] ~ middle ~ ": " ~ langTitle %}
       {# TODO: use php functions later #}

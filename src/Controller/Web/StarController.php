@@ -169,7 +169,10 @@ class StarController extends AbstractController
 
       // FIXME: decide which title according to language settings later
       // (e.g. en, de, both)
-      $videoTitle .= $videoData[1] . " / " . $videoData[2];
+      if (!empty($videoData[1])) {
+        $videoData[1] . " / ";
+      }
+      $videoTitle .= $videoData[2];
 
       return $videoTitle;
   	}
