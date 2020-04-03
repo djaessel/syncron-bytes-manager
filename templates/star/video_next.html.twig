@@ -40,12 +40,11 @@
           border-radius: 5px;
         }
 
-        *:fullscreen
-        *:-ms-fullscreen,
-        *:-webkit-full-screen,
-        *:-moz-full-screen {
-          overflow: auto !important;
-        }
+        #containerX:-webkit-full-screen	{ width: 100% }
+        #containerX:-moz-full-screen		{ width: 100% }
+        #containerX:-ms-full-screen		  { width: 100% }
+        #containerX:-o-full-screen		  { width: 100% }
+        #containerX:full-screen			    { width: 100% }
 
     </style>
 {% endblock %}
@@ -55,6 +54,27 @@
     {{ parent() }}
     <script type='text/javascript'>
         $(function () {
+
+          var pfx = ["webkit", "moz", "ms", "o", ""];
+
+          function RunPrefixMethod(obj, method) {
+
+          	var p = 0, m, t;
+          	while (p < pfx.length && !obj[m]) {
+          		m = method;
+          		if (pfx[p] == "") {
+          			m = m.substr(0,1).toLowerCase() + m.substr(1);
+          		}
+          		m = pfx[p] + m;
+          		t = typeof obj[m];
+          		if (t != "undefined") {
+          			pfx = [pfx[p]];
+          			return (t == "function" ? obj[m]() : obj[m]);
+          		}
+          		p++;
+          	}
+
+          }
 
           function toggleFullScreen(elem) {
             // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
@@ -81,7 +101,20 @@
             }
           }
 
-          toggleFullScreen($("#containerX"));
+          //toggleFullScreen($("#containerX"));
+
+          var e = document.getElementById("containerX");
+
+          e.onclick = function() {
+
+          	if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
+          		RunPrefixMethod(document, "CancelFullScreen");
+          	}
+          	else {
+          		RunPrefixMethod(e, "RequestFullScreen");
+          	}
+
+          }
 
         });
     </script>
