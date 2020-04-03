@@ -78,7 +78,7 @@
 
           $('#containerX').on("click", toggleFullScreen);
 
-          function toggleFullScreen() {
+          function toggleFullScreen(e) {
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
               RunPrefixMethod(document, "CancelFullScreen");
             }
