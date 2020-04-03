@@ -34,6 +34,7 @@
 
           $('.videoButton').on('click', function(e) {
             var url = $(this).data("href");
+            console.log(url);
             $('#containerX').load(url);
           });
 
