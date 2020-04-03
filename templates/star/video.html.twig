@@ -27,7 +27,7 @@
     <script type='text/javascript'>
         $(function () {
 
-          $('#myVideo').on('ended', function(e) {
+          $('#curVideo').on('ended', function(e) {
             window.location = $("#nextVid").data("url");
           });
 
@@ -81,7 +81,7 @@
     </div>
 
     <div class="center-block">
-    		<video class="dark" width="90%" controls preload="auto">
+    		<video id="curVideo" class="dark" width="90%" controls preload="auto">
     			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
   			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
     		  <p>Your browser does not support the video tag.</p>
