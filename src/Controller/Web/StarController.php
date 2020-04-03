@@ -72,6 +72,7 @@ class StarController extends AbstractController
       }
 
       $session->set("nextVideoId", $nextId);
+      $session->set("previousVideoId", $previousId);
 
       $videoPathId = str_replace("-", "/", $videoId);
       $videoPath = "/videos/"; // static for now
@@ -83,8 +84,6 @@ class StarController extends AbstractController
         'controller_name' => 'StarController',
         'videoData' => $videoData,
         'videoPathId' => $videoPathId,
-        'previousId' => $previousId,
-        'nextId' => $nextId,
 		    'videoTitle' => $videoTitle,
         'videoPath' => $videoPath,
 		    'audioPath' => $audioPath,

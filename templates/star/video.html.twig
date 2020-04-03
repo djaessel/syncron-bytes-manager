@@ -57,10 +57,10 @@
     <div class="row overall-block">
 
       <div class="col-md-2 col-sm-1">
-        {% if previousId is not empty %}
+        {% if app.session.get("previousVideoId") is not empty %}
           <a class="btn btn-primary pull-left"
-             href="{{ path('star-video', {'videoId': previousId}) }}">
-            {{ "< Previous" }}
+             href="{{ path('star-video', {'videoId': app.session.get("previousVideoId")}) }}">
+            {{ "Previous" }}
           </a>
         {% endif %}
       </div>
@@ -68,10 +68,10 @@
       <div class="col-md-8 col-sm-4"></div>
 
       <div class="col-md-2 col-sm-1">
-        {% if nextId is not empty %}
+        {% if app.session.get("nextVideoId") is not empty %}
           <a class="btn btn-primary pull-right"
-             href="{{ path('star-video', {'videoId': nextId}) }}">
-            {{ "Next >" }}
+             href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
+            {{ "Next" }}
           </a>
         {% endif %}
       </div>
