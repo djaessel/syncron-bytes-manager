@@ -160,7 +160,7 @@ class StarController extends AbstractController
   	private function retrieveVideoTitle($videoData)
   	{
       $middle = " - Episode " . $videoData[4];
-      if ($videoData[3] == 0) {
+      if ($videoData[6] == 1) {
       	$middle = " - Extra";
       }
 
