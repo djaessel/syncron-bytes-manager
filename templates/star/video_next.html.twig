@@ -59,7 +59,7 @@
 
           var pfx = ["webkit", "moz", "ms", "o", ""];
 
-          function runPrefixMethod(obj, method) {
+          function RunPrefixMethod(obj, method) {
           	var p = 0, m, t;
           	while (p < pfx.length && !obj[m]) {
           		m = method;
@@ -83,7 +83,7 @@
               RunPrefixMethod(document, "CancelFullScreen");
             }
             else {
-              runPrefixMethod(e, "RequestFullScreen");
+              RunPrefixMethod(e, "RequestFullScreen");
             }
           }
 
