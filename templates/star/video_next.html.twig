@@ -76,9 +76,7 @@
           	}
           }
 
-          $('#containerX').on("click", toggleFullScreen);
-
-          function toggleFullScreen(e) {
+          $('#containerX').on("click", function(e) {
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
               RunPrefixMethod(document, "CancelFullScreen");
             }
@@ -89,7 +87,7 @@
 
           // created by https://www.sitepoint.com/html5-full-screen-api/
 
-          toggleFullScreen(document);
+          $('#containerX').click();
 
         });
     </script>
