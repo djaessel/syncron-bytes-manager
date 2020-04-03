@@ -76,14 +76,18 @@
           	}
           }
 
-          $("#containerX").on('click', function() {
+          function toogleOnClick() {
           	if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
           		RunPrefixMethod(document, "CancelFullScreen");
           	}
           	else {
-          		RunPrefixMethod(this, "RequestFullScreen");
+          		RunPrefixMethod($("#containerX"), "RequestFullScreen");
           	}
-          });
+          }
+
+          $("#containerX").on('click', toogleOnClick);
+
+          toogleOnClick();
 
           // created by https://www.sitepoint.com/html5-full-screen-api/
 
