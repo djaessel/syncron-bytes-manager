@@ -35,16 +35,12 @@
           $('.videoButton').on('click', function(e) {
             e.preventDefault();
 
-            console.log("Servo");
-
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
               RunPrefixMethod(document, "CancelFullScreen");
-              console.log("Gardo");
             }
             else {
-              RunPrefixMethod(this, "RequestFullScreen");
-              console.log("Loghardt");
-              //RunPrefixMethod($("#containerX"), "RequestFullScreen");
+              //RunPrefixMethod(this, "RequestFullScreen");
+              RunPrefixMethod($("#containerX"), "RequestFullScreen");
             }
 
             var url = $(this).data("href");
