@@ -22,7 +22,9 @@ $(function () {
     }
   }
 
-  $(document).on('click', '.videoButton', function() {
+  $('.videoButton').on('click', function(e) {
+    e.preventDefault();
+    
     if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
       RunPrefixMethod(document, "CancelFullScreen");
     }

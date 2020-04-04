@@ -32,7 +32,7 @@
     <script>
         $(function () {
 
-          $('.videoButton').on('click', function(e) {
+          $('.videoButtonX').on('click', function(e) {
             var url = $(this).data("href");
             console.log(url);
 
@@ -99,7 +99,7 @@
                     <div class="list-group">
         {% endif %}
 
-        <a class="videoButton list-group-item" href="#"
+        <a class="videoButton videoButtonX list-group-item" href="#"
            data-href="{{ path('star-video', {'videoId': i}) }}">
           {{ videoTitle }}
         </a>
