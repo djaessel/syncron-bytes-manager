@@ -32,17 +32,6 @@
     <script>
         $(function () {
 
-          $('.videoButtonX').on('click', function(e) {
-            var url = $(this).data("href");
-            console.log(url);
-
-            $.post(url, function(response) {
-              console.log("RESPONSUM");
-              $('#containerX').html(response);
-              console.log("RESPONSUM-2");
-            });
-          });
-
           $('.videoButton').on('click', function(e) {
             e.preventDefault();
 
@@ -50,12 +39,23 @@
 
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
               RunPrefixMethod(document, "CancelFullScreen");
+              console.log("Gardo");
             }
             else {
-              RunPrefixMethod($("#containerX"), "RequestFullScreen");
+              RunPrefixMethod(this, "RequestFullScreen");
+              console.log("Loghardt");
+              //RunPrefixMethod($("#containerX"), "RequestFullScreen");
             }
 
-            console.log("Loghardt");
+            var url = $(this).data("href");
+
+            console.log(url);
+
+            $.post(url, function(response) {
+              console.log("RESPONSUM");
+              //$('#containerX').html(response);
+              //console.log("RESPONSUM-2");
+            });
           });
 
         });
