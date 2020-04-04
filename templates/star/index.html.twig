@@ -40,13 +40,11 @@
             }
             else {
               RunPrefixMethod(this, "RequestFullScreen");
-              //RunPrefixMethod($("#containerX"), "RequestFullScreen");
             }
 
             var url = $(this).data("href");
             $.post(url, function(response) {
-              //$('#containerX').html(response);
-              console.log(url);
+              $('#containerX').html(response);
             });
           });
 
