@@ -35,7 +35,12 @@
           $('.videoButton').on('click', function(e) {
             var url = $(this).data("href");
             console.log(url);
-            $('#containerX').loadHtml(url);
+
+            $.post(url, function(response) {
+              console.log("RESPONSUM");
+              $('#containerX').html(response);
+              console.log("RESPONSUM-2");
+            });
           });
 
         });
