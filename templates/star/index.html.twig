@@ -32,6 +32,20 @@
     <script>
         $(function () {
 
+          function setStart() {
+            var videoId = $('#containerX').data("videoid");
+            if (videoId != "") {
+              var url = $('#curVideoX').data("url");
+              loadVideo(url);
+            }
+          }
+
+          function loadVideo(url) {
+            $.post(url, function(response) {
+              $('#containerX').html(response);
+            });
+          }
+
           $("#containerX").on('click', '.videoButton', function(e) {
             e.preventDefault();
 
@@ -43,10 +57,12 @@
             }
 
             var url = $(this).data("href");
-            $.post(url, function(response) {
-              $('#containerX').html(response);
-            });
+            loadVideo(url);
           });
+
+
+          setStart();
+          
 
         });
     </script>
@@ -55,7 +71,11 @@
 
 {% block content %}
 
-  <div id="containerX">
+  <div id="containerX" data-videoid="{{ app.session.get("curVideoId", "") }}">
+
+    {% if app.session.get("curVideoId") not is empty %}
+      <div id="curVideoX" data-url="{{ path('star-video', {'videoId': app.session.get("curVideoId")}) }}">
+    {% endif %}
 
     <div class="list-group">
 

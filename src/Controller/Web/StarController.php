@@ -28,7 +28,7 @@ class StarController extends AbstractController
     /**
      * @Route("/star", name="star")
      */
-    public function index()
+    public function index(SessionInterface $session)
     {
       $videoFiles = $this->retrieveVideoNames();
 
@@ -71,6 +71,7 @@ class StarController extends AbstractController
         $nextId = $this->findNextId($videoFiles, $videoId);
       }
 
+      $session->set("curVideoId", $videoId);
       $session->set("nextVideoId", $nextId);
       $session->set("previousVideoId", $previousId);
 
