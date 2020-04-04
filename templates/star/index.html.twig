@@ -32,25 +32,21 @@
     <script>
         $(function () {
 
-          $('.videoButton').on('click', function(e) {
+          $("#containerX").on('click', '.videoButton', function(e) {
             e.preventDefault();
 
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
               RunPrefixMethod(document, "CancelFullScreen");
             }
             else {
-              //RunPrefixMethod(this, "RequestFullScreen");
-              RunPrefixMethod($("#containerX"), "RequestFullScreen");
+              RunPrefixMethod(this, "RequestFullScreen");
+              //RunPrefixMethod($("#containerX"), "RequestFullScreen");
             }
 
             var url = $(this).data("href");
-
-            console.log(url);
-
             $.post(url, function(response) {
-              console.log("RESPONSUM");
               //$('#containerX').html(response);
-              //console.log("RESPONSUM-2");
+              console.log(url);
             });
           });
 
