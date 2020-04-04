@@ -4,22 +4,9 @@
 {% block title %}Star{% endblock %}
 {% block sub_title %}Video{% endblock %}
 
+
 {% block stylesheets %}
     {{ parent() }}
-    <style>
-        .content-wrapper, .content, .dark {
-          background-color: #888;
-        }
-
-        .center-block {
-          text-align: center;
-        }
-
-        .overall-block {
-          margin-left: 4%;
-          margin-right: 4%;
-        }
-    </style>
 {% endblock %}
 
 
@@ -27,11 +14,9 @@
     {{ parent() }}
     <script type='text/javascript'>
         $(function () {
-
           $('#curVideo').on('ended', function(e) {
             window.location = $("#nextVid").data("url");
           });
-
         });
     </script>
 {% endblock %}
@@ -49,13 +34,7 @@
       6 = IsExtra
     #}
 
-    <div class="center-block">
-      <h3>
-        <font id="titleFont">{{ videoTitle }}</font>
-      </h3>
-    </div>
-
-    <div class="row overall-block">
+    {#<div class="row overall-block">
 
       <div class="col-md-2 col-sm-1">
         {% if app.session.get("previousVideoId") is not empty %}
@@ -79,14 +58,20 @@
 
       <div class="col-md-1"></div>
 
-    </div>
+    </div>#}
 
-    <div class="center-block">
-    		<video id="curVideo" class="dark" width="90%" controls preload="auto">
+    <div class="{#center-block#}">
+    		<video id="curVideo" class="dark" width="100%" height="100%" controls preload="auto">
     			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
   			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
     		  <p>Your browser does not support the video tag.</p>
     		</video>
+
+        <div class="title">
+          <h3>
+            <font id="titleFont">{{ videoTitle }}</font>
+          </h3>
+        </div>
 
         <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
     </div>

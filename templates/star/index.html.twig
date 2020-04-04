@@ -46,7 +46,7 @@
             });
           }
 
-          $("#containerX").on('click', '.videoButton', function(e) {
+          $(".videoButton").on('click', function(e) {
             e.preventDefault();
 
             if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
@@ -60,9 +60,7 @@
             loadVideo(url);
           });
 
-
           setStart();
-
 
         });
     </script>

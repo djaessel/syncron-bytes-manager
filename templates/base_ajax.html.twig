@@ -1,8 +1,40 @@
-{% block stylesheets %}
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}SyncronBytes Manager{% endblock %} {% block sub_title %}Default{% endblock %}</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-{% block content %}
-{% endblock %}
+        {% block stylesheets %}
 
-{% block javascripts %}
-{% endblock %}
+          <style>
+
+            .content-wrapper, .content, .dark {
+              background-color: black;
+            }
+
+            .center-block {
+              text-align: center;
+            }
+
+          </style>
+
+        {% endblock %}
+
+    </head>
+    <body class="dark">
+
+      <div class="content">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <div class"scripts-container">
+        {% block javascripts %}
+        {% endblock %}
+      </div>
+
+    </body>
+</html>
