@@ -62,7 +62,7 @@
 
 
           setStart();
-          
+
 
         });
     </script>
@@ -73,7 +73,7 @@
 
   <div id="containerX" data-videoid="{{ app.session.get("curVideoId", "") }}">
 
-    {% if app.session.get("curVideoId") not is empty %}
+    {% if app.session.get("curVideoId") is not empty %}
       <div id="curVideoX" data-url="{{ path('star-video', {'videoId': app.session.get("curVideoId")}) }}">
     {% endif %}
 
