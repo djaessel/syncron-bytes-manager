@@ -43,6 +43,21 @@
             });
           });
 
+          $('.videoButton').on('click', function(e) {
+            e.preventDefault();
+
+            console.log("Servo");
+
+            if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
+              RunPrefixMethod(document, "CancelFullScreen");
+            }
+            else {
+              RunPrefixMethod($("#containerX"), "RequestFullScreen");
+            }
+
+            console.log("Loghardt");
+          });
+
         });
     </script>
 {% endblock %}
@@ -99,7 +114,7 @@
                     <div class="list-group">
         {% endif %}
 
-        <a class="videoButton videoButtonX list-group-item" href="#"
+        <a class="videoButton list-group-item" href="#"
            data-href="{{ path('star-video', {'videoId': i}) }}">
           {{ videoTitle }}
         </a>
