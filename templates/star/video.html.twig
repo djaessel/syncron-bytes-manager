@@ -12,10 +12,17 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/fullscreen.js') }}"></script>
     <script type='text/javascript'>
         // TODO: load jquery and stuff
         // TODO: get video_next.html style like button on image for video overlay like Netflix
         $(function () {
+          function loadVideo(url) {
+            $.post(url, function(response) {
+              $('#containerX').html(response);
+            });
+          }
+
           $('#curVideo').on('ended', function(e) {
             var url = $("#nextVid").data("url");
             //window.location = url;
