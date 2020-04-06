@@ -13,9 +13,13 @@
 {% block javascripts %}
     {{ parent() }}
     <script type='text/javascript'>
+        // TODO: load jquery and stuff
+        // TODO: get video_next.html style like button on image for video overlay like Netflix
         $(function () {
           $('#curVideo').on('ended', function(e) {
-            window.location = $("#nextVid").data("url");
+            var url = $("#nextVid").data("url");
+            //window.location = url;
+            loadVideo(url);
           });
         });
     </script>

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_ajax.html.twig' %}
 
 {% block title %}Star{% endblock %}
 {% block sub_title %}Video{% endblock %}
@@ -53,6 +53,31 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/fullscreen.js') }}"></script>
+    <script>
+        $(function () {
+
+          function loadVideo(url) {
+            $.post(url, function(response) {
+              $('#containerX').html(response);
+            });
+          }
+
+          $(".videoButtonNext").on('click', function(e) {
+            e.preventDefault();
+
+            if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
+              RunPrefixMethod(document, "CancelFullScreen");
+            }
+            else {
+              RunPrefixMethod(this, "RequestFullScreen");
+            }
+
+            var url = $(this).data("href");
+            loadVideo(url);
+          });
+
+        });
+    </script>
 {% endblock %}
 
 
@@ -60,7 +85,7 @@
 
     <div id="containerX" class="container">
       <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
-      <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
+      <a class="btn btn-primary videoButtonNext" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
         {{ "Next Episode" }}
       </a>
     </div>
