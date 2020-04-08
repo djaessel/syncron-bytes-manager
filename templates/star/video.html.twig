@@ -47,12 +47,9 @@
           else {
             RunPrefixMethod(this, "RequestFullScreen");
           }
-
-          var url = $(this).data("href");
-          loadVideo(url);
         });
 
-      //window.onload = maxWindow;
+      window.onload = maxWindow;
 
       function maxWindow() {
           window.moveTo(0, 0);

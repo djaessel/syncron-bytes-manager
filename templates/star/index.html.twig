@@ -55,12 +55,12 @@
           $(".videoButton").on('click', function(e) {
             e.preventDefault();
 
-            if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
-              RunPrefixMethod(document, "CancelFullScreen");
-            }
-            else {
-              RunPrefixMethod(this, "RequestFullScreen");
-            }
+            // if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
+            //   RunPrefixMethod(document, "CancelFullScreen");
+            // }
+            // else {
+            //   RunPrefixMethod(this, "RequestFullScreen");
+            // }
 
             var url = $(this).data("href");
             loadVideo(url);
