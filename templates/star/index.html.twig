@@ -47,9 +47,10 @@
           }
 
           function loadVideo(url) {
-            $.post(url, function(response) {
-              $('#containerX').html(response);
-            });
+            window.location = url;
+            //$.post(url, function(response) {
+            //  $('#containerX').html(response);
+            //});
           }
 
           $(".videoButton").on('click', function(e) {

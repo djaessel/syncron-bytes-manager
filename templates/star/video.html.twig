@@ -1,9 +1,7 @@
-{% extends 'base_ajax.html.twig' %}
-
+{% extends 'base.html.twig' %}
 
 {% block title %}Star{% endblock %}
 {% block sub_title %}Video{% endblock %}
-
 
 {% block stylesheets %}
     {{ parent() }}
@@ -34,7 +32,6 @@
 
           $('#curVideo').on('ended', function(e) {
             var url = $("#nextVid").data("url");
-            //window.location = url;
             loadVideo(url);
           });
 
@@ -72,7 +69,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block body %}
 
     {# videoData : {
       0 = ID / Path,
