@@ -40,6 +40,14 @@
             window.location = url;
           });
 
+          $('#curVideo').on('play', function(e) {
+            $("#videoTitle").hide();
+          });
+
+          $('#curVideo').on('pause', function(e) {
+            $("#videoTitle").show();
+          });
+
       });
 </script>
 {% endblock %}
@@ -64,7 +72,7 @@
     		  <p>Your browser does not support the video tag.</p>
     		</video>
 
-        <h3 class="video-title">
+        <h3 id="videoTitle" class="video-title">
           <font id="titleFont">{{ videoTitle }}</font>
         </h3>
 
