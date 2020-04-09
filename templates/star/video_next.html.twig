@@ -70,13 +70,13 @@
 
     <div class="container dark">
       <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
-      {% if app.session.get("nextVideoId") is not empty %}
-        <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
-          {{ "Next Episode" }}
-        </a>
-      {% else %}
+      {% if app.session.get("nextVideoId") is null %}
         <a class="btn btn-primary" href="{{ path('star') }}">
           {{ "Back to overview" }}
+        </a>
+      {% else %}
+        <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
+          {{ "Next Episode" }}
         </a>
       {% endif %}
     </div>
