@@ -7,10 +7,17 @@
     {{ parent() }}
     <style>
 
-      html body .dark {
-        background-color: black;
-        max-height: 596px;
+      html body {
         min-height: unset;
+        max-height: unset;
+      }
+
+      body .dark {
+        background-color: black;
+      }
+
+      .dark {
+        max-height: 596px;
       }
 
       .title-button {
