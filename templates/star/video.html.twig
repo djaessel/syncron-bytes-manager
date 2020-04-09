@@ -11,7 +11,7 @@
         background-color: black;
       }
 
-      .video-title {
+      #videoTitleBar {
         position: absolute;
         top: 0;
         color: white;
@@ -41,11 +41,11 @@
           });
 
           $('#curVideo').on('play', function(e) {
-            $("#videoTitle").hide();
+            $("#videoTitleBar").hide();
           });
 
           $('#curVideo').on('pause', function(e) {
-            $("#videoTitle").show();
+            $("#videoTitleBar").show();
           });
 
       });
@@ -72,9 +72,15 @@
     		  <p>Your browser does not support the video tag.</p>
     		</video>
 
-        <h3 id="videoTitle" class="video-title">
-          <font id="titleFont">{{ videoTitle }}</font>
-        </h3>
+        <div id="videoTitleBar" class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <h3>
+              <font id="titleFont">{{ videoTitle }}</font>
+            </h3>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
 
         <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
     </div>
