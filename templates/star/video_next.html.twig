@@ -7,6 +7,19 @@
     {{ parent() }}
     <style>
 
+        html body {
+          min-height: unset;
+          max-height: unset;
+        }
+
+        html body .dark {
+          background-color: black;
+        }
+
+        .dark {
+          max-height: 596px !important;
+        }
+
         .content-wrapper, .content, .dark {
           background-color: #888;
         }
@@ -43,31 +56,15 @@
     </style>
 {% endblock %}
 
-
+{#
 {% block javascripts %}
     {{ parent() }}
     <script>
         $(function () {
-          window.onload = maxWindow;
-
-          console.log(screen);
-
-          function maxWindow() {
-              window.moveTo(0, 0);
-
-              if (document.all) {
-                  top.window.resizeTo(screen.availWidth, screen.availHeight);
-              } else if (document.layers || document.getElementById) {
-                  if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
-                      top.window.outerHeight = screen.availHeight;
-                      top.window.outerWidth = screen.availWidth;
-                  }
-              }
-          }
         });
     </script>
 {% endblock %}
-
+#}
 
 {% block body %}
 
