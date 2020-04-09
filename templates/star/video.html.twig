@@ -11,6 +11,10 @@
         background-color: black;
       }
 
+      .title-button {
+
+      }
+
       #videoTitleBar {
         position: absolute;
         top: 0;
@@ -73,13 +77,22 @@
     		</video>
 
         <div id="videoTitleBar" class="row">
-          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <a id="backButton" class="title-button"
+               href="{{ path('star') }}">
+              <i class="fa fa-chevron-left"></i>
+            </a>
+          </div>
           <div class="col-md-8">
             <h3>
               <font id="titleFont">{{ videoTitle }}</font>
             </h3>
           </div>
-          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <a class="title-button" href="#">
+              <i class="fa fa-close"></i>
+            </a>
+          </div>
         </div>
 
         <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
