@@ -1,4 +1,4 @@
-{% extends 'base_ajax.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Star{% endblock %}
 {% block sub_title %}Video{% endblock %}
@@ -69,9 +69,9 @@
 {% endblock %}
 
 
-{% block content %}
+{% block body %}
 
-    <div id="containerX" class="container">
+    <div class="container">
       <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
       <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
         {{ "Next Episode" }}
