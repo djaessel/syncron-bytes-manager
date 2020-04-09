@@ -6,6 +6,20 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+
+      .video-title {
+        position: absolute;
+        top: 0;
+        color: white;
+        font-size: 24px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+      }
+
     </style>
 {% endblock %}
 
@@ -22,25 +36,21 @@
             window.location = url;
           });
 
-      window.onload = maxWindow;
+        //window.onload = maxWindow;
+        //
+        //function maxWindow() {
+        //    window.moveTo(0, 0);
+        //    if (document.all) {
+        //        top.window.resizeTo(screen.availWidth, screen.availHeight);
+        //    } else if (document.layers || document.getElementById) {
+        //        if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+        //            top.window.outerHeight = screen.availHeight;
+        //            top.window.outerWidth = screen.availWidth;
+        //        }
+        //    }
+        //}
 
-      function maxWindow() {
-          window.moveTo(0, 0);
-
-          if (document.all) {
-              top.window.resizeTo(screen.availWidth, screen.availHeight);
-          }
-
-          else if (document.layers || document.getElementById) {
-              if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
-                  top.window.outerHeight = screen.availHeight;
-                  top.window.outerWidth = screen.availWidth;
-              }
-          }
-      }
-
-    });
-
+      });
 </script>
 {% endblock %}
 
@@ -57,32 +67,6 @@
       6 = IsExtra
     #}
 
-    {#<div class="row overall-block">
-
-      <div class="col-md-2 col-sm-1">
-        {% if app.session.get("previousVideoId") is not empty %}
-          <a class="btn btn-primary pull-left"
-             href="{{ path('star-video', {'videoId': app.session.get("previousVideoId")}) }}">
-            {{ "Previous" }}
-          </a>
-        {% endif %}
-      </div>
-
-      <div class="col-md-8 col-sm-4"></div>
-
-      <div class="col-md-2 col-sm-1">
-        {% if app.session.get("nextVideoId") is not empty %}
-          <a class="btn btn-primary pull-right"
-             href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
-            {{ "Next" }}
-          </a>
-        {% endif %}
-      </div>
-
-      <div class="col-md-1"></div>
-
-    </div>#}
-
     <div class="{#center-block#}">
     		<video id="curVideo" class="dark" width="100%" height="100%" controls preload="auto">
     			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
@@ -90,11 +74,9 @@
     		  <p>Your browser does not support the video tag.</p>
     		</video>
 
-        <div class="title">
-          <h3 class="videoButton">
-            <font id="titleFont">{{ videoTitle }}</font>
-          </h3>
-        </div>
+        <h3 class="video-title">
+          <font id="titleFont">{{ videoTitle }}</font>
+        </h3>
 
         <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
     </div>
