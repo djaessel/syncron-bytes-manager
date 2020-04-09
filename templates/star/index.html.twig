@@ -22,61 +22,22 @@
         .panel-body {
           background-color: #454;
         }
-
-        #containerX:-webkit-full-screen	{ width: 100% }
-        #containerX:-moz-full-screen		{ width: 100% }
-        #containerX:-ms-full-screen		  { width: 100% }
-        #containerX:-o-full-screen		  { width: 100% }
-        #containerX:full-screen			    { width: 100% }
     </style>
 {% endblock %}
 
-
+{#
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/fullscreen.js') }}"></script>
     <script>
         $(function () {
-
-          function setStart() {
-            var videoId = $('#containerX').data("videoid");
-            if (videoId != "") {
-              var url = $('#curVideoX').data("url");
-              loadVideo(url);
-            }
-          }
-
-          function loadVideo(url) {
-            window.location = url;
-            //$.post(url, function(response) {
-            //  $('#containerX').html(response);
-            //});
-          }
-
-          $(".videoButton").on('click', function(e) {
-            e.preventDefault();
-
-            // if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
-            //   RunPrefixMethod(document, "CancelFullScreen");
-            // }
-            // else {
-            //   RunPrefixMethod(this, "RequestFullScreen");
-            // }
-
-            var url = $(this).data("href");
-            loadVideo(url);
-          });
-
-          setStart();
-
         });
     </script>
 {% endblock %}
-
+#}
 
 {% block content %}
 
-  <div id="containerX" data-videoid="{{ app.session.get("curVideoId", "") }}">
+  <div{# id="containerX" data-videoid="{{ app.session.get("curVideoId", "") }}"#}>
 
     {% if app.session.get("curVideoId") is not empty %}
       <div id="curVideoX" data-url="{{ path('star-video', {'videoId': app.session.get("curVideoId")}) }}">
@@ -129,8 +90,7 @@
                     <div class="list-group">
         {% endif %}
 
-        <a class="videoButton list-group-item" href="#"
-           data-href="{{ path('star-video', {'videoId': i}) }}">
+        <a class="list-group-item" href="{{ path('star-video', {'videoId': i}) }}">
           {{ videoTitle }}
         </a>
 

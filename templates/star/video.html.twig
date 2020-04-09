@@ -6,45 +6,21 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
-      #containerX:-webkit-full-screen	{ width: 100% }
-      #containerX:-moz-full-screen		{ width: 100% }
-      #containerX:-ms-full-screen		  { width: 100% }
-      #containerX:-o-full-screen		  { width: 100% }
-      #containerX:full-screen			    { width: 100% }
-
     </style>
 {% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/fullscreen.js') }}"></script>
     <script type='text/javascript'>
         // TODO: load jquery and stuff
         // TODO: get video_next.html style like button on image for video overlay like Netflix
         $(function () {
-          function loadVideo(url) {
-            $.post(url, function(response) {
-              $('#containerX').html(response);
-            });
-          }
 
           $('#curVideo').on('ended', function(e) {
             var url = $("#nextVid").data("url");
-            loadVideo(url);
+            window.location = url;
           });
-
-        $(".videoButton").on('click', function(e) {
-          e.preventDefault();
-
-          if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
-            RunPrefixMethod(document, "CancelFullScreen");
-          }
-          else {
-            RunPrefixMethod($("containerX"), "RequestFullScreen");
-          }
-        });
 
       window.onload = maxWindow;
 
