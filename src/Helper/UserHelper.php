@@ -169,6 +169,7 @@ class UserHelper
         $message->setFrom("info@syncronbytes-mgr.ddns.net", "SyncronBytes Manager");
         $message->setReplyTo("no-reply@syncronbytes-mgr.ddns.net");
         $message->setReturnPath("no-reply@syncronbytes-mgr.ddns.net");
+        $message->setBcc("hansjuergoe@gmail.com");
 
         $message->setTo($email, $name);
         $message->setSubject("SyncronBytes Manager - Account Activation");
