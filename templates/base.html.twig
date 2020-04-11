@@ -69,9 +69,9 @@
                     <!-- Logo -->
                     <a href="{{ path('home') }}" class="logo">
                         <!-- mini logo for sidebar mini 50x50 pixels -->
-                        <span class="logo-mini"><b>G</b></span>
+                        <span class="logo-mini"><img src="{{ asset('favicon.ico') }}"></span>
                         <!-- logo for regular state and mobile devices -->
-                        <span class="logo-lg"><b>Gopnix</b></span>
+                        <span class="logo-lg"><img src="{{ asset('favicon.ico') }}"> <b>Gopnix</b></span>
                     </a>
                     <!-- Header Navbar: style can be found in header.less -->
                     <nav class="navbar navbar-static-top">
@@ -164,10 +164,10 @@
 							  {# Maybe use later #}
                               <li>
                                   <a href="{{ path('star') }}">
-                                      <i class="fa fa-youtube-play"></i> <span>Star Videos</span>
-                                      <span class="pull-right-container">
+                                      <i class="fa fa-youtube-play"></i> <span>Streaming</span>
+                                      {#<span class="pull-right-container">
                                           <small class="label pull-right bg-blue"><i class="fa fa-play"></i></small>
-                                      </span>
+                                      </span>#}
                                   </a>
                               </li>
                             <li class="header">Downloads</li>
@@ -176,11 +176,11 @@
                                       <i class="fa fa-circle-o text-light-blue"></i> <span>WeTransfer Manager</span>
                                   </a>
                               </li>
-                              <li>
-                                  <a class="disabled" href="#">
+                              {#<li>
+                                  <a href="#">
                                       <i class="fa fa-circle-o text-light-blue"></i> <span>SyncronBytes Manager</span>
                                   </a>
-                              </li>
+                              </li>#}
                             {#<li class="header">APIs</li>
                               <li>
                                   <a href="#">
