@@ -13,9 +13,10 @@ class AccountManagerController extends AbstractController
     public function index()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        
-        return $this->render('account_manager/index.html.twig', [
-            'controller_name' => 'AccountManagerController',
-        ]);
+
+        //return $this->render('account_manager/index.html.twig', [
+        //    'controller_name' => 'AccountManagerController',
+        //]);
+        return $this->redirectToRoute("web_base");
     }
 }
