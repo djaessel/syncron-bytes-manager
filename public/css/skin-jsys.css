@@ -6,7 +6,7 @@
     background-color: #323232;
 }
 .skin-jsys .main-header .navbar .nav > li > a {
-    color: #98ba44;
+    color: 44ab89;
 }
 .skin-jsys .main-header .navbar .nav > li > a:hover,
 .skin-jsys .main-header .navbar .nav > li > a:active,
@@ -26,10 +26,10 @@
     background: rgba(0, 0, 0, 0.1);
 }
 .skin-jsys .main-header .navbar .sidebar-toggle {
-    color: #98ba44;
+    color: 44ab89;
 }
 .skin-jsys .main-header .navbar .sidebar-toggle:hover {
-    background-color: #223322;
+    background-color: #122;
 }
 @media (max-width: 767px) {
     .skin-jsys .main-header .navbar .dropdown-menu li.divider {
@@ -43,8 +43,8 @@
     }
 }
 .skin-jsys .main-header .logo {
-    background-color: #162416;
-    color: #98ba44;
+    background-color: #011;
+    color: #44ab89;
     border-bottom: 0 solid transparent;
 }
 .skin-jsys .main-header .logo:hover {
@@ -60,7 +60,7 @@
 .skin-jsys .wrapper,
 .skin-jsys .main-sidebar,
 .skin-jsys .left-side {
-    background-color: #223322;
+    background-color: #122;
 }
 .skin-jsys .user-panel > .info,
 .skin-jsys .user-panel > .info > a {
@@ -77,14 +77,14 @@
 .skin-jsys .sidebar-menu > li.active > a,
 .skin-jsys .sidebar-menu > li.menu-open > a {
     color: #ffffff;
-    background: #223322;
+    background: #122;
 }
 .skin-jsys .sidebar-menu > li.active > a {
     border-left-color: #242424;
 }
 .skin-jsys .sidebar-menu > li > .treeview-menu {
     margin: 0 1px;
-    background: #223322;
+    background: #122;
 }
 .skin-jsys .sidebar a {
     color: #b8c7ce;
@@ -135,14 +135,14 @@
 }
 .control-sidebar-jsys,
 .control-sidebar-jsys + .control-sidebar-bg {
-    background: #223322;
+    background: #122;
 }
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs {
     border-bottom: #121612;
 }
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a {
     background: #121612;
-    color: #98ba44;
+    color: 44ab89;
 }
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a,
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a:hover,
@@ -162,7 +162,7 @@
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li.active > a:hover,
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li.active > a:focus,
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li.active > a:active {
-    background: #223322;
+    background: #122;
     color: #fff;
 }
 .control-sidebar-jsys .control-sidebar-heading,
