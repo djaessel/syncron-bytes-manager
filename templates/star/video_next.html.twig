@@ -7,21 +7,17 @@
     {{ parent() }}
     <style>
 
-        html body {
+        html, body {
           min-height: unset;
           max-height: unset;
         }
 
-        html body .dark {
+        html, body, .dark, .content-wrapper, .content {
           background-color: black;
         }
 
         .dark {
           max-height: 596px !important;
-        }
-
-        .content-wrapper, .content, .dark {
-          background-color: #888;
         }
 
         /* Container needed to position the button. Adjust the width as needed */

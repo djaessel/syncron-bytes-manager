@@ -198,7 +198,8 @@
 }
 
 .content-wrapper, .content {
-    background-color: #d4e0d4;
+    /*background-color: #d4e0d4;*/
+    background-color: #dee;
 }
 
 .main-footer {
