@@ -11,10 +11,8 @@
 		$(function() {
 			$("#register-user").on("click", function(e) {
 				//e.preventDefault();
-				
-				var href = $(this).data("href");
-				console.log(href)
-				window.location = href;
+				var url = $(this).data("href");
+				window.location = url;
 			});
 		});
 	</script>
@@ -32,7 +30,7 @@
                 {% endif %}
 
                 <h1 class="h3 mb-3 font-weight-normal login-headline" style="padding-bottom: 16px;">
-                    <b>{{ "SyncronBytes" }}</b> Manager
+                    <b>{{ "GOPNIX" }}</b> <img width="32px" height="32px" src="{{ asset('favicon.ico') }}">
                 </h1>
 
                 <div class="form-group text-center">
@@ -68,9 +66,9 @@
                 <button class="btn btn-primary" type="submit" style="width: 100%;">
                     {{ "log_in" | trans }}
                 </button>
-				
+
             </form>
-			
+
 			<button id="register-user" class="btn btn-secondary" data-href={{ path("user_register") }}
                     type="submit" style="width: 100%;">
                 {{ "register_now" | trans }}
