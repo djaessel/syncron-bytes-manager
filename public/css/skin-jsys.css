@@ -6,7 +6,7 @@
     background-color: #323232;
 }
 .skin-jsys .main-header .navbar .nav > li > a {
-    color: 44ab89;
+    color: #44ab89;
 }
 .skin-jsys .main-header .navbar .nav > li > a:hover,
 .skin-jsys .main-header .navbar .nav > li > a:active,
@@ -26,7 +26,7 @@
     background: rgba(0, 0, 0, 0.1);
 }
 .skin-jsys .main-header .navbar .sidebar-toggle {
-    color: 44ab89;
+    color: #44ab89;
 }
 .skin-jsys .main-header .navbar .sidebar-toggle:hover {
     background-color: #122;
@@ -142,7 +142,7 @@
 }
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a {
     background: #121612;
-    color: 44ab89;
+    color: #44ab89;
 }
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a,
 .control-sidebar-jsys .nav-tabs.control-sidebar-tabs > li > a:hover,
