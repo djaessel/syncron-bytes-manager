@@ -63,7 +63,7 @@ class CaiController extends AbstractController
 
             // Move the file to the directory where brochures are stored
             try {
-                $brochureFile->move(
+                $imageFile->move(
                     $tempMergeDir,
                     $newFilename
                 );
