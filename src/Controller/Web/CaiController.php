@@ -2,16 +2,17 @@
 
 namespace App\Controller\Web;
 
+use App\Form\CaiType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\CaiType;
+use Symfony\Component\HttpFoundation\Request;
 
 class CaiController extends AbstractController
 {
     /**
      * @Route("/cai-upload", name="cai-upload")
      */
-    public function index()
+    public function index(Request $request)
     {
         $form = $this->createForm(CaiType::class, null);
         $form->handleRequest($request);
