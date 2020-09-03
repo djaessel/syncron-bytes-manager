@@ -46,7 +46,11 @@ class CaiType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid and supported image format',
-                    ])
+                    ]),
+                    new Type([
+                      'type'="File",
+                      'message'="The value {{ value }} is not a valid {{ type }}."
+                    ]),
                 ],
             ])
         ;
