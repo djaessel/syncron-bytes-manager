@@ -35,11 +35,19 @@ class CaiType extends AbstractType
                 // for multiple images (necessary for merging)
                 'multiple' => true,
 
+                'maxSize' => '16M',
+                'mimeTypes' => [
+                    'image/bmp',
+                    'image/jpeg',
+                    'image/png',
+                ],
+                'mimeTypesMessage' => 'Please upload a valid and supported image format',
+
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '8192k',
+                        'maxSize' => '16M',
                         'mimeTypes' => [
                             'image/bmp',
                             'image/jpeg',
