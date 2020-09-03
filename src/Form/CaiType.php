@@ -22,7 +22,8 @@ class CaiType extends AbstractType
 
                 // only for visiblity, not for validation
                 'attr' => [
-                    'accept' => 'image/*',
+                    'accept' => '.jpg,.jpeg,.png,.bmp',
+                    // 'accept' => 'image/*',
                     'multiple' => 'multiple'
                 ],
 
