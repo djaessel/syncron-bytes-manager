@@ -23,7 +23,7 @@ class CaiController extends AbstractController
 
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
-            if (is_array($imageFile)) {
+            if (is_array($imageFiles)) {
               $thia->uploadImagesAndMerge($imageFiles);
             }
 
@@ -55,11 +55,11 @@ class CaiController extends AbstractController
         $tempMergeDir = $caiDirectory."/cai_".uniqid();
         mkdir($tempConvDir, 0764);
 
-        foreach ($imageFiles as $key => $image) {
-            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        foreach ($imageFiles as $key => $imageFile) {
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
             // Move the file to the directory where brochures are stored
             try {
