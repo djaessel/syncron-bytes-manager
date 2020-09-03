@@ -53,7 +53,7 @@ class CaiController extends AbstractController
         // create unique folder for image merging
         $caiDirectory = $this->getParameter('cai_directory');
         $tempMergeDir = $caiDirectory."/cai_".uniqid();
-        mkdir($tempConvDir, 0764);
+        mkdir($tempMergeDir, 0764);
 
         foreach ($imageFiles as $key => $imageFile) {
             $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
