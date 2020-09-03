@@ -4,6 +4,7 @@ namespace App\Controller\Web;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\CaiType;
 
 class CaiController extends AbstractController
 {
