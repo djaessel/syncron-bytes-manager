@@ -19,6 +19,9 @@ class CaiType extends AbstractType
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
+                // no data type
+                'data_class'=> null,
+
                 // deprecated?
                 // 'attr' => [
                 //     'accept' => 'image/*',
