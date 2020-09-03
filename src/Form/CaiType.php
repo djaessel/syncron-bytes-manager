@@ -20,14 +20,11 @@ class CaiType extends AbstractType
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
-                // no data type
-                //'data_class'=> null,
-
-                // deprecated?
-                // 'attr' => [
-                //     'accept' => 'image/*',
-                //     'multiple' => 'multiple'
-                // ],
+                // only for visiblity, not for validation
+                'attr' => [
+                    'accept' => 'image/*',
+                    'multiple' => 'multiple'
+                ],
 
                 // make it optional so you don't have to re-upload the PDF file
                 // everytime you edit the Product details
@@ -38,6 +35,7 @@ class CaiType extends AbstractType
 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
+                // FIXME: validate in controller ?!
                 // 'constraints' => [
                 //     new File([
                 //         'maxSize' => '16M',

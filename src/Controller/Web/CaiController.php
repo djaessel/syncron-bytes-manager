@@ -56,6 +56,8 @@ class CaiController extends AbstractController
         mkdir($tempMergeDir, 0764);
 
         foreach ($imageFiles as $key => $imageFile) {
+            // FIXME: TODO: validate image files
+
             $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
@@ -69,7 +71,7 @@ class CaiController extends AbstractController
                 );
             } catch (FileException $e) {
                 // ... handle exception if something happens during file upload
-                var_dump($e->getMessage());
+                var_dump($e->getMessage()); // FIXME: write into log?!
             }
         }
     }
