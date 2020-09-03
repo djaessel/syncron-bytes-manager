@@ -24,7 +24,7 @@ class CaiController extends AbstractController
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if (is_array($imageFiles)) {
-              $thia->uploadImagesAndMerge($imageFiles);
+              $this->uploadImagesAndMerge($imageFiles);
             }
 
             return $this->redirect($this->generateUrl('cai-merge'));
