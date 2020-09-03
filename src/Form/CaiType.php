@@ -38,21 +38,21 @@ class CaiType extends AbstractType
 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File([
-                        'maxSize' => '16M',
-                        'mimeTypes' => [
-                            'image/bmp',
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid and supported image format',
-                    ]),
-                    new Type([
-                      'type'=>"File",
-                      'message'=>"The value {{ value }} is not a valid {{ type }}."
-                    ]),
-                ],
+                // 'constraints' => [
+                //     new File([
+                //         'maxSize' => '16M',
+                //         'mimeTypes' => [
+                //             'image/bmp',
+                //             'image/jpeg',
+                //             'image/png',
+                //         ],
+                //         'mimeTypesMessage' => 'Please upload a valid and supported image format',
+                //     ]),
+                //     new Type([
+                //       'type'=>"File",
+                //       'message'=>"The value {{ value }} is not a valid {{ type }}."
+                //     ]),
+                // ],
             ])
         ;
     }
