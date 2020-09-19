@@ -217,6 +217,6 @@ class StarController extends AbstractController
           fclose($handle);
       }
 
-      return $videoFiles;
+      return $seasonData;
     }
 }
