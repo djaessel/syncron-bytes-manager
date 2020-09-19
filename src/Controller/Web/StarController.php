@@ -14,6 +14,8 @@ class StarController extends AbstractController
      */
     private $kernel;
 
+    const MAX_CHAR_ON_LINE = 1000;
+
 
     /**
      * Constructor
@@ -31,17 +33,7 @@ class StarController extends AbstractController
     public function index(SessionInterface $session)
     {
       $videoFiles = $this->retrieveVideoNames();
-
-      // TODO: use database later
-      // id, season_number, series_number, title
-      // FIXME: episode count and years should be separated later
-      $seasons = array(
-        array(1, 1, 1, "Die Reise geht weiter (1997–1998, #1–22)"),
-        array(2, 2, 1, "Entdecke neue Welten (1998–1999, #23–44)"),
-        array(3, 3, 1, "Galaktische Abenteuer (1999–2000, #45–66)"),
-        array(4, 4, 1, "Ferne Welten, neue Gefahren (2000-2001, #67-88)"),
-      );
-      // TODO: use database later
+      $seasons = $this->retrieveSeasonData();
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
@@ -185,15 +177,43 @@ class StarController extends AbstractController
     {
       $projectRoot = $this->kernel->getProjectDir();
       $videoFilesNamePath = $projectRoot . "/_tools/videoFileNames.csv";
+
       $videoFiles = array();
 
       if (($handle = fopen($videoFilesNamePath, "r")) !== FALSE) {
-		  $titles = fgetcsv($handle, 1000, ";"); // read title row
-          while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+		      $titles = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";"); // read title row
+
+          while (($data = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";")) !== FALSE) {
             if (count($data) > 1) {
               $videoFiles[$data[0]] = $data;
             }
           }
+
+          fclose($handle);
+      }
+
+      return $videoFiles;
+    }
+
+    /**
+     * List with all season data for all series
+     */
+    private function retrieveSeasonData()
+    {
+      $projectRoot = $this->kernel->getProjectDir();
+      $seasonDataNamePath = $projectRoot . "/_tools/series_and_seasons.csv";
+
+      $seasonData = array();
+
+      if (($handle = fopen($seasonDataNamePath, "r")) !== FALSE) {
+		      $titles = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";"); // read title row
+
+          while (($data = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";")) !== FALSE) {
+            if (count($data) > 1) {
+              $seasonData[$data[0]] = $data;
+            }
+          }
+
           fclose($handle);
       }
 

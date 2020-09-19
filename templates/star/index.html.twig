@@ -81,7 +81,9 @@
                    <a class="btn panel-title list-group-item"
                        data-toggle="collapse"
                        data-target="#collapse{{ seasonCur }}">
-                       {{ seasonCur }}. Staffel - {{ seasons[seasonCur - 1][3] }}
+                       {# FIXME: Staffel for english also above #}
+                       {{ seasonCur }}. Staffel - {{ seasons[seasonCur][3] }} <small>#{{ seasons[seasonCur][6] }} - {{ seasons[seasonCur][7] }}</small>
+                       <small>({{ seasons[seasonCur][4] }} - {{ seasons[seasonCur][5] }})</small>
                    </a>
               </div>
               <div id="collapse{{ videoData[3] }}"
