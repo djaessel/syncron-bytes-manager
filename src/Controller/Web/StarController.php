@@ -68,10 +68,18 @@ class StarController extends AbstractController
       $session->set("previousVideoId", $previousId);
 
       $videoPathId = str_replace("-", "/", $videoId);
+
       $videoPath = "/videos/"; // static for now
       $audioPath = "/audios/"; // static for now
 
       $videoTitle = $this->retrieveVideoTitle($videoData);
+
+      // FOR TESTING
+      $tempVideoPath = $videoPath . $videoPathId . ".mp4";
+      if (!file_exists($tempVideoPath)) {
+        var_dump($videpTitle . " does not exist!");
+        return $this->redirectToRoute("star");
+      }
 
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
