@@ -77,7 +77,7 @@ class StarController extends AbstractController
       // FOR TESTING
       $tempVideoPath = $videoPath . $videoPathId . ".mp4";
       if (!file_exists($tempVideoPath)) {
-        var_dump($videpTitle . " does not exist!");
+        var_dump($videoTitle . " does not exist!");
         return $this->redirectToRoute("star");
       }
 
