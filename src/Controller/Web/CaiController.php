@@ -10,6 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 class CaiController extends AbstractController
 {
     /**
+     * @var SessionInterface $session
+     */
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
+    /**
      * @Route("/cai-upload", name="cai-upload")
      */
     public function index(Request $request)
@@ -24,10 +34,10 @@ class CaiController extends AbstractController
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if (is_array($imageFiles)) {
-              $this->uploadImagesAndMerge($imageFiles);
+              $tempMergeDirId = $this->uploadImagesAndMerge($imageFiles);
             }
 
-            return $this->redirect($this->generateUrl('cai-merge'));
+            return $this->redirect($this->generateUrl('cai-merge', array('mergeId' => $tempMergeDirId)));
         }
 
         return $this->render('cai/upload.html.twig', [
@@ -37,22 +47,48 @@ class CaiController extends AbstractController
     }
 
     /**
-     * @Route("/cai-merge", name="cai-merge")
+     * @Route("/cai-merge/{mergeId}", name="cai-merge")
      */
-    public function mergeImages()
+    public function mergeImages(Request $request, $mergeId)
     {
-        // TODO: Merge images and show result + download
+        $processManager = new ProcessManager();
+        $pid = $this->session->get("merge-pid");
+
+        $done = false;
+
+        if ($pid === null))
+        {
+            $caiDirectory = $this->getParameter('cai_directory');
+            $tempMergeDir = $caiDirectory."/cai_".$mergeId;
+
+            $cmd = "CaiQt.sh"; // correct pathinfo
+            $logFile = $caiDirectory."/".$mergeId.".log";
+
+            $pid = $processManager->runCommand($cmd, $logFile);
+            $this->session->set("merge-pid", $pid);
+        }
+        else if (!$processManager->isRunning($pid))
+        {
+            $done = true;
+        }
 
         return $this->render('cai/merge.html.twig', [
             'controller_name' => 'CaiController',
+            'pid' => $pid,
+            'done' => $done,
         ]);
     }
 
+    /**
+     * @param array $imageFiles
+     * @return string
+     */
     private function uploadImagesAndMerge($imageFiles)
     {
         // create unique folder for image merging
         $caiDirectory = $this->getParameter('cai_directory');
-        $tempMergeDir = $caiDirectory."/cai_".uniqid();
+        $tempMergeDirId = uniqid();
+        $tempMergeDir = $caiDirectory."/cai_".$tempMergeDirId;
         mkdir($tempMergeDir, 0764);
 
         foreach ($imageFiles as $key => $imageFile) {
@@ -74,5 +110,7 @@ class CaiController extends AbstractController
                 var_dump($e->getMessage()); // FIXME: write into log?!
             }
         }
+
+        return $tempMergeDirId;
     }
 }

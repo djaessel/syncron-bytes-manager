@@ -4,6 +4,12 @@
 
 {% block content %}
 
-  Merging ...
+  {% if done %}
+    DONE! Show result now...
+  {% else %}
+    ({{ pid }}) Merging ...
+  {% endif %}
+
+  <input class="btn btn-primary" type="submit" value="Update">
 
 {% endblock %}
