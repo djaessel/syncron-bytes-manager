@@ -54,6 +54,11 @@
             text-align: center;
           }
 
+          .videoMediaClass {
+            width: 87%;
+            height: auto;
+          }
+
         </style>
       {% endblock %}
 
@@ -73,7 +78,7 @@
 
         <div class="dark">
 
-        		<video id="curVideo" class="dark" width="90%" height="auto" controls preload="auto">
+        		<video id="curVideo" class="dark videoMediaClass" controls preload="auto">
         			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
       			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
         		  <p>Your browser does not support the video tag.</p>
