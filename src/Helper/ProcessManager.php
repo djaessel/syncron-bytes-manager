@@ -10,38 +10,38 @@ use Throwable;
  */
 class ProcessManager
 {
-
-  /**
-   * @param string cmd
-   * @param string $logFile
-   * @return int
-   */
-  public function runCommand($cmd, $logFile)
-  {
-    $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $!", $cmd, $logFile, $pid));
-    return $pid;
-  }
-
-  /**
-   * @param int $pid
-   * @return bool
-   */
-  public function isRunning($pid)
-  {
-    bool $running = false;
-
-    try
+    /**
+     * @param string cmd
+     * @param string $logFile
+     * @return int
+     */
+    public function runCommand($cmd, $logFile)
     {
-        $result = shell_exec(sprintf("ps %d", $pid));
-        $processCount = count(preg_split("/\n/", $result),
-        if ($processCount > 2)
-        {
-            $running = true;
-        }
-    } catch(Throwable $e) {
-      // FIXME: add error message to log file
+      $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $!", $cmd, $logFile, $pid));
+      return $pid;
     }
 
-    return $running;
-  }
+    /**
+     * @param int $pid
+     * @return bool
+     */
+    public function isRunning($pid)
+    {
+      $running = false;
+
+      try
+      {
+          $result = shell_exec(sprintf("ps %d", $pid));
+          $processCount = count(preg_split("/\n/", $result),
+          
+          if ($processCount > 2)
+          {
+              $running = true;
+          }
+      } catch(Throwable $e) {
+        // FIXME: add error message to log file
+      }
+
+      return $running;
+    }
 }
