@@ -32,7 +32,7 @@ class ProcessManager
       try
       {
           $result = shell_exec(sprintf("ps %d", $pid));
-          $processCount = count(preg_split("/\n/", $result);
+          $processCount = count(preg_split("/\n/", $result));
 
           if ($processCount > 2)
           {
