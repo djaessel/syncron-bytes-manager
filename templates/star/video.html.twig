@@ -1,117 +1,141 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>{% block title %}Star{% endblock %} {% block sub_title %}Video{% endblock %}</title>
+      <!-- Tell the browser to be responsive to screen width -->
+      <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
 
-{% block title %}Star{% endblock %}
-{% block sub_title %}Video{% endblock %}
+      {% block stylesheets %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
+        <!-- favicon -->
+        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- favicon -->
+        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css') }}">
+        <!-- Ionicons -->
+        {#<link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/Ionicons/css/ionicons.min.css') }}">#}
 
-      html, body {
-        min-height: unset;
-        max-height: unset;
-      }
+        <style>
 
-      html, body, .dark {
-        background-color: black;
-      }
+          /* html, body {
+            min-height: unset;
+            max-height: unset;
+          } */
 
-      .dark {
-        text-align: center;
-      }
+          html, body, .dark {
+            background-color: black;
+          }
 
-      .title-button {
-        color: white;
-        text-align: center;
-        vertical-align: middle;
-      }
+          .dark {
+            text-align: center;
+          }
 
-      #videoTitleBar {
-        position: absolute;
-        top: 0;
-        color: white;
-        font-size: 24px;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-      }
+          .title-button {
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+          }
 
-    </style>
-{% endblock %}
+          #videoTitleBar {
+            position: absolute;
+            top: 0;
+            color: white;
+            font-size: 24px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center;
+          }
 
+        </style>
+      {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script type='text/javascript'>
-        // TODO: load jquery and stuff
-        // TODO: get video_next.html style like button on image for video overlay like Netflix
-        $(function () {
+    </head>
+    <body>
+    {% block body %}
 
-          $('#curVideo').on('ended', function(e) {
-            var url = $("#nextVid").data("url");
-            window.location = url;
-          });
+        {# videoData : {
+          0 = ID / Path,
+          1 = Name_English,
+          2 = Name_German,
+          3 = Season,
+          4 = Episode,
+          5 = EpisodeAll,
+          6 = IsExtra
+        #}
 
-          $('#curVideo').on('play', function(e) {
-            $("#videoTitleBar").hide();
-          });
+        <div class="dark">
 
-          $('#curVideo').on('pause', function(e) {
-            $("#videoTitleBar").show();
-          });
+        		<video id="curVideo" class="dark" width="90%" height="auto" controls preload="auto">
+        			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
+      			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
+        		  <p>Your browser does not support the video tag.</p>
+        		</video>
 
-      });
-</script>
-{% endblock %}
+            <div id="videoTitleBar" class="row">
 
+              <div class="col-md-3">
+                <a id="backButton" class="title-button pull-left"
+                   href="{{ path('star') }}"> {# change href later maybe #}
+                  <i class="fa fa-chevron-left"></i>
+                </a>
+              </div>
 
-{% block body %}
+              <div class="col-md-6">
+                <h3>
+                  <font id="titleFont">{{ videoTitle }}</font>
+                </h3>
+              </div>
 
-    {# videoData : {
-      0 = ID / Path,
-      1 = Name_English,
-      2 = Name_German,
-      3 = Season,
-      4 = Episode,
-      5 = EpisodeAll,
-      6 = IsExtra
-    #}
+              <div class="col-md-3">
+                <a class="title-button pull-right"
+                   href="{{ path('star') }}"> {# change href later maybe #}
+                  <i class="fa fa-close"></i>
+                </a>
+              </div>
 
-    <div class="dark">
-    		<video id="curVideo" class="dark" width="80%" height="auto" controls preload="auto">
-    			<source src="{{ videoPath ~ videoPathId }}.mp4" type="video/mp4">
-  			{#<source src="{{ audioPath ~ videoPathId }}.ogg" type="audio/ogg">#}
-    		  <p>Your browser does not support the video tag.</p>
-    		</video>
+            </div>
 
-        <div id="videoTitleBar" class="row">
-
-          <div class="col-md-3">
-            <a id="backButton" class="title-button pull-left"
-               href="{{ path('star') }}"> {# change href later maybe #}
-              <i class="fa fa-chevron-left"></i>
-            </a>
-          </div>
-
-          <div class="col-md-6">
-            <h3>
-              <font id="titleFont">{{ videoTitle }}</font>
-            </h3>
-          </div>
-
-          <div class="col-md-3">
-            <a class="title-button pull-right"
-               href="{{ path('star') }}"> {# change href later maybe #}
-              <i class="fa fa-close"></i>
-            </a>
-          </div>
+            <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
 
         </div>
 
-        <div id="nextVid" data-url="{{ path('star-video-next') }}" hidden></div>
-    </div>
+        {% block javascripts %}
 
-{% endblock %}
+        <!-- jQuery 3 -->
+        <script src="{{ asset('AdminLTE-2.4.10/bower_components/jquery/dist/jquery.min.js') }}"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+        <script type='text/javascript'>
+            // TODO: load jquery and stuff
+            // TODO: get video_next.html style like button on image for video overlay like Netflix
+            $(function () {
+
+              $('#curVideo').on('ended', function(e) {
+                var url = $("#nextVid").data("url");
+                window.location = url;
+              });
+
+              $('#curVideo').on('play', function(e) {
+                $("#videoTitleBar").hide();
+              });
+
+              $('#curVideo').on('pause', function(e) {
+                $("#videoTitleBar").show();
+              });
+
+          });
+          </script>
+        {% endblock %}
+
+    {% endblock %}
+  </body>
+</html>
