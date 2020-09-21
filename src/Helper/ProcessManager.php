@@ -12,13 +12,12 @@ class ProcessManager
 {
     /**
      * @param string cmd
-     * @param string args
      * @param string $logFile
      * @return int
      */
-    public function runCommand($cmd, $args, $logFile)
+    public function runCommand($cmd, $logFile)
     {
-      $pid = shell_exec(sprintf("%s %s > %s 2>&2 & echo $!", $cmd, $args, $logFile));
+      $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $!", $cmd, $logFile));
       return $pid;
     }
 
