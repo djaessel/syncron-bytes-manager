@@ -62,7 +62,8 @@ class CaiController extends AbstractController
             $caiDirectory = $this->getParameter('cai_directory');
             $tempMergeDir = $caiDirectory."/cai_".$mergeId;
 
-            $cmd = "CaiQt.sh"; // correct pathinfo
+            $cmd = "CaiQtCLI"; // correct pathinfo
+            $cmd .= realpath($tempMergeDir);
             $logFile = $caiDirectory."/".$mergeId.".log";
 
             $pid = $processManager->runCommand($cmd, $logFile);
