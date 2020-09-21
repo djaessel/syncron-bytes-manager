@@ -17,7 +17,7 @@ class ProcessManager
      */
     public function runCommand($cmd, $logFile)
     {
-      $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $!", $cmd, $logFile, $pid));
+      $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $!", $cmd, $logFile));
       return $pid;
     }
 
