@@ -17,8 +17,7 @@ class ProcessManager
      */
     public function runCommand($cmd, $logFile)
     {
-      file_put_contents ("/tmp/mavericks.txt", $cmd.":::".$logFile, FILE_APPEND);
-      $pid = exec(sprintf("%s > %s 2>&1 & echo $! &", $cmd, $logFile));
+      $pid = shell_exec(sprintf("%s > %s 2>&1 & echo $! &", $cmd, $logFile));
       return $pid;
     }
 
