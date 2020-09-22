@@ -1,80 +1,101 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>{% block title %}Star{% endblock %} {% block sub_title %}Video{% endblock %}</title>
+      <!-- Tell the browser to be responsive to screen width -->
+      <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
 
-{% block title %}Star{% endblock %}
-{% block sub_title %}Video{% endblock %}
+      {% block stylesheets %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
+        <!-- favicon -->
+        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- favicon -->
+        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css') }}">
 
-        html, body {
-          min-height: unset;
-          max-height: unset;
-        }
+        <style>
 
-        html, body, .dark, .content-wrapper, .content {
-          background-color: black;
-        }
+            html, body {
+              min-height: unset;
+              max-height: unset;
+            }
 
-        .dark {
-          max-height: 596px !important;
-        }
+            html, body, .dark, .content-wrapper, .content {
+              background-color: black;
+            }
 
-        /* Container needed to position the button. Adjust the width as needed */
-        .container {
-          position: relative;
-          width: auto;
-          margin-left: 0;
-          margin-right: 0;
-          padding-left: 0;
-          padding-right: 0;
-        }
+            .dark {
+              max-height: 596px !important;
+            }
 
-        /* Make the image responsive */
-        .container img {
-          width: 100%;
-          height: auto;
-        }
+            /* Container needed to position the button. Adjust the width as needed */
+            .container {
+              position: relative;
+              width: auto;
+              margin-left: 0;
+              margin-right: 0;
+              padding-left: 0;
+              padding-right: 0;
+            }
 
-        /* Style the button and place it in the middle of the container/image */
-        .container .btn {
-          position: absolute;
-          top: 8%;
-          right: 8%;
-          color: white;
-          font-size: 16px;
-          padding: 12px 24px;
-          border: none;
-          cursor: pointer;
-          border-radius: 5px;
-        }
+            /* Make the image responsive */
+            .container img {
+              width: 100%;
+              height: auto;
+            }
 
-    </style>
-{% endblock %}
+            /* Style the button and place it in the middle of the container/image */
+            .container .btn {
+              position: absolute;
+              top: 8%;
+              right: 8%;
+              color: white;
+              font-size: 16px;
+              padding: 12px 24px;
+              border: none;
+              cursor: pointer;
+              border-radius: 5px;
+            }
 
-{#
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(function () {
-        });
-    </script>
-{% endblock %}
-#}
+        </style>
+        {% endblock %}
 
-{% block body %}
+      </head>
+      <body>
+      {% block body %}
 
-    <div class="container dark">
-      <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
-      {% if app.session.get("nextVideoId") is null %}
-        <a class="btn btn-primary" href="{{ path('star') }}">
-          {{ "Back to overview" }}
-        </a>
-      {% else %}
-        <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
-          {{ "Next Episode" }}
-        </a>
-      {% endif %}
-    </div>
+        <div class="container dark">
+          <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
+          {% if app.session.get("nextVideoId") is null %}
+            <a class="btn btn-primary" href="{{ path('star') }}">
+              {{ "Back to overview" }}
+            </a>
+          {% else %}
+            <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
+              {{ "Next Episode" }}
+            </a>
+          {% endif %}
+        </div>
 
-{% endblock %}
+        {% block javascripts %}
+
+          <!-- jQuery 3 -->
+          <script src="{{ asset('AdminLTE-2.4.10/bower_components/jquery/dist/jquery.min.js') }}"></script>
+          <!-- Bootstrap 3.3.7 -->
+          <script src="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+          {#<script type='text/javascript'>
+              $(function () {
+                // ...
+              });
+          </script>#}
+        {% endblock %}
+
+      {% endblock %}
+    </body>
+  </html>
