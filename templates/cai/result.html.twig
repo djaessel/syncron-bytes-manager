@@ -2,6 +2,22 @@
 
 {% block title %}CAI{% endblock %}
 
+{% block stylesheet %}
+  {{ parent() }}
+
+  <style>
+
+    img {
+      display: block;
+      max-width:512px;
+      max-height:512px;
+      width: auto;
+      height: auto;
+    }
+
+  </style>
+{% endblock %}
+
 {% block content %}
 
   {# TODO: Later change file extentios via controller #}
@@ -16,7 +32,7 @@
   </a>
 
   <a class="btn btn-primary" href="{{ path('cai-upload') }}">
-    <i class="fas fa-upload"></i> Merge new images
+    <i class="fa fa-upload"></i> Merge new images
   </a>
 
 {% endblock %}
