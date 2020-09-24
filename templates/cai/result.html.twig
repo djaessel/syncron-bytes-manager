@@ -4,11 +4,14 @@
 
 {% block content %}
 
-  {% set imagePath = "cai/generated/" ~ app.session.get("mergeId") ~ ".jpg" %}
+  {# TODO: Later change file extentios via controller #}
+  {% set fileExtension = ".jpg" %}
+
+  {% set imagePath = "cai/generated/cai_" ~ app.session.get("mergeId") ~ fileExtension %}
 
   <img src="{{ asset(imagePath) }}" alt="result-image">
 
-  <a class="btn btn-primary" href="{{ asset(imagePath) }}" download>
+  <a class="btn btn-primary" href="{{ asset(imagePath) }}" download="{{ "result" ~ fileExtension }}">
     <i class="fa fa-download"></i> Download
   </a>
 
