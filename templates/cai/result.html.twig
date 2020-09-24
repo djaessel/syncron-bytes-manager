@@ -7,12 +7,12 @@
 
   <style>
 
-    img {
+    .result-image {
       display: block;
-      max-width:512px;
-      max-height:512px;
-      width: auto;
-      height: auto;
+      max-width: 256px !important;
+      max-height: 320px !important;
+      width: auto !important;
+      height: auto !important;
     }
 
   </style>
@@ -25,7 +25,7 @@
 
   {% set imagePath = "cai/generated/cai_" ~ app.session.get("mergeId") ~ fileExtension %}
 
-  <img src="{{ asset(imagePath) }}" alt="result-image">
+  <img class="result-image" src="{{ asset(imagePath) }}" alt="result-image">
 
   <a class="btn btn-primary" href="{{ asset(imagePath) }}" download="{{ "result" ~ fileExtension }}">
     <i class="fa fa-download"></i> Download
