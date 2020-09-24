@@ -2,14 +2,39 @@
 
 {% block title %}CAI{% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+
+  {# Dropzone 5.7.0 #}
+  <link rel="stylesheet" href="{{ asset('dropzone/css/dropzone.min.css') }}">
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {# Dropzone 5.7.0 #}
+  <script src="{{ asset("dropzone/js/dropzone.min.js") }}"></script>
+
+  <script type="text/javascript">
+    $(function() {
+        var urlX = $("#upload-url").data("url");
+        $("#cai_images").dropzone({ url: urlX });
+    });
+  </script>
+
+{% endblock %}
+
 {% block content %}
 
-{{ form_start(form) }}
+  {{ form_start(form) }}
 
-  {{ form_row(form.images) }}
+    <div id="upload-url" data-url="{{ path("cai-upload") }}" hidden>
 
-  <button class="btn btn-primary" type="submit">{{ "Upload" }}</button>
+    {{ form_row(form.images) }}
 
-{{ form_end(form) }}
+    <button class="btn btn-primary" type="submit">{{ "Upload" }}</button>
+
+  {{ form_end(form) }}
 
 {% endblock %}
