@@ -88,7 +88,7 @@ class CaiController extends AbstractController
     /**
      * @Route("/cai-result-image", name="cai-result-img")
      */
-    public function resultImage(Request $request, $mergeId)
+    public function resultImage()
     {
         return $this->render('cai/result.html.twig', [
             'controller_name' => 'CaiController',
