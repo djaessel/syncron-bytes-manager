@@ -65,9 +65,11 @@ class CaiController extends AbstractController
             $caiDirectory = $this->getParameter('cai_directory');
             $tempMergeDir = $caiDirectory."/cai_".$mergeId;
 
+            // FIXME: use parameters or settings insetad of hardcoded paths
+
             $cmd = "CaiQtCLI"; // correct pathinfo
             $cmd .= " ".realpath($tempMergeDir);
-            $logFile = $caiDirectory."/".$mergeId.".log";
+            $logFile = $caiDirectory."/logs/".$mergeId.".log";
 
             $pid = $processManager->runCommand($cmd, $logFile);
             $this->session->set("merge-pid", $pid);
