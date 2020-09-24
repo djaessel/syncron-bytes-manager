@@ -58,7 +58,7 @@ class CaiController extends AbstractController
 
         $done = false;
 
-        if ($pid === null)
+        if (empty($pid))
         {
             $caiDirectory = $this->getParameter('cai_directory');
             $tempMergeDir = $caiDirectory."/cai_".$mergeId;
