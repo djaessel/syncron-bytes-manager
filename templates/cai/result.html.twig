@@ -2,14 +2,9 @@
 
 {% block title %}CAI{% endblock %}
 
-{% block meta %}
-  {{ parent() }}
-  <meta http-equiv="refresh" content="3">
-{% endblock %}
-
 {% block content %}
 
-  {% set imagePath = "cai/cai_" ~ app.session.get("mergeId") %}
+  {% set imagePath = "cai/generated/" ~ app.session.get("mergeId") ~ ".jpg" %}
 
   <img src="{{ asset(imagePath) }}" alt="result-image">
 
