@@ -69,12 +69,14 @@ class StarController extends AbstractController
 
       $videoPathId = str_replace("-", "/", $videoId);
 
-      $videoPath = "/videos/"; // static for now
-      $audioPath = "/audios/"; // static for now
+      // FIXME: STATIC FOR NOW
+      $videoPath = "/videos/";
+      $audioPath = "/audios/";
 
       $videoTitle = $this->retrieveVideoTitle($videoData);
 
       // FOR TESTING
+      // FIXME: Change page content when video does not exist
       //$tempVideoPath = $videoPath . $videoPathId . ".mp4";
       //if (!file_exists($tempVideoPath)) {
       //  return $this->redirectToRoute("star");
@@ -97,7 +99,22 @@ class StarController extends AbstractController
      */
     public function starVideoNext(SessionInterface $session)
     {
-      //$nextId = $session->get("nextVideoId");
+      $nextId = $session->get("nextVideoId");
+      $fillerActive = $session->get("fillerActive", false);
+
+      if ($fillerActive) {
+        $session->remove("fillerActive");
+        $videoId = $session->get("nextVideoId", 0);
+
+        if (empty($videoId)) {
+          return $this->redirect($this->generateUrl('star'));
+        }
+
+        $urlVideo = $this->generateUrl('star-video', array('videoId' => $videoId));
+        return $this->redirect($urlVideo);
+      }
+
+      $session->set("fillerActive", true);
 
       return $this->render('star/video_next.html.twig', [
         'controller_name' => 'StarController',

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      {% block meta %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta http-equiv="refresh" content="5">
+      {% endblock %}
+
       <title>{% block title %}Star{% endblock %} {% block sub_title %}Video{% endblock %}</title>
       <!-- Tell the browser to be responsive to screen width -->
       <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
@@ -11,19 +16,21 @@
 
         <!-- favicon -->
         <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <!-- favicon -->
-        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
         <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css') }}">
 
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="{{ asset('css/skin-jsys.css') }}">
+
         <style>
 
-            html, body {
+            /*html, body {
               min-height: unset;
               max-height: unset;
-            }
+            }*/
 
             html, body, .dark, .content-wrapper, .content {
               background-color: black;
@@ -47,6 +54,7 @@
             .container img {
               width: 100%;
               height: auto;
+              overflow: hidden;
             }
 
             /* Style the button and place it in the middle of the container/image */
@@ -70,7 +78,8 @@
       {% block body %}
 
         <div class="container dark">
-          <img src="https://i.pinimg.com/originals/7e/4a/63/7e4a633b14bfecc98d08c5a2f8823981.gif" alt="Stargate Dial">
+          <img src="{{ asset("images/stargate_dial.gif") }}" alt="Stargate Dial">
+
           {% if app.session.get("nextVideoId") is null %}
             <a class="btn btn-primary" href="{{ path('star') }}">
               {{ "Back to overview" }}
@@ -94,6 +103,7 @@
                 // ...
               });
           </script>#}
+
         {% endblock %}
 
       {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CAI{% endblock %}
+
+{% block meta %}
+  {{ parent() }}
+  <meta http-equiv="refresh" content="3">
+{% endblock %}
+
+{% block content %}
+
+  {% set imagePath = "cai/cai_" ~ app.session.get("mergeId") %}
+
+  <img src="{{ asset(imagePath) }}" alt="result-image">
+
+  <a class="btn btn-primary" href="{{ asset(imagePath) }}" download>
+    <i class="fa fa-download"></i> Download
+  </a>
+
+  <a class="btn btn-primary" href="{{ path('cai-upload') }}">
+    <i class="fas fa-upload"></i> Merge new images
+  </a>
+
+{% endblock %}

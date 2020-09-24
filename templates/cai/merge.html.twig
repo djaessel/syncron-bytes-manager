@@ -2,14 +2,13 @@
 
 {% block title %}CAI{% endblock %}
 
+{% block meta %}
+  {{ parent() }}
+  <meta http-equiv="refresh" content="3">
+{% endblock %}
+
 {% block content %}
 
-  {% if done %}
-    DONE! Show result now...
-  {% else %}
-    ({{ pid }}) Merging ...
-  {% endif %}
-
-  <input class="btn btn-primary" type="submit" value="Update">
+  <img src="{{ asset("images/loading.gif") }}"> Merging...
 
 {% endblock %}

@@ -58,14 +58,13 @@ class CaiController extends AbstractController
         $processManager = new ProcessManager();
         $pid = $this->session->get("merge-pid");
 
-        $done = false;
-
         if (empty($pid))
         {
             $caiDirectory = $this->getParameter('cai_directory');
             $tempMergeDir = $caiDirectory."/cai_".$mergeId;
 
             // FIXME: use parameters or settings insetad of hardcoded paths
+            // FIXME: Later use command for this
 
             $cmd = "CaiQtCLI"; // correct pathinfo
             $cmd .= " ".realpath($tempMergeDir);
@@ -74,15 +73,25 @@ class CaiController extends AbstractController
             $pid = $processManager->runCommand($cmd, $logFile);
             $this->session->set("merge-pid", $pid);
         }
-        else if (!$processManager->isRunning($pid))
+
+        if (!$processManager->isRunning($pid))
         {
-            $done = true;
+            $this->session->set("mergeId", $mergeId);
+            return $this->redirect($this->generateUrl('cai-result-img'));
         }
 
         return $this->render('cai/merge.html.twig', [
             'controller_name' => 'CaiController',
-            'pid' => $pid,
-            'done' => $done,
+        ]);
+    }
+
+    /**
+     * @Route("/cai-result-image", name="cai-result-img")
+     */
+    public function resultImage(Request $request, $mergeId)
+    {
+        return $this->render('cai/result.html.twig', [
+            'controller_name' => 'CaiController',
         ]);
     }
 
@@ -93,8 +102,8 @@ class CaiController extends AbstractController
     private function uploadImagesAndMerge($imageFiles)
     {
         // create unique folder for image merging
-        $caiDirectory = $this->getParameter('cai_directory');
         $tempMergeDirId = uniqid();
+        $caiDirectory = $this->getParameter('cai_directory');
         $tempMergeDir = $caiDirectory."/cai_".$tempMergeDirId;
         mkdir($tempMergeDir, 0764);
 
