@@ -39,6 +39,8 @@ class CaiController extends AbstractController
               $tempMergeDirId = $this->uploadImagesAndMerge($imageFiles);
             }
 
+            $this->session->remove("merge-pid");
+
             return $this->redirect($this->generateUrl('cai-merge', array('mergeId' => $tempMergeDirId)));
         }
 
