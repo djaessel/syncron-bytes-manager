@@ -19,7 +19,7 @@
   <script type="text/javascript">
     $(function() {
         var urlX = $("#upload-url").data("url");
-        $("#cai_images").dropzone({ url: urlX });
+        $("div#cai_images").dropzone({ url: urlX });
     });
   </script>
 
@@ -29,11 +29,13 @@
 
   {{ form_start(form) }}
 
-    <div id="upload-url" data-url="{{ path("cai-upload") }}" hidden>
-
-    {{ form_row(form.images) }}
+    <div class="fallback">
+        {{ form_row(form.images) }}
+    </div>
 
     <button class="btn btn-primary" type="submit">{{ "Upload" }}</button>
+
+    <div id="upload-url" data-url="{{ path("cai-upload") }}" hidden></div>
 
   {{ form_end(form) }}
 
