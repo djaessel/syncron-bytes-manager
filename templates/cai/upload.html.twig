@@ -6,6 +6,7 @@
   {{ parent() }}
 
   {# Dropzone 5.7.0 #}
+  <link rel="stylesheet" href="{{ asset('dropzone/css/basic.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dropzone/css/dropzone.min.css') }}">
 
 {% endblock %}
@@ -32,6 +33,20 @@
     <div class="fallback">
         {{ form_row(form.images) }}
     </div>
+
+    {#<div>
+        <div id="previews" class="dz-default dz-message box__input dropzone">
+            <div style="text-align: center;">
+                <i class="fa fa-cloud-upload" style="font-size: 23px; position: relative; top: 4px;"></i>
+                <span style="margin-left: 20px;">Drop files  to attach or browse</span>
+            </div>
+        </div>
+        <div id="previewFiles"></div>
+    </div>
+
+    <div>
+      <input type="submit" id="Submit" name="Submit" class="btn btn-success m-t-5" value="Submit" />
+    </div>#}
 
     <button class="btn btn-primary" type="submit">{{ "Upload" }}</button>
 
