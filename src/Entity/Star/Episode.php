@@ -22,14 +22,33 @@ class Episode
     private $number;
 
     /**
+     * @ORM\Column(name="number_all", type="integer", nullable=true)
+     */
+    private $numberAll;
+
+    /**
      * @ORM\Column(name="season", type="integer", nullable=false)
      */
     private $season;
 
     /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
+
+    /**
+     * @ORM\Column(name="path", type="string", length=64, nullable=false)
+     */
+    private $path;
+
+    /**
+     * @ORM\Column(name="is_extra", type="boolean", nullable=true)
+     */
+    private $isExtra;
+
+    // TODO: add constructor for easier import later
+    // TODO: Path;Name_German;Name_English;Season;Episode;EpisodeAll;IsExtra
+    // TODO: multi lingual entity later
 
     // - - - - - auto generate - - - - -
 
@@ -39,12 +58,17 @@ class Episode
         return $this->id;
     }
 
-    public function getNumber(): int
+    public function getNumber(): ?int
     {
         return $this->number;
     }
 
-    public function getSeason(): int
+    public function getNumberAll(): ?int
+    {
+        return $this->numberAll;
+    }
+
+    public function getSeason(): ?int
     {
         return $this->season;
     }
@@ -54,9 +78,24 @@ class Episode
         return $this->title;
     }
 
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function getIsExtra(): ?boolean
+    {
+        return $this->isExtra;
+    }
+
     public function setNumber(int $number)
     {
         $this->number = $number;
+    }
+
+    public function setNumberAll(?int $numberAll)
+    {
+        $this->numberAll = $numberAll;
     }
 
     public function setSeason(int $season)
@@ -67,5 +106,15 @@ class Episode
     public function setTitle(string $title)
     {
         $this->title = $title;
+    }
+
+    public function setPath(string $path)
+    {
+        $this->path = $path;
+    }
+
+    public function setIsExtra(?boolean $isExtra)
+    {
+        $this->isExtra = $isExtra;
     }
 }

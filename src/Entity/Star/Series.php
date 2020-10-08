@@ -31,6 +31,9 @@ class Series
      */
     private $title;
 
+    // TODO: add constructor for easier import later
+    // TODO: multi lingual entity later
+
     // - - - - - auto generate - - - - -
 
 
@@ -39,7 +42,7 @@ class Series
         return $this->id;
     }
 
-    public function getNumber(): int
+    public function getNumber(): ?int
     {
         return $this->number;
     }

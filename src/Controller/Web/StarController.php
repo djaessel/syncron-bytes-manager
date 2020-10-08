@@ -206,7 +206,7 @@ class StarController extends AbstractController
     private function retrieveVideoNames()
     {
       $projectRoot = $this->kernel->getProjectDir();
-      $videoFilesNamePath = $projectRoot . "/_tools/episodes.csv";
+      $videoFilesNamePath = $projectRoot . "/_tools/episode.csv";
 
       $videoFiles = array();
 
@@ -232,7 +232,7 @@ class StarController extends AbstractController
     private function retrieveSeasonData()
     {
       $projectRoot = $this->kernel->getProjectDir();
-      $seasonDataNamePath = $projectRoot . "/_tools/seasons.csv";
+      $seasonDataNamePath = $projectRoot . "/_tools/season.csv";
 
       $seasonData = array();
 
