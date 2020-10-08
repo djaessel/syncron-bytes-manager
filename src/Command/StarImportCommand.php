@@ -49,13 +49,14 @@ class StarImportCommand extends BaseCommand
 
         $path = $this->setPathForImport($input);
 
+        // database table names
         $tables = array(
           "episode",
           "season",
           "series"
         );
 
-        if (checkFilesExist($path, $tables)) {
+        if ($this->checkFilesExist($path, $tables)) {
             // remove all old data from database
             $this->truncateTables($tables, true);
 
@@ -79,6 +80,9 @@ class StarImportCommand extends BaseCommand
         }
     }
 
+    /**
+     *
+     */
     private function setPathForImport($input)
     {
         $importPath = $input->getArgument('path');
@@ -92,6 +96,9 @@ class StarImportCommand extends BaseCommand
         return rtrim($importPath, "/");
     }
 
+    /**
+     *
+     */
     private function checkFilesExist($path, $tables)
     {
         $allExist = false;
@@ -111,6 +118,9 @@ class StarImportCommand extends BaseCommand
         return $allExist;
     }
 
+    /**
+     *
+     */
     private function readAllCsvDataFromFile($maxCharsOnLine = 1000)
     {
         $csvData = array();
@@ -130,6 +140,9 @@ class StarImportCommand extends BaseCommand
         return $csvData;
     }
 
+    /**
+     *
+     */
     private function importCsvData($path, $name)
     {
         $success = false;
@@ -153,6 +166,9 @@ class StarImportCommand extends BaseCommand
         return $success;
     }
 
+    /**
+     *
+     */
     private function handleDataByName($name, $data)
     {
         $found = true;
@@ -176,6 +192,9 @@ class StarImportCommand extends BaseCommand
         return $found;
     }
 
+    /**
+     *
+     */
     private function addSeries($data)
     {
         $series = new Series();
@@ -186,6 +205,9 @@ class StarImportCommand extends BaseCommand
         $this->manager->persist($series);
     }
 
+    /**
+     *
+     */
     private function addSeason($data)
     {
         $season = new Season();
@@ -198,6 +220,9 @@ class StarImportCommand extends BaseCommand
         $this->manager->persist($season);
     }
 
+    /**
+     *
+     */
     private function addEpisode($data)
     {
         $episode = new Episode();
