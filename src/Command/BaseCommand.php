@@ -18,13 +18,19 @@ class BaseCommand extends Command
     protected $manager;
 
     /**
+     * @var KernelInterface $kernel
+     */
+    protected $kernel;
+
+    /**
      * FileValidCheckCommand constructor.
      * @param EntityManagerInterface $manager
      * @param string|null $name
      */
-    public function __construct(EntityManagerInterface $manager, string $name = null)
+    public function __construct(EntityManagerInterface $manager, KernelInterface $kernel, string $name = null)
     {
         $this->manager = $manager;
+        $this->kernel = $kernel;
 
         parent::__construct($name);
     }

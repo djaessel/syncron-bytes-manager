@@ -20,9 +20,9 @@ class StarImportCommand extends BaseCommand
      * @param EntityManagerInterface $manager
      * @param string|null $name
      */
-    public function __construct(EntityManagerInterface $manager, string $name = null)
+    public function __construct(EntityManagerInterface $manager, KernelInterface $kernel, string $name = null)
     {
-        parent::__construct($manager, $name);
+        parent::__construct($manager, $kernel, $name);
     }
 
     protected function configure()
