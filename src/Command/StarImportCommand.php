@@ -93,7 +93,7 @@ class StarImportCommand extends BaseCommand
 
     private function checkFilesExist($path, $tables)
     {
-        bool $allExist = false;
+        $allExist = false;
 
         if (is_dir($path)) {
             $allExist = true;
