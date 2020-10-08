@@ -16,7 +16,7 @@ class StarImportCommand extends BaseCommand
 {
     protected static $defaultName = 'start:import';
 
-    const DEFAULT_PROJECT_PATH = "/tools";
+    private static DEFAULT_PROJECT_PATH = "/tools";
 
     /**
      * FileValidCheckCommand constructor.
