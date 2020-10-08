@@ -121,11 +121,11 @@ class StarImportCommand extends BaseCommand
     /**
      *
      */
-    private function readAllCsvDataFromFile($maxCharsOnLine = 1000)
+    private function readAllCsvDataFromFile($csvDataPath, $maxCharsOnLine = 1000)
     {
         $csvData = array();
 
-        if (($handle = fopen($csvDataNamePath, "r")) !== FALSE) {
+        if (($handle = fopen($csvDataPath, "r")) !== FALSE) {
             $titles = fgetcsv($handle, $maxCharsOnLine, ";"); // read title row
 
             while (($data = fgetcsv($handle, $maxCharsOnLine, ";")) !== FALSE) {
