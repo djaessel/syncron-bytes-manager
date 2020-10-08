@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Entity\Star\Episode;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,6 +65,7 @@ class StarController extends AbstractController
 
       $curEpisode = null;
       // TODO: make with database call
+      /** @var Episode $episode */
       foreach ($episodes as $key => $episode) {
           if ($episode.getId() == $videoId) {
               $curEpisode = $episode;
