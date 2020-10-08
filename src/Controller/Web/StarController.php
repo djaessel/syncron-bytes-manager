@@ -39,8 +39,8 @@ class StarController extends AbstractController
      */
     public function index(SessionInterface $session)
     {
-      $episodes = $this->manager->getRepository("App\Entity\Episode")->findAll();
-      $seasons = $this->manager->getRepository("App\Entity\Season")->findAll();
+      $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
+      $seasons = $this->manager->getRepository("App\Entity\Star\Season")->findAll();
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
@@ -57,7 +57,7 @@ class StarController extends AbstractController
      */
     public function starVideo(SessionInterface $session, $videoId)
     {
-      $episodes = $this->manager->getRepository("App\Entity\Episode")->findAll();
+      $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
       $previousId = null;
       $nextId = null;
