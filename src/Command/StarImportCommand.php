@@ -15,11 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class StarImportCommand extends BaseCommand
 {
     protected static $defaultName = 'start:import';
-
-    /**
-     * @var string $defaultProjectPath
-     */
-    private $defaultProjectPath = "/tools";
+    
 
     /**
      * FileValidCheckCommand constructor.
@@ -95,7 +91,7 @@ class StarImportCommand extends BaseCommand
         if (empty($importPath))
         {
             $projectRoot = $this->kernel->getProjectDir();
-            $importPath = $projectRoot . $this->defaultProjectPath;
+            $importPath = $projectRoot . "/_tools";
         }
 
         return rtrim($importPath, "/");
