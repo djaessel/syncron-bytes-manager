@@ -45,49 +45,48 @@
 
     <div class="list-group">
 
-      {% set seasonCur = 0 %}
+      {% set seasonCur = seasons[0] %}
 
-      {% for i, videoData in videoFiles %}
+      {% for i, episode in episodes %}
 
         {# TODO: use php functions later #}
-    		{% set middle = " - Episode " ~ videoData[4]  %}
-    		{% if videoData[6] == 1 %}
+    		{% set middle = " - Episode " ~ episode.number  %}
+    		{% if episode.isExtra %}
     			{% set middle = " - Extra" %}
     		{% endif %}
 
         {# FIXME: check for language later and whether to show both titles #}
-        {% set langTitle = "" %}
-        {% if videoData[1] is not empty %}
-          {% set langTitle = videoData[1] ~ " / " %}
-        {% endif %}
-        {% set langTitle = langTitle ~ videoData[2] %}
-
-    		{% set videoTitle = "Staffel " ~ videoData[3] ~ middle ~ ": " ~ langTitle %}
+    		{% set videoTitle = "Season " ~ episode.season ~ middle ~ ": " ~ episode.title %}
         {# TODO: use php functions later #}
 
-        {% if seasonCur < videoData[3] %}
+        {% if seasonCur.number < episode.season %}
 
-          {% if seasonCur > 0 %}
+          {% if seasonCur.number > 0 %}
                         </div>
                     </div>
                 </div>
             </div>
           {% endif %}
 
-          {% set seasonCur = videoData[3] %}
+          {% for i, season in seasons %}
+              {% if seasonCur.number = episode.number %}
+                  {% set seasonCur = season %}
+              {% endif %}
+          {% endfor %}
 
           <div class="panel panel-default">
              <div class="panel-heading">
                    <a class="btn panel-title list-group-item"
                        data-toggle="collapse"
-                       data-target="#collapse{{ seasonCur }}">
+                       data-target="#collapse{{ episode.season }}">
                        {# TODO: Translations when needed #}
-                       <b>{{ seasonCur }}. Staffel - {{ seasons[seasonCur][3] }}</b>
-                       <small>#{{ seasons[seasonCur][6] }} - {{ seasons[seasonCur][7] }}</small>
-                       <small>({{ seasons[seasonCur][4] }} - {{ seasons[seasonCur][5] }})</small>
+                       <b>{{ episode.season }}. Staffel - {{ seasonCur.title }}</b>
+                       {# FIXME: calculate first and last episode and replace code #}
+                       {#<small>#{{ seasonCur.firstEpisode }} - {{ seasonCur.lastEpisode }}</small>#}
+                       <small>({{ seasonCur.startYear }} - {{ seasonCur.endYear }})</small>
                    </a>
               </div>
-              <div id="collapse{{ videoData[3] }}"
+              <div id="collapse{{ episode.season }}"
                    class="panel-collapse collapse">
                   <div class="panel-body">
                     <div class="list-group">

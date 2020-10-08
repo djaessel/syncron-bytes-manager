@@ -2,6 +2,8 @@
 
 namespace App\Controller\Web;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -10,11 +12,14 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class StarController extends AbstractController
 {
     /**
+     * @var ObjectManager $manager
+     */
+    private $manager;
+
+    /**
      * @var KernelInterface $kernel
      */
     private $kernel;
-
-    const MAX_CHAR_ON_LINE = 1000;
 
 
     /**
@@ -22,8 +27,10 @@ class StarController extends AbstractController
      *
      * @param KernelInterface $kernel
      */
-    public function __construct(KernelInterface $kernel) {
-      $this->kernel = $kernel;
+    public function __construct(EntityManagerInterface $manager, KernelInterface $kernel)
+    {
+        $this->manager = $manager;
+        $this->kernel = $kernel;
     }
 
 
@@ -32,12 +39,12 @@ class StarController extends AbstractController
      */
     public function index(SessionInterface $session)
     {
-      $videoFiles = $this->retrieveVideoNames();
-      $seasons = $this->retrieveSeasonData();
+      $episodes = $this->manager->getRepository("App\Entity\Episode")->findAll();
+      $seasons = $this->manager->getRepository("App\Entity\Season")->findAll();
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
-        'videoFiles' => $videoFiles,
+        'episodes' => $episodes,
         'seasons' => $seasons,
       ]);
     }
@@ -50,43 +57,35 @@ class StarController extends AbstractController
      */
     public function starVideo(SessionInterface $session, $videoId)
     {
-      $videoFiles = $this->retrieveVideoNames();
+      $episodes = $this->manager->getRepository("App\Entity\Episode")->findAll();
 
-      $videoData = array();
       $previousId = null;
       $nextId = null;
 
-      if (array_key_exists($videoId, $videoFiles)) {
-        $videoData = $videoFiles[$videoId];
+      $curEpisode = null;
+      // TODO: make with database call
+      foreach ($episodes as $key => $episode) {
+          if ($episode.getId() == $videoId) {
+              $curEpisode = $episode;
+          }
+      }
 
-        $previousId = $this->findPreviousId($videoFiles, $videoId);
-        $nextId = $this->findNextId($videoFiles, $videoId);
+      if (!empty($curEpisode)) {
+        $previousId = $this->findPreviousId($episodes, $videoId);
+        $nextId = $this->findNextId($episodes, $videoId);
       }
 
       $session->set("curVideoId", $videoId);
       $session->set("nextVideoId", $nextId);
       $session->set("previousVideoId", $previousId);
 
-      $videoPathId = str_replace("-", "/", $videoId);
-
       // FIXME: STATIC FOR NOW
       $videoPath = "/videos/";
       $audioPath = "/audios/";
 
-      $videoTitle = $this->retrieveVideoTitle($videoData);
-
-      // FOR TESTING
-      // FIXME: Change page content when video does not exist
-      //$tempVideoPath = $videoPath . $videoPathId . ".mp4";
-      //if (!file_exists($tempVideoPath)) {
-      //  return $this->redirectToRoute("star");
-      //}
-
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
-        'videoData' => $videoData,
-        'videoPathId' => $videoPathId,
-		    'videoTitle' => $videoTitle,
+        'episode' => $curEpisode,
         'videoPath' => $videoPath,
 		    'audioPath' => $audioPath,
       ]);
@@ -123,24 +122,15 @@ class StarController extends AbstractController
 
     /**
      * TODO: Move to repository
-     *
-     * @param array $videoFiles
-     * @param string $videoId
      */
-    private function findPreviousId(array $videoFiles, string $videoId)
+    private function findPreviousId($episodes, $videoId)
     {
       $previousId = null;
 
-      $keys = array_keys($videoFiles);
-      $curIndex = array_search($videoId, $keys);
+      // TODO: check for actual IDs later
 
-      if ($curIndex > 0) {
-        for ($i = $curIndex - 1; empty($previousId) && $i >= 0; $i--) {
-          $xData = $videoFiles[$keys[$i]];
-          if ($xData[6] == 0) {
-            $previousId = $xData[0];
-          }
-        }
+      if ($videoId > 1) {
+          $previousId = $videoId - 1;
       }
 
       return $previousId;
@@ -148,106 +138,20 @@ class StarController extends AbstractController
 
     /**
      * TODO: Move to repository
-     *
-     * @param array $videoFiles
-     * @param string $videoId
      */
-    private function findNextId(array $videoFiles, string $videoId)
+    private function findNextId($episodes, $videoId)
     {
       $nextId = null;
 
-      $keys = array_keys($videoFiles);
-      $curIndex = array_search($videoId, $keys);
+      // TODO: check for actual IDs later
 
-      $keyCount = count($keys);
-      if ($curIndex < $keyCount - 1) {
-        for ($i = $curIndex + 1; empty($nextId) && $i < $keyCount; $i++) {
-          $xData = $videoFiles[$keys[$i]];
-          if ($xData[6] == 0) {
-            $nextId = $xData[0];
-          }
-        }
+      $episodeCount = count($episodes);
+      $latestEpisode = $episodes[$episodeCount - 1];
+
+      if ($videoId < $latestEpisode.getId()) {
+          $nextId = $videoId + 1;
       }
 
       return $nextId;
-    }
-
-    /**
-  	 * Generate video title from array data
-     * TODO: Move to repository
-  	 *
-  	 * @param array $videoData
-  	 * @return string
-  	 */
-  	private function retrieveVideoTitle($videoData)
-  	{
-      $middle = " - Episode " . $videoData[4];
-      if ($videoData[6] == 1) {
-      	$middle = " - Extra";
-      }
-
-      // FIXME: check for language later
-      $videoTitle = "Staffel " . $videoData[3] . $middle . ": ";
-
-      // FIXME: decide which title according to language settings later
-      // (e.g. en, de, both)
-      if (!empty($videoData[1])) {
-        $videoTitle .= $videoData[1] . " / ";
-      }
-      $videoTitle .= $videoData[2];
-
-      return $videoTitle;
-  	}
-
-    /**
-     * list with all video files by id
-     * TODO: Move to repository
-     */
-    private function retrieveVideoNames()
-    {
-      $projectRoot = $this->kernel->getProjectDir();
-      $videoFilesNamePath = $projectRoot . "/_tools/episode.csv";
-
-      $videoFiles = array();
-
-      if (($handle = fopen($videoFilesNamePath, "r")) !== FALSE) {
-		      $titles = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";"); // read title row
-
-          while (($data = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";")) !== FALSE) {
-            if (count($data) > 1) {
-              $videoFiles[$data[0]] = $data;
-            }
-          }
-
-          fclose($handle);
-      }
-
-      return $videoFiles;
-    }
-
-    /**
-     * List with all season data for all series
-     * TODO: Move to repository
-     */
-    private function retrieveSeasonData()
-    {
-      $projectRoot = $this->kernel->getProjectDir();
-      $seasonDataNamePath = $projectRoot . "/_tools/season.csv";
-
-      $seasonData = array();
-
-      if (($handle = fopen($seasonDataNamePath, "r")) !== FALSE) {
-		      $titles = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";"); // read title row
-
-          while (($data = fgetcsv($handle, self::MAX_CHAR_ON_LINE, ";")) !== FALSE) {
-            if (count($data) > 1) {
-              $seasonData[$data[0]] = $data;
-            }
-          }
-
-          fclose($handle);
-      }
-
-      return $seasonData;
     }
 }
