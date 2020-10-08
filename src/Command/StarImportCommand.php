@@ -31,7 +31,7 @@ class StarImportCommand extends BaseCommand
             ->setDescription('import all star video related data')
             ->addArgument(
               'path',
-              InputArgument::REQUIRED,
+              InputArgument::OPTIONAL,
               'Path where the import files are at'
             )
         ;
@@ -82,7 +82,7 @@ class StarImportCommand extends BaseCommand
     {
         $importPath = $input->getArgument('path');
 
-        if (strcmp($importPath, "-dev") === 0)
+        if (empty($importPath))
         {
             $projectRoot = $this->kernel->getProjectDir();
             $importPath = $projectRoot . "/_tools";
