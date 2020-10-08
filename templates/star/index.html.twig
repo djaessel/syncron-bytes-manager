@@ -69,7 +69,7 @@
           {% endif %}
 
           {% for i, season in seasons %}
-              {% if seasonCur.number = episode.number %}
+              {% if seasonCur.number == episode.number %}
                   {% set seasonCur = season %}
               {% endif %}
           {% endfor %}
