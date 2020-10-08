@@ -17,12 +17,12 @@ class Episode
     private $id;
 
     /**
-     * @ORM\Column(name="number", type="integer", nullable=false)
+     * @ORM\Column(name="number", type="string", length=8, nullable=false)
      */
     private $number;
 
     /**
-     * @ORM\Column(name="number_all", type="integer", nullable=true)
+     * @ORM\Column(name="number_all", type="string", length=8, nullable=true)
      */
     private $numberAll;
 
@@ -58,12 +58,12 @@ class Episode
         return $this->id;
     }
 
-    public function getNumber(): ?int
+    public function getNumber(): ?string
     {
         return $this->number;
     }
 
-    public function getNumberAll(): ?int
+    public function getNumberAll(): ?string
     {
         return $this->numberAll;
     }
@@ -88,12 +88,12 @@ class Episode
         return $this->isExtra;
     }
 
-    public function setNumber(int $number)
+    public function setNumber(string $number)
     {
         $this->number = $number;
     }
 
-    public function setNumberAll(?int $numberAll)
+    public function setNumberAll(?string $numberAll)
     {
         $this->numberAll = $numberAll;
     }
