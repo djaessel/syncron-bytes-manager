@@ -17,12 +17,12 @@ class Episode
     private $id;
 
     /**
-     * @ORM\Column(name="number", type="string", length=8, nullable=false)
+     * @ORM\Column(name="number", type="string", length=16, nullable=false)
      */
     private $number;
 
     /**
-     * @ORM\Column(name="number_all", type="string", length=8, nullable=true)
+     * @ORM\Column(name="number_all", type="string", length=16, nullable=true)
      */
     private $numberAll;
 
