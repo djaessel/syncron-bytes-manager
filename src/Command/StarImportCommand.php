@@ -16,6 +16,8 @@ class StarImportCommand extends BaseCommand
 {
     protected static $defaultName = 'start:import';
 
+    private const DEFAULT_PROJECT_PATH = "/tools";
+
     /**
      * FileValidCheckCommand constructor.
      * @param EntityManagerInterface $manager
@@ -90,7 +92,7 @@ class StarImportCommand extends BaseCommand
         if (empty($importPath))
         {
             $projectRoot = $this->kernel->getProjectDir();
-            $importPath = $projectRoot . "/_tools";
+            $importPath = $projectRoot . self::DEFAULT_PROJECT_PATH;
         }
 
         return rtrim($importPath, "/");
