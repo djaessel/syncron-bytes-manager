@@ -53,4 +53,19 @@ class Season
     {
         return $this->title;
     }
+
+    public function setNumber(int $number)
+    {
+        $this->number = $number;
+    }
+
+    public function setSeries(int $series)
+    {
+        $this->series = $series;
+    }
+
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
 }

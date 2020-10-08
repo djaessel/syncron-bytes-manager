@@ -5,9 +5,9 @@ namespace App\Entity\Star;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Star\EpisodeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Star\SeriesRepository")
  */
-class Episode
+class Series
 {
     /**
      * @ORM\Id()
@@ -22,9 +22,9 @@ class Episode
     private $number;
 
     /**
-     * @ORM\Column(name="season", type="integer", nullable=false)
+     * @ORM\Column(name="color", type="string", length=16, nullable=true)
      */
-    private $season;
+    private $color;
 
     /**
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
@@ -44,9 +44,9 @@ class Episode
         return $this->number;
     }
 
-    public function getSeason(): int
+    public function getColor(): ?string
     {
-        return $this->season;
+        return $this->color;
     }
 
     public function getTitle(): ?string
@@ -59,9 +59,9 @@ class Episode
         $this->number = $number;
     }
 
-    public function setSeason(int $season)
+    public function setColor(string $color)
     {
-        $this->season = $season;
+        $this->color = $color;
     }
 
     public function setTitle(string $title)

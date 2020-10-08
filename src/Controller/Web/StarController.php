@@ -122,6 +122,8 @@ class StarController extends AbstractController
     }
 
     /**
+     * TODO: Move to repository
+     *
      * @param array $videoFiles
      * @param string $videoId
      */
@@ -145,6 +147,8 @@ class StarController extends AbstractController
     }
 
     /**
+     * TODO: Move to repository
+     *
      * @param array $videoFiles
      * @param string $videoId
      */
@@ -170,6 +174,7 @@ class StarController extends AbstractController
 
     /**
   	 * Generate video title from array data
+     * TODO: Move to repository
   	 *
   	 * @param array $videoData
   	 * @return string
@@ -196,11 +201,12 @@ class StarController extends AbstractController
 
     /**
      * list with all video files by id
+     * TODO: Move to repository
      */
     private function retrieveVideoNames()
     {
       $projectRoot = $this->kernel->getProjectDir();
-      $videoFilesNamePath = $projectRoot . "/_tools/videoFileNames.csv";
+      $videoFilesNamePath = $projectRoot . "/_tools/episodes.csv";
 
       $videoFiles = array();
 
@@ -221,11 +227,12 @@ class StarController extends AbstractController
 
     /**
      * List with all season data for all series
+     * TODO: Move to repository
      */
     private function retrieveSeasonData()
     {
       $projectRoot = $this->kernel->getProjectDir();
-      $seasonDataNamePath = $projectRoot . "/_tools/series_and_seasons.csv";
+      $seasonDataNamePath = $projectRoot . "/_tools/seasons.csv";
 
       $seasonData = array();
 

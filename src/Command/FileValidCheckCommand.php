@@ -5,20 +5,14 @@ namespace App\Command;
 use App\Entity\TransferData;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class FileValidCheckCommand extends Command
+class FileValidCheckCommand extends BaseCommand
 {
     protected static $defaultName = 'file:valid:check';
-
-    /**
-     * @var ObjectManager $manager
-     */
-    private $manager;
 
     /**
      * FileValidCheckCommand constructor.
@@ -27,9 +21,7 @@ class FileValidCheckCommand extends Command
      */
     public function __construct(EntityManagerInterface $manager, string $name = null)
     {
-        $this->manager = $manager;
-
-        parent::__construct($name);
+        parent::__construct($manager, $name);
     }
 
     protected function configure()
