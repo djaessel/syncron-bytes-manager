@@ -83,7 +83,7 @@ class Episode
         return $this->path;
     }
 
-    public function getIsExtra(): ?boolean
+    public function getIsExtra(): ?bool
     {
         return $this->isExtra;
     }
@@ -113,7 +113,7 @@ class Episode
         $this->path = $path;
     }
 
-    public function setIsExtra(?boolean $isExtra)
+    public function setIsExtra(?bool $isExtra)
     {
         $this->isExtra = $isExtra;
     }
