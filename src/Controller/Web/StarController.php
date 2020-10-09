@@ -39,6 +39,7 @@ class StarController extends AbstractController
      */
     public function index(SessionInterface $session)
     {
+      // FIXME: merge / link episodes, seasons and series via one to many in DB
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
       $seasons = $this->manager->getRepository("App\Entity\Star\Season")->findAll();
 
@@ -57,6 +58,7 @@ class StarController extends AbstractController
      */
     public function starVideo(SessionInterface $session, $videoId)
     {
+      // FIXME: merge / link episodes, seasons and series via one to many in DB
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
       $previousId = null;
