@@ -45,56 +45,56 @@
 
     <div class="list-group">
 
-      {% set seasonCur = seasons[0] %}
-
-      {% for i, episode in episodes %}
-
-        {# TODO: use php functions later #}
-    		{% set middle = " - Episode " ~ episode.number  %}
-    		{% if episode.isExtra %}
-    			{% set middle = " - Extra" %}
-    		{% endif %}
-
-        {# FIXME: check for language later and whether to show both titles #}
-    		{% set videoTitle = "Season " ~ episode.season ~ middle ~ ": " ~ episode.title %}
-        {# TODO: use php functions later #}
-
-        {% if seasonCur.number < episode.season %}
-
-          {% if seasonCur.number > 1 %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-          {% endif %}
-
-          {% for i, season in seasons %}
-              {% if seasonCur.number == episode.number %}
-                  {% set seasonCur = season %}
-              {% endif %}
-          {% endfor %}
+      {% for i, season in seasons %}
 
           <div class="panel panel-default">
-             <div class="panel-heading">
+
+              <div class="panel-heading">
                    <a class="btn panel-title list-group-item"
                        data-toggle="collapse"
-                       data-target="#collapse{{ episode.season }}">
+                       data-target="#collapse{{ season.number }}">
                        {# TODO: Translations when needed #}
-                       <b>{{ episode.season }}. Staffel - {{ seasonCur.title }}</b>
+                       <b>Season {{ season.number }} - {{ season.title }}</b>
                        {# FIXME: calculate first and last episode and replace code #}
-                       {#<small>#{{ seasonCur.firstEpisode }} - {{ seasonCur.lastEpisode }}</small>#}
-                       <small>({{ seasonCur.startYear }} - {{ seasonCur.endYear }})</small>
+                       {#<small>#{{ season.firstEpisode }} - {{ season.lastEpisode }}</small>#}
+                       <small>({{ season.startYear }} - {{ season.endYear }})</small>
                    </a>
               </div>
-              <div id="collapse{{ episode.season }}"
-                   class="panel-collapse collapse">
+
+              <div id="collapse{{ season.number }}" class="panel-collapse collapse">
+
                   <div class="panel-body">
                     <div class="list-group">
-        {% endif %}
 
-        <a class="list-group-item" href="{{ path('star-video', {'videoId': i}) }}">
-          {{ videoTitle }}
-        </a>
+                      {# FIXME: Later only loop through current episodes #}
+                      {# use start, end index for that (if possible) #}
+                      {% for i, episode in episodes %}
+                        {% if episode.season == season.number %}
+
+                          {# TODO: use php functions later #}
+                      		{% set middle = " - Episode " ~ episode.number  %}
+                      		{% if episode.isExtra %}
+                      			{% set middle = " - Extra" %}
+                      		{% endif %}
+
+                          {# FIXME: check for language later and whether to show both titles #}
+                      		{% set videoTitle = "Season " ~ episode.season ~ middle ~ ": " ~ episode.title %}
+                          {# TODO: use php functions later #}
+
+                          <a class="list-group-item" href="{{ path('star-video', {'videoId': i}) }}">
+                            {{ videoTitle }}
+                          </a>
+
+                        {% endif %}
+
+                      {% endfor %}
+
+                    </div>
+                  </div>
+
+              </div>
+
+            </div>
 
       {% endfor %}
 
