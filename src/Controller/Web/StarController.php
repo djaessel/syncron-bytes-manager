@@ -67,7 +67,7 @@ class StarController extends AbstractController
       // TODO: make with database call
       /** @var Episode $episode */
       foreach ($episodes as $key => $episode) {
-          if ($episode.getId() == $videoId) {
+          if ($episode->getId() == $videoId) {
               $curEpisode = $episode;
           }
       }
