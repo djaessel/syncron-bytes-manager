@@ -19,9 +19,9 @@
           color: whitesmoke !important;
         }
 
-        .panel-body {
+        /*.panel-body {
           background-color: #688;
-        }
+        }*/
     </style>
 {% endblock %}
 
@@ -46,6 +46,13 @@
     <div class="list-group">
 
       {% for i, season in seasons %}
+
+          {# FIXME: use season.series.color later after db connections set #}
+          <style>
+            .panel-body {
+              background-color: {{ series[1].color }};
+            }
+          </style>
 
           <div class="panel panel-default">
 
