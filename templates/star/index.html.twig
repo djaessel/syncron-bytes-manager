@@ -19,9 +19,9 @@
           color: whitesmoke !important;
         }
 
-        /*.panel-body {
+        .panel-body {
           background-color: #688;
-        }*/
+        }
     </style>
 {% endblock %}
 
@@ -70,7 +70,7 @@
 
               <div id="collapse{{ season.id }}" class="panel-collapse collapse">
 
-                  <div class="panel-body-{{ season.series }}">
+                  <div class="panel-body panel-body-{{ season.series }}">
                     <div class="list-group">
 
                       {# FIXME: Later only loop through current episodes #}
