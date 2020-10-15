@@ -61,6 +61,9 @@ class StarController extends AbstractController
       // FIXME: merge / link episodes, seasons and series via one to many in DB
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
+      // FIXME: current is index before
+      $videoId++;
+
       $previousId = null;
       $nextId = null;
 
