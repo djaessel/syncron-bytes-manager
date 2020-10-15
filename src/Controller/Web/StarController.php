@@ -42,11 +42,13 @@ class StarController extends AbstractController
       // FIXME: merge / link episodes, seasons and series via one to many in DB
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
       $seasons = $this->manager->getRepository("App\Entity\Star\Season")->findAll();
+      $series = $this->manager->getRepository("App\Entity\Star\Series")->findAll();
 
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
         'episodes' => $episodes,
         'seasons' => $seasons,
+        'series' => $series,
       ]);
     }
 
