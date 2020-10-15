@@ -61,6 +61,7 @@ class StarController extends AbstractController
     public function starVideo(SessionInterface $session, $videoId)
     {
       // FIXME: merge / link episodes, seasons and series via one to many in DB
+      $season = null;
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
       // FIXME: current is index before
@@ -80,6 +81,10 @@ class StarController extends AbstractController
       if (!empty($curEpisode)) {
         $previousId = $this->findPreviousId($episodes, $videoId);
         $nextId = $this->findNextId($episodes, $videoId);
+
+        // FIXME: merge / link episodes, seasons and series via one to many in DB
+        $season = $this->manager->getRepository("App\Entity\Star\Season")
+          ->find($curEpisode->getSeason());
       }
 
       $session->set("curVideoId", $videoId);
@@ -93,6 +98,7 @@ class StarController extends AbstractController
       return $this->render('star/video.html.twig', [
         'controller_name' => 'StarController',
         'episode' => $curEpisode,
+        'season' => $season,
         'videoPath' => $videoPath,
 		    'audioPath' => $audioPath,
       ]);
