@@ -7,5 +7,8 @@ Id;SeasonNumber;SeriesNumber;Title;StartYear;EndYear;FirstEpisode;LastEpisode
 6;6;1;"Ein neues Gesicht";2002;2003;111;132
 7;7;1;"Auf der Suche nach der Stadt der Antiker";2003;2004;133;154
 8;8;1;"In die Zukunft und wieder zurück";2004;2005;155;174
-9;9;1;"Eine große Herausforderung";2005;2006;175;194
-10;10;1;"Neue Kämpfe mit alten Feinden";2006;2007;195;214
+9;1;2;"Staffel 1 - Atlantis";2004;2005;1;20
+10;9;1;"Eine große Herausforderung";2005;2006;175;194
+11;2;2;"Staffel 2 - Atlantis";2005;2006;21;40
+12;10;1;"Neue Kämpfe mit alten Feinden";2006;2007;195;214
+13;3;2;"Staffel 3 - Atlantis";2006;2007;41;60

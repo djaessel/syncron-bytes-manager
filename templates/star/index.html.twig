@@ -50,7 +50,7 @@
           {# FIXME: use season.series.color later after db connections set #}
           <style>
             .panel-body {
-              background-color: {{ series[1].color }};
+              background-color: {{ series[season.series].color }};
             }
           </style>
 
@@ -76,7 +76,7 @@
                       {# FIXME: Later only loop through current episodes #}
                       {# use start, end index for that (if possible) #}
                       {% for i, episode in episodes %}
-                        {% if episode.season == season.number %}
+                        {% if episode.season == season.id %}
 
                           {# TODO: use php functions later #}
                       		{% set middle = " - Episode " ~ episode.number  %}

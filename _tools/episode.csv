@@ -185,44 +185,52 @@ SG1/Season8/S08E18;Jim;Threads;8;18;172;0
 SG1/Season8/S08E19;Möbius, Teil 1;Moebius, part 1;8;19;173;0
 SG1/Season8/S08E20;Möbius, Teil 2;Moebius, part 2;8;20;174;0
 
-SG1/Season9/S09E01;Avalon, Teil 1;Avalon, part 1;9;1;175;0
-SG1/Season9/S09E02;Avalon, Teil 2;Avalon, part 2;9;2;176;0
-SG1/Season9/S09E03;Die Herkunft (DVD) / Das Geheimnis der Ori (TV);Origin;9;3;177;0
-SG1/Season9/S09E04;Unsichtbare Fesseln;The Ties that bind;9;4;178;0
-SG1/Season9/S09E05;Höhere Mächte (DVD) / Machtspiele (TV);The Powers that be;9;5;179;0
-SG1/Season9/S09E06;Das Schutzschild (DVD) / Der Brückenkopf (TV);Beachhead;9;6;180;0
-SG1/Season9/S09E07;Ex-Deus Machina;Ex-Deus Machina;9;7;181;0
-SG1/Season9/S09E08;Babylon;Babylon;9;8;182;0
-SG1/Season9/S09E09;Der Prototyp;Prototype;9;9;183;0
-SG1/Season9/S09E10;Der apokalyptische Reiter, Teil 1 (DVD) / Die Rückkehr von Orlin, Teil 1 (TV);The fourth Horseman, part 1;9;10;184;0
-SG1/Season9/S09E11;Der apokalyptische Reiter, Teil 2 (DVD) / Die Rückkehr von Orlin, Teil 2 (TV);The fourth Horseman, part 2;9;11;185;0
-SG1/Season9/S09E12;Kollateralschaden;Collateral Damage;9;12;186;0
-SG1/Season9/S09E13;Der Ripple-Effekt (DVD) / Parallelwelten (TV);Ripple Effect;9;13;187;0
-SG1/Season9/S09E14;Die Festung (DVD) / Das Referendum (TV);Stronghold;9;14;188;0
-SG1/Season9/S09E15;Ethon;Ethon;9;15;189;0
-SG1/Season9/S09E16;Ohne Netz (DVD) / Das verschwundene Stargate (TV);Off the Grid;9;16;190;0
-SG1/Season9/S09E17;Die Plage / Die Käferplage (TV);The Scourge;9;17;191;0
-SG1/Season9/S09E18;Arthurs Umhang / Neue Dimensionen (TV);Arthur's Mantle;9;18;192;0
-SG1/Season9/S09E19;Der Kreuzzug;Crusade;9;19;193;0
-SG1/Season9/S09E20;Camelot;Camelot;9;20;194;0
+Atlantis/Season1/S01E0102;Aufbruch in eine neue Welt;Rising;9;1 & 2;1 & 2;0
+Atlantis/Season1/S01E03;Dunkle Schatten;Hide and Seek;9;3;3;0
+Atlantis/Season1/S01E04;38 Minuten;Thirty-Eight Minutes;9;4;4;0
+Atlantis/Season1/S01E05;Unter Verdacht;Suspicion;9;5;5;0
+Atlantis/Season1/S01E06;Selbstopfer;Childhood's End;9;6;6;0
+Atlantis/Season1/S01E07;Tödliche Verteidigung;Poisoning the Well;9;7;7;0
+Atlantis/Season1/S01E08;Im Untergrund;Underground;9;8;8;0
 
-SG1/Season10/S10E01;Fleisch und Blut;Flesh and Blood;10;1;195;0
-SG1/Season10/S10E02;In Morpheus Armen;Morpheus;10;2;196;0
-SG1/Season10/S10E03;Das Pegasus-Prinzip;The Pegasus Project;10;3;197;0
-SG1/Season10/S10E04;Insiderwissen;Insiders;10;4;198;0
-SG1/Season10/S10E05;Mutanten;Uninvited;10;5;199;0
-SG1/Season10/S10E06;200;200;10;6;200;0
-SG1/Season10/S10E07;Adrias Macht;Counter-Strike;10;7;201;0
-SG1/Season10/S10E08;Tödliche Erinnerungen;Memento Mori;10;8;202;0
-SG1/Season10/S10E09;Die Kriegserklärung;Company of Thieves;10;9;203;0
-SG1/Season10/S10E10;Die Suche, Teil 1;Quest, part 1;10;10;204;0
-SG1/Season10/S10E11;Die Suche, Teil 2;Quest, part 2;10;11;205;0
-SG1/Season10/S10E12;Die Linie im Sand;Line in the Sand;10;12;206;0
-SG1/Season10/S10E13;Die Parallelwelt;The Road not taken;10;13;207;0
-SG1/Season10/S10E14;Daniel, der Prior;The Shroud;10;14;208;0
-SG1/Season10/S10E15;Der Kopfgeldjäger;Bounty;10;15;209;0
-SG1/Season10/S10E16;Die Geiselnahme;Bad Guys;10;16;210;0
-SG1/Season10/S10E17;Rache muss sein;Talion;10;17;211;0
-SG1/Season10/S10E18;Familienbande;Family Ties;10;18;212;0
-SG1/Season10/S10E19;Ba’als letztes Gefecht;Dominion;10;19;213;0
-SG1/Season10/S10E20;Endlosigkeit;Unending;10;20;214;0
+SG1/Season9/S09E01;Avalon, Teil 1;Avalon, part 1;10;1;175;0
+SG1/Season9/S09E02;Avalon, Teil 2;Avalon, part 2;10;2;176;0
+SG1/Season9/S09E03;Die Herkunft (DVD) / Das Geheimnis der Ori (TV);Origin;10;3;177;0
+SG1/Season9/S09E04;Unsichtbare Fesseln;The Ties that bind;10;4;178;0
+SG1/Season9/S09E05;Höhere Mächte (DVD) / Machtspiele (TV);The Powers that be;10;5;179;0
+SG1/Season9/S09E06;Das Schutzschild (DVD) / Der Brückenkopf (TV);Beachhead;10;6;180;0
+SG1/Season9/S09E07;Ex-Deus Machina;Ex-Deus Machina;10;7;181;0
+SG1/Season9/S09E08;Babylon;Babylon;10;8;182;0
+SG1/Season9/S09E09;Der Prototyp;Prototype;10;9;183;0
+SG1/Season9/S09E10;Der apokalyptische Reiter, Teil 1 (DVD) / Die Rückkehr von Orlin, Teil 1 (TV);The fourth Horseman, part 1;10;10;184;0
+SG1/Season9/S09E11;Der apokalyptische Reiter, Teil 2 (DVD) / Die Rückkehr von Orlin, Teil 2 (TV);The fourth Horseman, part 2;10;11;185;0
+SG1/Season9/S09E12;Kollateralschaden;Collateral Damage;10;12;186;0
+SG1/Season9/S09E13;Der Ripple-Effekt (DVD) / Parallelwelten (TV);Ripple Effect;10;13;187;0
+SG1/Season9/S09E14;Die Festung (DVD) / Das Referendum (TV);Stronghold;10;14;188;0
+SG1/Season9/S09E15;Ethon;Ethon;10;15;189;0
+SG1/Season9/S09E16;Ohne Netz (DVD) / Das verschwundene Stargate (TV);Off the Grid;10;16;190;0
+SG1/Season9/S09E17;Die Plage / Die Käferplage (TV);The Scourge;10;17;191;0
+SG1/Season9/S09E18;Arthurs Umhang / Neue Dimensionen (TV);Arthur's Mantle;10;18;192;0
+SG1/Season9/S09E19;Der Kreuzzug;Crusade;10;19;193;0
+SG1/Season9/S09E20;Camelot;Camelot;10;20;194;0
+
+SG1/Season10/S10E01;Fleisch und Blut;Flesh and Blood;12;1;195;0
+SG1/Season10/S10E02;In Morpheus Armen;Morpheus;12;2;196;0
+SG1/Season10/S10E03;Das Pegasus-Prinzip;The Pegasus Project;12;3;197;0
+SG1/Season10/S10E04;Insiderwissen;Insiders;12;4;198;0
+SG1/Season10/S10E05;Mutanten;Uninvited;12;5;199;0
+SG1/Season10/S10E06;200;200;12;6;200;0
+SG1/Season10/S10E07;Adrias Macht;Counter-Strike;12;7;201;0
+SG1/Season10/S10E08;Tödliche Erinnerungen;Memento Mori;12;8;202;0
+SG1/Season10/S10E09;Die Kriegserklärung;Company of Thieves;12;9;203;0
+SG1/Season10/S10E10;Die Suche, Teil 1;Quest, part 1;12;10;204;0
+SG1/Season10/S10E11;Die Suche, Teil 2;Quest, part 2;12;11;205;0
+SG1/Season10/S10E12;Die Linie im Sand;Line in the Sand;12;12;206;0
+SG1/Season10/S10E13;Die Parallelwelt;The Road not taken;12;13;207;0
+SG1/Season10/S10E14;Daniel, der Prior;The Shroud;12;14;208;0
+SG1/Season10/S10E15;Der Kopfgeldjäger;Bounty;12;15;209;0
+SG1/Season10/S10E16;Die Geiselnahme;Bad Guys;12;16;210;0
+SG1/Season10/S10E17;Rache muss sein;Talion;12;17;211;0
+SG1/Season10/S10E18;Familienbande;Family Ties;12;18;212;0
+SG1/Season10/S10E19;Ba’als letztes Gefecht;Dominion;12;19;213;0
+SG1/Season10/S10E20;Endlosigkeit;Unending;12;20;214;0
