@@ -108,7 +108,6 @@ class StarController extends AbstractController
      */
     public function starVideoNext(SessionInterface $session)
     {
-      $nextId = $session->get("nextVideoId");
       $fillerActive = $session->get("fillerActive", false);
 
       if ($fillerActive) {
