@@ -101,7 +101,7 @@
                       		{% set videoTitle = "Season " ~ season.number ~ middle ~ ": " ~ episode.title %}
                           {# TODO: use php functions later #}
 
-                          <a class="list-group-item list-group-item-{{ season.series }}" href="{{ path('star-video', {'videoId': i}) }}">
+                          <a class="list-group-item list-group-item-{{ season.series }}" href="{{ path('star-video', {'videoId': episode.id}) }}">
                             {{ videoTitle }}
                           </a>
 

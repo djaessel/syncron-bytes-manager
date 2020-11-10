@@ -64,9 +64,6 @@ class StarController extends AbstractController
       $season = null;
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
-      // FIXME: current is index before
-      $videoId++;
-
       $previousId = null;
       $nextId = null;
 
@@ -111,7 +108,6 @@ class StarController extends AbstractController
      */
     public function starVideoNext(SessionInterface $session)
     {
-      $nextId = $session->get("nextVideoId");
       $fillerActive = $session->get("fillerActive", false);
 
       if ($fillerActive) {
