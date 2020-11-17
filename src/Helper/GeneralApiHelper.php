@@ -40,6 +40,7 @@ class GeneralApiHelper
             $newTransferData->setUser($user);
             $newTransferData->setDataInfo($transferData["dataInfo"]);
             $newTransferData->setLink($transferData["link"]);
+            $newTransferData->setCreationDate(date('Y-m-d H:i:s')); // NOW
             $newTransferData->setIsUsed(false);
 
             $manager->persist($newTransferData);
