@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $user->setPassword($password);
 
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
-        
+
         $manager->persist($user);
         $manager->flush();
     }
