@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\TransferData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method TransferData|null find($id, $lockMode = null, $lockVersion = null)
