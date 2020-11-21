@@ -64,6 +64,12 @@ class StarController extends AbstractController
       $season = null;
       $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
+      // removes filler if video next button click instead of wait
+      $fillerActive = $session->get("fillerActive", false);
+      if ($fillerActive) {
+        $session->remove("fillerActive");
+      }
+
       $previousId = null;
       $nextId = null;
 
