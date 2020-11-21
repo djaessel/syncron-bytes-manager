@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\TransferData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method TransferData|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  */
 class TransferDataRepository extends ServiceEntityRepository
 {
-    public function __construct(Registry $registry)
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, TransferData::class);
     }

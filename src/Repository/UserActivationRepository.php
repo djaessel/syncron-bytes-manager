@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UserActivation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method UserActivation|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  */
 class UserActivationRepository extends ServiceEntityRepository
 {
-    public function __construct(Registry $registry)
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, UserActivation::class);
     }
