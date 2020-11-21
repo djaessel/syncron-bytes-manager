@@ -43,19 +43,21 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response|RedirectResponse
      */
-	public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
-	{
+  	public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
+  	{
         $success = false;
 
-		$email = $request->request->get('email', "");
-		$password = $request->request->get('password', "");
-		$password2 = $request->request->get('password2', "");
+        $email = $request->request->get('email', "");
+        $password = $request->request->get('password', "");
+        $password2 = $request->request->get('password2', "");
 
-		$errorMode = 0;
-		if (!empty($email)) {
-		    $errorMode++; // 1
-		    if (strlen($password) <= 255 && strlen($password2) <= 255) {
-		        $errorMode++; // 2
+        // TODO: use better testing code later
+
+        $errorMode = 0;
+        if (!empty($email)) {
+            $errorMode++; // 1
+            if (strlen($password) <= 255 && strlen($password2) <= 255) {
+                $errorMode++; // 2
                 if (strcmp($password, $password2) === 0) {
                     $errorMode++; // 3
                     $userHelper = new UserHelper($this->container);
@@ -70,25 +72,25 @@ class SecurityController extends AbstractController
             }
         }
 
-		if ($success) {
-		    return $this->redirectToRoute("web_base");
+        if ($success) {
+            return $this->redirectToRoute("web_base");
         }
 
-		$error = null;
-		$requestKeys = $request->request->keys();
-		if (array_search("_csrf_token", $requestKeys) !== false) {
+        $error = null;
+        $requestKeys = $request->request->keys();
+        if (array_search("_csrf_token", $requestKeys) !== false) {
             $errors = $this->userRegistrationErrors();
             $error = $errors[$errorMode];
         }
 
-		return $this->render(
-			'security/register.html.twig',
-			array(
-			    'last_email' => $email,
-				'error' => $error,
-			)
-		);
-	}
+        return $this->render(
+            'security/register.html.twig',
+            array(
+              'last_email' => $email,
+              'error' => $error,
+            )
+        );
+  	}
 
     /**
      * @Route("/activate", name="user_activate")
@@ -97,7 +99,7 @@ class SecurityController extends AbstractController
      * @param JWTEncoderInterface $jwtEncoder
      * @return Response|RedirectResponse
      */
-	public function activateUser(Request $request, JWTTokenManagerInterface $jwtManager, JWTEncoderInterface $jwtEncoder)
+  	public function activateUser(Request $request, JWTTokenManagerInterface $jwtManager, JWTEncoderInterface $jwtEncoder)
     {
         $activationCode = $request->request->get('activation');
 
@@ -138,7 +140,7 @@ class SecurityController extends AbstractController
     /**
      * @return array
      */
-	private function userRegistrationErrors()
+  	private function userRegistrationErrors()
     {
         $errors = array(
             array(
@@ -162,7 +164,7 @@ class SecurityController extends AbstractController
         return $errors;
     }
 
-	  /**
+    /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()
