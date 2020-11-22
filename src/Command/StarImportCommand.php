@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class StarImportCommand extends BaseCommand
 {
     protected static $defaultName = 'start:import';
-    
+
 
     /**
      * FileValidCheckCommand constructor.
@@ -131,7 +131,11 @@ class StarImportCommand extends BaseCommand
 
             while (($data = fgetcsv($handle, $maxCharsOnLine, ";")) !== FALSE) {
               if (count($data) > 1) {
-                $csvData[$data[0]] = $data;
+                // to ignore possible comments in file
+                $pos = strpos($data[0], '#');
+                if ($pos !== 0) {
+                  $csvData[$data[0]] = $data;
+                }
               }
             }
 
