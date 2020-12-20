@@ -334,9 +334,7 @@ Atlantis/Season5/S05E18;Identität;Identity;16;18;98;0
 Atlantis/Season5/S05E19;Vegas;Vegas;16;19;99;0
 Atlantis/Season5/S05E20;Feind in Sicht;Enemy at the Gate;16;20;100;0
 
-Universe/Season1/S01E01;Die Destiny – Teil 1;Air (1);17;1;1;0
-Universe/Season1/S01E02;Führungskampf auf der Destiny – Teil 2;Air (2);17;2;2;0
-Universe/Season1/S01E03;Rettung für die Destiny – Teil 3;Air (3);17;3;3;0
+Universe/Season1/S01E010203;Die Destiny & Führungskampf auf der Destiny & Rettung für die Destiny;Air / Pilot;17;1 & 2 & 3;1 & 2 & 3;0
 Universe/Season1/S01E04;Finsternis – Teil 1;Darkness (1);17;4;4;0
 Universe/Season1/S01E05;Der Flug ins Licht – Teil 2;Light (2);17;5;5;0
 Universe/Season1/S01E06;Außerirdische Invasion;Water;17;6;6;0
@@ -355,23 +353,23 @@ Universe/Season1/S01E18;Die Luzianer-Allianz;Subversion;17;18;18;0
 Universe/Season1/S01E19;Feindlicher Übergriff – Teil 1;Incursion (1);17;19;19;0
 Universe/Season1/S01E20;Feindlicher Übergriff – Teil 2;Incursion (2);17;20;20;0
 
-#Universe/Season2/S02E01;Intervention – Teil 3;Intervention (3);18;1;21;0
-#Universe/Season2/S02E02;Nachwirkungen;Aftermath;18;2;22;0
-#Universe/Season2/S02E03;Angedockt;Awakening;18;3;23;0
-#Universe/Season2/S02E04;Pathogener Keim;Pathogen;18;4;24;0
-#Universe/Season2/S02E05;Wucherungen;Cloverdale;18;5;25;0
-#Universe/Season2/S02E06;Der Test;Trial and Error;18;6;26;0
-#Universe/Season2/S02E07;Das Große Ganze;The Greater Good;18;7;27;0
-#Universe/Season2/S02E08;Hass;Malice;18;8;28;0
-#Universe/Season2/S02E09;Scheinleben;Visitation;18;9;29;0
-#Universe/Season2/S02E10;Unerwartetes Wiedersehen – Teil 1;;18;10;30;0
-#Universe/Season2/S02E11;Erlösung – Teil 2;Deliverance (2);18;11;31;0
-#Universe/Season2/S02E12;Zwillingsschicksale;Twin Destinies;18;12;32;0
-#Universe/Season2/S02E13;Bündnisse;Alliances;18;13;33;0
-#Universe/Season2/S02E14;Hoffnung;Hope;18;14;34;0
-#Universe/Season2/S02E15;Trojanische List;Seizure;18;15;35;0
-#Universe/Season2/S02E16;Die Jagd;The Hunt;18;16;36;0
-#Universe/Season2/S02E17;Verwandtschaft – Teil 1;Common Descent (1);18;17;37;0
-#Universe/Season2/S02E18;Epilog – Teil 2;Epilogue (2);18;18;38;0
-#Universe/Season2/S02E19;Blockade;Blockade;18;19;39;0
-#Universe/Season2/S02E20;Im Ruhezustand;Gauntlet;18;20;40;0
+Universe/Season2/S02E01;Intervention – Teil 3;Intervention (3);18;1;21;0
+Universe/Season2/S02E02;Nachwirkungen;Aftermath;18;2;22;0
+Universe/Season2/S02E03;Angedockt;Awakening;18;3;23;0
+Universe/Season2/S02E04;Pathogener Keim;Pathogen;18;4;24;0
+Universe/Season2/S02E05;Wucherungen;Cloverdale;18;5;25;0
+Universe/Season2/S02E06;Der Test;Trial and Error;18;6;26;0
+Universe/Season2/S02E07;Das Große Ganze;The Greater Good;18;7;27;0
+Universe/Season2/S02E08;Hass;Malice;18;8;28;0
+Universe/Season2/S02E09;Scheinleben;Visitation;18;9;29;0
+Universe/Season2/S02E10;Unerwartetes Wiedersehen – Teil 1;;18;10;30;0
+Universe/Season2/S02E11;Erlösung – Teil 2;Deliverance (2);18;11;31;0
+Universe/Season2/S02E12;Zwillingsschicksale;Twin Destinies;18;12;32;0
+Universe/Season2/S02E13;Bündnisse;Alliances;18;13;33;0
+Universe/Season2/S02E14;Hoffnung;Hope;18;14;34;0
+Universe/Season2/S02E15;Trojanische List;Seizure;18;15;35;0
+Universe/Season2/S02E16;Die Jagd;The Hunt;18;16;36;0
+Universe/Season2/S02E17;Verwandtschaft – Teil 1;Common Descent (1);18;17;37;0
+Universe/Season2/S02E18;Epilog – Teil 2;Epilogue (2);18;18;38;0
+Universe/Season2/S02E19;Blockade;Blockade;18;19;39;0
+Universe/Season2/S02E20;Im Ruhezustand;Gauntlet;18;20;40;0
