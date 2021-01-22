@@ -33,7 +33,7 @@
             text-align: center;
           }
 
-          .title-button {
+          .bar-button {
             color: white;
             text-align: center;
             vertical-align: middle;
@@ -41,7 +41,6 @@
 
           .video-bar {
             position: absolute;
-            top: 0;
             color: white;
             font-size: 24px;
             padding: 12px 24px;
@@ -52,8 +51,16 @@
             text-align: center;
           }
 
+          .video-bar-top {
+            top: 0;
+          }
+
+          .video-bar-bottom {
+            bottom: 0;
+          }
+
           .videoMediaClass {
-            width: 87%;
+            width: 100%;
             height: auto;
           }
 
@@ -72,10 +79,10 @@
         		  <p>Your browser does not support the video tag.</p>
         		</video>
 
-            <div id="videoTitleBar" class="row video-bar">
+            <div id="videoTitleBar" class="row video-bar video-bar-title">
 
               <div class="col-md-3">
-                <a id="backButton" class="title-button pull-left"
+                <a id="backButton" class="bar-button pull-left"
                    href="{{ path('star') }}"> {# change href later maybe #}
                   <i class="fa fa-chevron-left"></i>
                 </a>
@@ -98,7 +105,7 @@
               </div>
 
               <div class="col-md-3">
-                <a class="title-button pull-right"
+                <a class="bar-button pull-right"
                    href="{{ path('star') }}"> {# change href later maybe #}
                   <i class="fa fa-close"></i>
                 </a>
@@ -106,14 +113,14 @@
 
             </div>
 
-            <div id="videoPlayerBar" class="row video-bar">
+            <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
 
               <div class="col-md-3">
-                <a id="pauseButton" class="title-button pull-left"
+                <a id="pauseButton" class="bar-button pull-left"
                     href="#">
                     <i class="fa fa-pause"></i>
                 </a>
-                <a id="playButton" class="title-button pull-left"
+                <a id="playButton" class="bar-button pull-left"
                     href="#" style="display: none;">
                     <i class="fa fa-play"></i>
                 </a>
@@ -124,9 +131,13 @@
               </div>
 
               <div class="col-md-3">
-                <a id="fullscreenButton" class="title-button pull-right"
-                    href="#" data-full="false">
+                <a id="expandButton" class="bar-button pull-right"
+                    href="#">
                     <i class="fa fa-expand"></i>
+                </a>
+                <a id="compressButton" class="bar-button pull-right"
+                    href="#" style="display: none;">
+                    <i class="fa fa-compress"></i>
                 </a>
               </div>
 
@@ -147,12 +158,17 @@
             // TODO: get video_next.html style like button on image for video overlay like Netflix
             $(function () {
 
+              var fullElem = document.documentElement;
+
+              function toggleFullscreenButtons() {
+                $("#expandButton").fadeToggle();
+                $("#compressButton").fadeToggle();
+              }
+
               function togglePlayButtons() {
                 $("#playButton").fadeToggle();
                 $("#pauseButton").fadeToggle();
               }
-
-              var fullElem = document.documentElement;
 
               function openFullscreen() {
                 if (fullElem.requestFullscreen) {
@@ -162,6 +178,7 @@
                 } else if (fullElem.msRequestFullscreen) { /* IE11 */
                   fullElem.msRequestFullscreen();
                 }
+                toggleFullscreenButtons();
               }
 
               function closeFullscreen() {
@@ -172,6 +189,7 @@
                 } else if (document.msExitFullscreen) { /* IE11 */
                   document.msExitFullscreen();
                 }
+                toggleFullscreenButtons();
               }
 
               var curVideo = $('#curVideo');
@@ -204,15 +222,14 @@
                 curVideoDom.play();
               });
 
-              // FIXME: make with event if possible
-              $("#fullscreenButton").on('click', function() {
-                if ($(this).data("full") == false) {
-                  $(this).data("full", true);
-                  openFullscreen();
-                } else {
-                  $(this).data("full", false);
-                  closeFullscreen();
-                }
+              $("#expandButton").on('click', function() {
+                // TODO: make with event if possible
+                openFullscreen();
+              });
+
+              $("#compressButton").on('click', function() {
+                // TODO: make with event if possible
+                closeFullscreen();
               });
 
               // autostart video
