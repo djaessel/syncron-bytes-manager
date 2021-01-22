@@ -39,7 +39,7 @@
             vertical-align: middle;
           }
 
-          #videoTitleBar {
+          .video-bar {
             position: absolute;
             top: 0;
             color: white;
@@ -72,7 +72,7 @@
         		  <p>Your browser does not support the video tag.</p>
         		</video>
 
-            <div id="videoTitleBar" class="row">
+            <div id="videoTitleBar" class="row video-bar">
 
               <div class="col-md-3">
                 <a id="backButton" class="title-button pull-left"
@@ -106,7 +106,7 @@
 
             </div>
 
-            <div id="videoPlayerBar" class="row">
+            <div id="videoPlayerBar" class="row video-bar">
 
               <div class="col-md-3">
                 <a id="pauseButton" class="title-button pull-left"
@@ -175,6 +175,7 @@
               }
 
               var curVideo = $('#curVideo');
+              var curVideoDom = curVideo.get(0);
 
               curVideo.on('ended', function(e) {
                 var url = $("#nextVid").data("url");
@@ -196,28 +197,27 @@
               });
 
               $("#playButton").on('click', function() {
-                curVideo.pause();
+                curVideoDom.pause();
               });
 
               $("#pauseButton").on('click', function() {
-                curVideo.play();
+                curVideoDom.play();
               });
 
               // FIXME: make with event if possible
               $("#fullscreenButton").on('click', function() {
-                var x = $(this);
-                if (x.getData("full") == false) {
-                  x.setData("full", true);
+                if ($(this).data("full") == false) {
+                  $(this).data("full", true);
                   openFullscreen();
                 } else {
-                  x.setData("full", false);
+                  $(this).data("full", false);
                   closeFullscreen();
                 }
               });
 
               // autostart video
-              //curVideo.autoplay = true;
-              //curVideo.load();
+              curVideoDom.autoplay = true;
+              curVideoDom.load();
 
           });
         </script>
