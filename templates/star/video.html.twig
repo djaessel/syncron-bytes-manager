@@ -43,7 +43,7 @@
             position: absolute;
             color: white;
             font-size: 24px;
-            padding: 12px 24px;
+            padding: 48px 64px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
@@ -72,12 +72,6 @@
     {% block body %}
 
         <div class="dark">
-
-        		<video id="curVideo" class="dark videoMediaClass" autoplay="autoplay" preload="auto">
-        			<source src="{{ videoPath ~ episode.path }}.mp4" type="video/mp4">
-      			{#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
-        		  <p>Your browser does not support the video tag.</p>
-        		</video>
 
             <div id="videoTitleBar" class="row video-bar video-bar-title">
 
@@ -111,6 +105,14 @@
                 </a>
               </div>
 
+            </div>
+
+            <div id="videoPlayerContainer">
+              <video id="curVideo" class="dark videoMediaClass" preload="auto">
+                <source src="{{ videoPath ~ episode.path }}.mp4" type="video/mp4">
+              {#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
+                <p>Your browser does not support the video tag.</p>
+              </video>
             </div>
 
             <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
@@ -204,14 +206,16 @@
 
               curVideo.on('play', function(e) {
                 $("#videoTitleBar").hide();
-                $("#videoPlayerBar").hide();
+                //$("#videoPlayerBar").hide(); // use hover event later
                 togglePlayButtons();
+                $("#videoPlayerContainer").css('opacity', '1.0');
               });
 
               curVideo.on('pause', function(e) {
                 $("#videoTitleBar").show();
-                $("#videoPlayerBar").show();
+                //$("#videoPlayerBar").show(); // use hover event later
                 togglePlayButtons();
+                $("#videoPlayerContainer").css('opacity', '0.6');
               });
 
               $("#playButton").on('click', function() {
