@@ -241,6 +241,8 @@
                 if ($("#curVideo").get(0).paused == false) {
                   $("#videoPlayerBar").show();
                 }
+                
+                waited = false;
 
                 timerId = setInterval(function () {
                   if (waited === true) {
@@ -248,7 +250,6 @@
                       $("#videoPlayerBar").hide();
                     }
 
-                    waited = false;
                     clearInterval(timerId);
                   }
 
