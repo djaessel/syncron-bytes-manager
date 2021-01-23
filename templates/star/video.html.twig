@@ -127,14 +127,13 @@
             <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
 
               <div class="col-md-3">
-                <a id="pauseButton" class="bar-button pull-left"
+                {#}<a id="pauseButton" class="bar-button pull-left"
                     href="#" style="display: none;">
                     <i class="fa fa-pause"></i>
-                </a>
-                <a id="playButton" class="bar-button pull-left"
-                    href="#">
+                </a>#}
+                <button id="playButton" class="bar-button pull-left">
                     <i class="fa fa-play"></i>
-                </a>
+                </button>
               </div>
 
               <div class="col-md-6">
@@ -142,14 +141,13 @@
               </div>
 
               <div class="col-md-3">
-                <a id="expandButton" class="bar-button pull-right"
-                    href="#">
+                <button id="expandButton" class="bar-button pull-right">
                     <i class="fa fa-expand"></i>
-                </a>
-                <a id="compressButton" class="bar-button pull-right"
+                </button>
+                {#<a id="compressButton" class="bar-button pull-right"
                     href="#" style="display: none;">
                     <i class="fa fa-compress"></i>
-                </a>
+                </a>#}
               </div>
 
             </div>
@@ -178,7 +176,7 @@
 
               function togglePlayButtons() {
                 $("#playButton").fadeToggle();
-                $("#pauseButton").fadeToggle();
+                //$("#pauseButton").fadeToggle();
                 $("#videoTitleBar").toggle();
               }
 
@@ -190,7 +188,10 @@
                 } else if (fullElem.msRequestFullscreen) { /* IE11 */
                   fullElem.msRequestFullscreen();
                 }
-                toggleFullscreenButtons();
+
+                //toggleFullscreenButtons();
+
+                $("#videoPlayerContainer").css('width', '98%');
               }
 
               function closeFullscreen() {
@@ -201,8 +202,37 @@
                 } else if (document.msExitFullscreen) { /* IE11 */
                   document.msExitFullscreen();
                 }
-                toggleFullscreenButtons();
+
+                //toggleFullscreenButtons();
+
+                $("#videoPlayerContainer").css('width', '90%');
               }
+
+
+              var ctrlVideo = document.getElementById("curVideo");
+
+              $('#playButton').click(function(){
+                if ($('#playButton').hasClass("fa-play")){
+                    ctrlVideo.play();
+                } else {
+                    ctrlVideo.pause();
+                }
+
+                $('#playButton').toggleClass("fa-play");
+                $('#playButton').toggleClass("fa-pause");
+              });
+
+              $('#expandButton').click(function(){
+                if ($('#expandButton').hasClass("fa-expand")){
+                    openFullscreen();
+                } else {
+                    closeFullscreen();
+                }
+
+                $('#expandButton').toggleClass("fa-expand");
+                $('#expandButton').toggleClass("fa-compress");
+              });
+
 
               var curVideo = $('#curVideo');
 
@@ -233,7 +263,7 @@
                 }
               });
 
-              $("#playButton").on('click', function(e) {
+              /*$("#playButton").on('click', function(e) {
                 e.preventDefault();
                 var curVideoDom = document.getElementById("curVideo");
                 curVideoDom.pause();
@@ -243,19 +273,19 @@
                 e.preventDefault();
                 var curVideoDom = document.getElementById("curVideo");
                 curVideoDom.play();
-              });
+              });*/
 
-              $("#expandButton").on('click', function(e) {
+              /*$("#expandButton").on('click', function(e) {
                 e.preventDefault();
                 // TODO: make with event if possible
                 openFullscreen();
-              });
+              });*/
 
-              $("#compressButton").on('click', function(e) {
+              /*$("#compressButton").on('click', function(e) {
                 e.preventDefault();
                 // TODO: make with event if possible
                 closeFullscreen();
-              });
+              });*/
 
               // autostart video
               //curVideoDom.autoplay = true;
