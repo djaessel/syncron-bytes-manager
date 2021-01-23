@@ -231,23 +231,29 @@
                 $("#videoPlayerContainer").css('opacity', '0.6');
               });
 
-              var hideCounter = 0;
+
+              var waited = false;
+              var timerId = 0;
+
               $(document).on('mousemove', function(e) {
                 e.preventDefault();
-                var video = $("#curVideo").get(0);
-                if (video.paused == false) {
+
+                if ($("#curVideo").get(0).paused == false) {
                   $("#videoPlayerBar").show();
                 }
 
-                hideCounter = 0;
+                timerId = setInterval(function () {
+                  if (waited === true) {
+                    if ($('#playButtonIcon').hasClass("fa-pause")){
+                      $("#videoPlayerBar").hide();
+                    }
 
-                setInterval(function () {
-                  if ($('#playButtonIcon').hasClass("fa-pause") && hideCounter > 5){
-                    $("#videoPlayerBar").hide();
-                    hideCounter = 0;
+                    waited = false;
+                    clearInterval(timerId);
                   }
-                  hideCounter += 1;
-                }, 1000);
+
+                  waited = true;
+                }, 4000);
               });
 
               // autostart video
