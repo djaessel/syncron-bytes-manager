@@ -205,7 +205,6 @@
               }
 
               var curVideo = $('#curVideo');
-              var curVideoDom = curVideo.get(0);
 
               curVideo.on('ended', function(e) {
                 var url = $("#nextVid").data("url");
@@ -236,11 +235,13 @@
 
               $("#playButton").on('click', function(e) {
                 e.preventDefault();
+                var curVideoDom = document.getElementById("curVideo");
                 curVideoDom.pause();
               });
 
               $("#pauseButton").on('click', function(e) {
                 e.preventDefault();
+                var curVideoDom = document.getElementById("curVideo");
                 curVideoDom.play();
               });
 
