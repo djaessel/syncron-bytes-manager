@@ -81,11 +81,12 @@
 
           #custom-seekbar {
             cursor: pointer;
-            margin-top: 24px;
-            margin-bottom: 24px
-            outline: thin solid #455;
+            height: 32px;
+            margin-bottom: 10px;
+            outline: thin solid #355;
             overflow: hidden;
             position: relative;
+            width: 100%;
           }
 
           #custom-seekbar span {
@@ -152,19 +153,23 @@
 
             <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
 
-              <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="col-sm-1 col-md-1 col-lg-1">
                 <button id="playButton" class="bar-button pull-left">
                     <i id="playButtonIcon" class="fa fa-play"></i>
                 </button>
               </div>
 
-              <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="col-sm-7 col-md-7 col-lg-7">
                 <div id="custom-seekbar">
                   <span></span>
                 </div>
               </div>
 
               <div class="col-sm-3 col-md-3 col-lg-3">
+                {# audio and maybe language selection #}
+              </div>
+
+              <div class="col-sm-1 col-md-1 col-lg-1">
                 <button id="expandButton" class="bar-button pull-right">
                     <i id="expandButtonIcon" class="fa fa-expand"></i>
                 </button>
