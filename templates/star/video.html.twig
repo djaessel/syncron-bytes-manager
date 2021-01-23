@@ -11,8 +11,6 @@
 
         <!-- favicon -->
         <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <!-- favicon -->
-        <link rel="bookmark icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
@@ -41,6 +39,10 @@
             border: 0;
             text-align: center;
             vertical-align: middle;
+          }
+
+          .bar-button:hover {
+            color: #455;
           }
 
           .video-bar {
@@ -200,7 +202,11 @@
 
               <div class="col-sm-2 col-md-2 col-lg-2">
                 <div>
-                  {# maybe language selection #}
+                  <select id="languageSelector">
+                  {% for key, language in app.session.get("languages")} %}
+                    <option value="{{ key }}" data-url="{{ path('star-set-language', {'language': language}) }}">{{ language }}</option>
+                  {% endfor %}
+                  </select>
                 </div>
               </div>
 

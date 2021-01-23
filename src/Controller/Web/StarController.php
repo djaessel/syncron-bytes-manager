@@ -44,6 +44,13 @@ class StarController extends AbstractController
       $seasons = $this->manager->getRepository("App\Entity\Star\Season")->findAll();
       $series = $this->manager->getRepository("App\Entity\Star\Series")->findAll();
 
+      // TODO: later check for symfony solution
+      $videoLanguages = array(
+        "DE",
+        "EN",
+      );
+      $session->set("videoLanguages", $videoLanguages);
+
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
         'episodes' => $episodes,
@@ -134,6 +141,26 @@ class StarController extends AbstractController
         'controller_name' => 'StarController',
       ]);
     }
+
+    /**
+     * @Route("/star/set-language/{language}", name="star-set-language")
+     *
+     * @param SessionInterface $session
+     */
+    public function starSetLanguage(SessionInterface $session, $language)
+    {
+      $videoLanguages = $session->get("videoLanguages", array());
+      $oldLanguage = $session->get("videoLanguage", "DE");
+
+      if (!in_array($language, $availableLanguages)) {
+        $language = $oldLanguage;
+      }
+
+      $session->set("videoLanguage", $language);
+
+      return new Response("success");
+    }
+
 
     /**
      * TODO: Move to repository
