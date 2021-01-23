@@ -145,10 +145,6 @@
 
             <div id="videoPlayerContainer" class="videoMediaClass">
 
-              <div id="custom-seekbar">
-                <span></span>
-              </div>
-
               <video id="curVideo" preload="auto" width="100%">
                 <source src="{{ videoPath ~ episode.path }}.mp4" type="video/mp4">
               {#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
@@ -166,8 +162,9 @@
               </div>
 
               <div class="col-sm-6 col-md-6 col-lg-6">
-                {# empty for now #}
-
+                <div id="custom-seekbar">
+                  <span></span>
+                </div>
               </div>
 
               <div class="col-sm-3 col-md-3 col-lg-3">
@@ -293,12 +290,12 @@
               //var waited = false;
               //var timerId = 0;
               //
-              //$(document).on('mousemove', function(e) {
-              //  e.preventDefault();
-              //
-              //  if ($("#curVideo").get(0).paused == false) {
-              //    $("#videoPlayerBar").show();
-              //  }
+              $(document).on('mousemove', function(e) {
+                e.preventDefault();
+
+                if ($("#curVideo").get(0).paused == false) {
+                  $("#videoPlayerBar").show();
+                }
               //
               //  waited = false;
               //
@@ -313,7 +310,7 @@
               //
               //    waited = true;
               //  }, 4000);
-              //});
+              });
 
 
               // autostart video
