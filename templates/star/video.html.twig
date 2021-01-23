@@ -231,6 +231,7 @@
                 $("#videoPlayerContainer").css('opacity', '0.6');
               });
 
+              var hideCounter = 0;
               $(document).on('mousemove', function(e) {
                 e.preventDefault();
                 var video = $("#curVideo").get(0);
@@ -238,13 +239,13 @@
                   $("#videoPlayerBar").show();
                 }
 
-                var ppp = 0;
                 setInterval(function () {
-                  if ($('#playButtonIcon').hasClass("fa-pause") && ppp > 1){
+                  if ($('#playButtonIcon').hasClass("fa-pause") && ppp > 5){
                     $("#videoPlayerBar").hide();
+                    hideCounter = 0;
                   }
-                  ppp += 1;
-                }, 2000);
+                  hideCounter += 1;
+                }, 1000);
               });
 
               // autostart video
