@@ -116,6 +116,17 @@
             width: 100%;
           }
 
+
+          .player-control {
+            transition-property: opacity;
+            transition-delay: 2s;
+            transition-duration: 5s;
+          }
+
+          .player-control:hover {
+            opacity: 1.0;
+          }
+
         </style>
       {% endblock %}
 
@@ -346,9 +357,9 @@
 
 
               // hide control bar after mouse leave
-              $(".player-control").on("mouseleave", function(e) {
-                $(".video-bar").delay(3000).hide();
-              });
+              //$(".player-control").on("mouseleave", function(e) {
+              //  $(".video-bar").delay(3000).hide();
+              //});
 
 
               // autostart video
