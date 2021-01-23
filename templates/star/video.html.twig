@@ -20,6 +20,8 @@
 
         <style>
 
+          /* TODO: export into css file */
+
           /* html, body {
             min-height: unset;
             max-height: unset;
@@ -75,6 +77,30 @@
             font-size: 32px;
           }
 
+
+          #custom-seekbar
+          {
+            cursor: pointer;
+            height: 10px;
+            margin-bottom: 10px;
+            outline: thin solid #455;
+            overflow: hidden;
+            position: relative;
+            width: 400px;
+            /*text-align: center;*/
+            /*width: 90%:*/
+          }
+
+          #custom-seekbar span
+          {
+            background-color: #455;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 10px;
+            width: 0px;
+          }
+
         </style>
       {% endblock %}
 
@@ -119,11 +145,17 @@
             </div>
 
             <div id="videoPlayerContainer" class="videoMediaClass">
+              
+              <div id="custom-seekbar">
+                <span></span>
+              </div>
+
               <video id="curVideo" preload="auto" width="100%">
                 <source src="{{ videoPath ~ episode.path }}.mp4" type="video/mp4">
               {#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
                 <p>Your browser does not support the video tag.</p>
               </video>
+
             </div>
 
             <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
@@ -136,6 +168,7 @@
 
               <div class="col-sm-6 col-md-6 col-lg-6">
                 {# empty for now #}
+
               </div>
 
               <div class="col-sm-3 col-md-3 col-lg-3">
@@ -158,9 +191,13 @@
         <script src="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
         <script type='text/javascript'>
+
             // TODO: get video_next.html style like button on image for video overlay like Netflix
+            // TODO: put into js file later
+
             $(function () {
 
+              // CONTROLS - START
               var fullElem = document.documentElement;
 
               function openFullscreen() {
@@ -212,13 +249,6 @@
                 $('#expandButtonIcon').toggleClass("fa-compress");
               });
 
-              curVideo.on('ended', function(e) {
-                var url = $("#nextVid").data("url");
-                // FIXME: find better solution later + fix instant jump (sometimes)
-                // check controller code as well
-                window.location = url;
-              });
-
               curVideo.on('play', function(e) {
                 $("#videoTitleBar").toggle();
                 $("#videoPlayerBar").hide(); // no toggle because of mousemove
@@ -230,32 +260,62 @@
                 $("#videoPlayerBar").show(); // no toggle because of mousemove
                 $("#videoPlayerContainer").css('opacity', '0.6');
               });
+              // CONTROLS - END
 
 
-              var waited = false;
-              var timerId = 0;
-
-              $(document).on('mousemove', function(e) {
-                e.preventDefault();
-
-                if ($("#curVideo").get(0).paused == false) {
-                  $("#videoPlayerBar").show();
-                }
-                
-                waited = false;
-
-                timerId = setInterval(function () {
-                  if (waited === true) {
-                    if ($('#playButtonIcon').hasClass("fa-pause")){
-                      $("#videoPlayerBar").hide();
-                    }
-
-                    clearInterval(timerId);
-                  }
-
-                  waited = true;
-                }, 4000);
+              // NEXT VIDEO - START
+              curVideo.on('ended', function(e) {
+                var url = $("#nextVid").data("url");
+                // FIXME: find better solution later + fix instant jump (sometimes)
+                // check controller code as well
+                window.location = url;
               });
+              // NEXT VIDEO - START
+
+
+              // SEEK BAR - START
+              curVideoDOM.ontimeupdate = function(){
+                var percentage = ( curVideoDOM.currentTime / curVideoDOM.duration ) * 100;
+                $("#custom-seekbar span").css("width", percentage + "%");
+              };
+
+              $("#custom-seekbar").on("click", function(e){
+                  var offset = $(this).offset();
+                  var left = (e.pageX - offset.left);
+                  var totalWidth = $("#custom-seekbar").width();
+                  var percentage = ( left / totalWidth );
+                  var vidTime = curVideoDOM.duration * percentage;
+                  curVideoDOM.currentTime = vidTime;
+              });
+              // SEEK BAR - END
+
+
+              // FIXME: try to get fading controls later
+              /*var waited = false;
+              //var timerId = 0;
+              //
+              //$(document).on('mousemove', function(e) {
+              //  e.preventDefault();
+              //
+              //  if ($("#curVideo").get(0).paused == false) {
+              //    $("#videoPlayerBar").show();
+              //  }
+              //
+              //  waited = false;
+              //
+              //  timerId = setInterval(function () {
+              //    if (waited === true) {
+              //      if ($('#playButtonIcon').hasClass("fa-pause")){
+              //        $("#videoPlayerBar").hide();
+              //      }
+              //
+              //      clearInterval(timerId);
+              //    }
+              //
+              //    waited = true;
+              //  }, 4000);
+              //});
+
 
               // autostart video
               // TODO: find way to load page within main to (maybe) use autoplay
