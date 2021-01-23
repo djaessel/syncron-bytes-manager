@@ -55,14 +55,6 @@
             text-align: center;
             /* for player and visibility opacity */
             z-index: 10;
-            opacity: 0.0;
-            transition-property: opacity;
-            transition-delay: 1s;
-            transition-duration: 4s;
-          }
-
-          .video-bar:hover {
-            opacity: 1.0;
           }
 
           .video-bar-top {
@@ -71,6 +63,14 @@
 
           .video-bar-bottom {
             bottom: 0;
+            opacity: 0.0;
+            transition-property: opacity;
+            transition-delay: 0s;
+            transition-duration: 5s;
+          }
+
+          .video-bar-bottom:hover {
+            opacity: 1.0;
           }
 
           .videoMediaClass {
