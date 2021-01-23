@@ -239,8 +239,10 @@
                   $("#videoPlayerBar").show();
                 }
 
+                hideCounter = 0;
+
                 setInterval(function () {
-                  if ($('#playButtonIcon').hasClass("fa-pause") && ppp > 5){
+                  if ($('#playButtonIcon').hasClass("fa-pause") && hideCounter > 5){
                     $("#videoPlayerBar").hide();
                     hideCounter = 0;
                   }
