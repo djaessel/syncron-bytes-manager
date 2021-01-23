@@ -81,12 +81,14 @@
 
           #custom-seekbar {
             cursor: pointer;
-            height: 32px;
-            margin-bottom: 10px;
+            height: 24px;
             outline: thin solid #355;
+            background-color: #011;
+            opacity: 0.5;
             overflow: hidden;
             position: relative;
             width: 100%;
+            margin: 22px 0px;
           }
 
           #custom-seekbar span {
@@ -207,7 +209,7 @@
                   fullElem.msRequestFullscreen();
                 }
 
-                $("#videoPlayerContainer").css('width', '100%'); // full
+                $("#videoPlayerContainer").css('width', '99%'); // full
               }
 
               function closeFullscreen() {
