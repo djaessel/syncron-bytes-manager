@@ -203,7 +203,7 @@
               <div class="col-sm-2 col-md-2 col-lg-2">
                 <div>
                   <select id="languageSelector">
-                  {% for key, language in app.session.get("languages")} %}
+                  {% for key, language in app.session.get("languages") %}
                     <option value="{{ key }}" data-url="{{ path('star-set-language', {'language': language}) }}">{{ language }}</option>
                   {% endfor %}
                   </select>
