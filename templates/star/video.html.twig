@@ -172,7 +172,7 @@
                   fullElem.msRequestFullscreen();
                 }
 
-                $("#videoPlayerContainer").css('width', '98%'); // full
+                $("#videoPlayerContainer").css('width', '100%'); // full
               }
 
               function closeFullscreen() {
@@ -237,6 +237,14 @@
                 if (video.paused == false) {
                   $("#videoPlayerBar").show();
                 }
+
+                var ppp = 0;
+                setInterval(function () {
+                  if ($('#playButtonIcon').hasClass("fa-pause") && ppp > 1){
+                    $("#videoPlayerBar").hide();
+                  }
+                  ppp += 1;
+                }, 2000);
               });
 
               // autostart video
