@@ -96,7 +96,6 @@
             top: 0;
             left: 0;
             height: inherit;
-            width: 0px;
           }
 
           #custom-seekbar {
@@ -105,6 +104,7 @@
 
           #custom-seekbar span {
             background-color: #455;
+            width: 0px;
           }
 
           #custom-audiobar {
@@ -113,6 +113,7 @@
 
           #custom-audiobar span {
             background-color: #535;
+            width: 100%;
           }
 
         </style>
@@ -168,35 +169,35 @@
 
             </div>
 
-            <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
+            <div id="videoPlayerBar" class="row video-bar video-bar-bottom player-control">
 
-              <div class="col-sm-1 col-md-1 col-lg-1">
-                <button id="playButton" class="bar-button pull-left">
-                    <i id="playButtonIcon" class="fa fa-play"></i>
+              <div class="col-sm-1 col-md-1 col-lg-1 player-control">
+                <button id="playButton" class="bar-button pull-left player-control">
+                    <i id="playButtonIcon" class="fa fa-play player-control"></i>
                 </button>
               </div>
 
-              <div class="col-sm-6 col-md-6 col-lg-6">
-                <div id="custom-seekbar" class="custom-bar">
+              <div class="col-sm-6 col-md-6 col-lg-6 player-control">
+                <div id="custom-seekbar" class="custom-bar player-control">
                   <span></span>
                 </div>
               </div>
 
-              <div class="col-sm-2 col-md-2 col-lg-2">
-                <div id="custom-audiobar" class="custom-bar">
+              <div class="col-sm-2 col-md-2 col-lg-2 player-control">
+                <div id="custom-audiobar" class="custom-bar player-control">
                   <span></span>
                 </div>
               </div>
 
-              <div class="col-sm-2 col-md-2 col-lg-2">
+              <div class="col-sm-2 col-md-2 col-lg-2 player-control">
                 <div>
                   {# maybe language selection #}
                 </div>
               </div>
 
-              <div class="col-sm-1 col-md-1 col-lg-1">
-                <button id="expandButton" class="bar-button pull-right">
-                    <i id="expandButtonIcon" class="fa fa-expand"></i>
+              <div class="col-sm-1 col-md-1 col-lg-1 player-control">
+                <button id="expandButton" class="bar-button pull-right player-control">
+                    <i id="expandButtonIcon" class="fa fa-expand player-control"></i>
                 </button>
               </div>
 
@@ -339,30 +340,14 @@
                 e.preventDefault();
 
                 if ($("#curVideo").get(0).paused == false) {
-                  $("#videoPlayerBar").show();
+                  $(".video-bar").show();
                 }
-              //
-              //  waited = false;
-              //
-              //  timerId = setInterval(function () {
-              //    if (waited === true) {
-              //      if ($('#playButtonIcon').hasClass("fa-pause")){
-              //        $("#videoPlayerBar").hide();
-              //      }
-              //
-              //      clearInterval(timerId);
-              //    }
-              //
-              //    waited = true;
-              //  }, 4000);
               });
 
 
               // hide control bar after mouse leave
-              $("#videoPlayerBar").on("mouseleave", function(e) {
-                e.preventDefault();
-
-                $("#videoPlayerBar").delay(3000).hide();
+              $(".player-control").on("mouseleave", function(e) {
+                $(".video-bar").delay(3000).hide();
               });
 
 
