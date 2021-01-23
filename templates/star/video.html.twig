@@ -284,13 +284,13 @@
               });
 
               curVideo.on('play', function(e) {
-                $("#videoTitleBar").toggle();
-                $("#videoPlayerBar").hide(); // no toggle because of mousemove
+                $("#videoTitleBar").hide();
+                //$("#videoPlayerBar").hide(); // no toggle because of mousemove
                 $("#videoPlayerContainer").css('opacity', '1.0');
               });
 
               curVideo.on('pause', function(e) {
-                $("#videoTitleBar").toggle();
+                $("#videoTitleBar").show();
                 $("#videoPlayerBar").show(); // no toggle because of mousemove
                 $("#videoPlayerContainer").css('opacity', '0.6');
               });
@@ -341,10 +341,6 @@
               // AUDIO BAR - END
 
 
-              // FIXME: try to get fading controls later
-              //var waited = false;
-              //var timerId = 0;
-              //
               $(document).on('mousemove', function(e) {
                 e.preventDefault();
 
