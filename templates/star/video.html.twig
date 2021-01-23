@@ -55,6 +55,14 @@
             text-align: center;
             /* for player and visibility opacity */
             z-index: 10;
+            opacity: 0.0;
+            transition-property: opacity;
+            transition-delay: 1s;
+            transition-duration: 4s;
+          }
+
+          .video-bar:hover {
+            opacity: 1.0;
           }
 
           .video-bar-top {
@@ -117,17 +125,6 @@
           }
 
 
-          .player-control {
-            opacity: 1.0;
-            transition-property: opacity;
-            transition-delay: 2s;
-            transition-duration: 7s;
-          }
-
-          .player-control:hover {
-            opacity: 0.0;
-          }
-
         </style>
       {% endblock %}
 
@@ -181,35 +178,35 @@
 
             </div>
 
-            <div id="videoPlayerBar" class="row video-bar video-bar-bottom player-control">
+            <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
 
-              <div class="col-sm-1 col-md-1 col-lg-1 player-control">
-                <button id="playButton" class="bar-button pull-left player-control">
-                    <i id="playButtonIcon" class="fa fa-play player-control"></i>
+              <div class="col-sm-1 col-md-1 col-lg-1">
+                <button id="playButton" class="bar-button pull-left">
+                    <i id="playButtonIcon" class="fa fa-play"></i>
                 </button>
               </div>
 
-              <div class="col-sm-6 col-md-6 col-lg-6 player-control">
-                <div id="custom-seekbar" class="custom-bar player-control">
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <div id="custom-seekbar" class="custom-bar">
                   <span></span>
                 </div>
               </div>
 
-              <div class="col-sm-2 col-md-2 col-lg-2 player-control">
-                <div id="custom-audiobar" class="custom-bar player-control">
+              <div class="col-sm-2 col-md-2 col-lg-2">
+                <div id="custom-audiobar" class="custom-bar">
                   <span></span>
                 </div>
               </div>
 
-              <div class="col-sm-2 col-md-2 col-lg-2 player-control">
+              <div class="col-sm-2 col-md-2 col-lg-2">
                 <div>
                   {# maybe language selection #}
                 </div>
               </div>
 
-              <div class="col-sm-1 col-md-1 col-lg-1 player-control">
-                <button id="expandButton" class="bar-button pull-right player-control">
-                    <i id="expandButtonIcon" class="fa fa-expand player-control"></i>
+              <div class="col-sm-1 col-md-1 col-lg-1">
+                <button id="expandButton" class="bar-button pull-right">
+                    <i id="expandButtonIcon" class="fa fa-expand"></i>
                 </button>
               </div>
 
@@ -355,12 +352,6 @@
                   $(".video-bar").show();
                 }
               });
-
-
-              // hide control bar after mouse leave
-              //$(".player-control").on("mouseleave", function(e) {
-              //  $(".video-bar").delay(3000).hide();
-              //});
 
 
               // autostart video
