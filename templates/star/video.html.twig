@@ -355,7 +355,7 @@
                 tooglePlayButton();
               });
 
-              curVideo.on('click', function(e) {
+              $(document).on('click', function(e) {
                 if (curVideoDOM.paused == false) {
                   curVideoDOM.play();
                 } else {
