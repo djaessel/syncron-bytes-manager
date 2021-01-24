@@ -303,7 +303,10 @@
               var curVideoDOM = document.getElementById("curVideo");
 
               $('body').on('click', '#curVideo', function(e) {
-                alert("TEST!");
+                console.log("TEST");
+                console.log(e);
+                console.log(curVideo);
+                console.log(curVideoDOM);
                 if (curVideoDOM.paused == false) {
                   curVideoDOM.play();
                 } else {
