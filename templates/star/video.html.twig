@@ -271,16 +271,6 @@
 
             $(function () {
 
-              $('body').on('click', function(e) {
-                alert("TEST!");
-                if (curVideoDOM.paused == false) {
-                  curVideoDOM.play();
-                } else {
-                  curVideoDOM.pause();
-                  showMenu();
-                }
-              });
-
               // CONTROLS - START
               var fullElem = document.documentElement;
 
@@ -311,6 +301,16 @@
 
               var curVideo = $('#curVideo');
               var curVideoDOM = document.getElementById("curVideo");
+
+              $('body').on('click', '#curVideo', function(e) {
+                alert("TEST!");
+                if (curVideoDOM.paused == false) {
+                  curVideoDOM.play();
+                } else {
+                  curVideoDOM.pause();
+                  showMenu();
+                }
+              });
 
               $('#playButton').on('click', function(){
                 if ($('#playButtonIcon').hasClass("fa-play")){
