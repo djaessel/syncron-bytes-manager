@@ -86,8 +86,8 @@
           /*}*/
 
           .videoMediaClass {
-            display: block;
-            margin: 0 auto;
+            /*display: block;*/
+            /*margin: 0 auto;*/
             position: absolute;
             z-index: -1;
             top: 0;
@@ -187,14 +187,12 @@
 
             </div>
 
-            <div id="videoPlayerContainer" class="videoMediaClass">
-
-              <video id="curVideo" {#preload="auto"#} width="100%">
+            <div id="videoPlayerContainer">
+              <video id="curVideo" class="videoMediaClass">
                 <source src="{{ videoPath ~ episode.path|replace({'%lang%': app.session.get("videoLanguage")}) }}.mp4" type="video/mp4">
               {#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
                 <p>Your browser does not support the video tag.</p>
               </video>
-
             </div>
 
             <div id="videoPlayerBar" class="row video-bar video-bar-bottom">
