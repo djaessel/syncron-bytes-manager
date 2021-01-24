@@ -368,15 +368,16 @@
 
                lastTimeMouseMoved = new Date().getTime();
 
-               var t=setTimeout(function(){
+               var t = setTimeout(function(){
                    var currentTime = new Date().getTime();
                    if(currentTime - lastTimeMouseMoved > 1000){
                      if ($("#curVideo").get(0).paused == false) {
                        $('.video-bar').fadeOut();
                        $("#videoPlayerContainer").css('opacity', '1.0');
+                       clearTimeout(t);
                      }
                    }
-               }, 5000);
+               }, 4500);
               });
 
 
