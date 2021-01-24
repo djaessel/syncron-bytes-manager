@@ -20,4 +20,4 @@ activation_code_invalid: Aktivierungscode is ungültig
 passwords_are_different: Kennwörter stimmen nicht überein
 user_taken_or_other_error: Benutzer existiert bereits (oder interner Fehler)
 
-version_code: 0.2.3
+version_code: 0.3
