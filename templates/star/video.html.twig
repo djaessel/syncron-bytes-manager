@@ -354,6 +354,15 @@
               curVideo.on('pause', function(e) {
                 tooglePlayButton();
               });
+
+              curVideo.on('click', function(e) {
+                if (curVideoDOM.paused == false) {
+                  curVideoDOM.play();
+                } else {
+                  curVideoDOM.pause();
+                  showMenu();
+                }
+              });
               // VIDEO EVENTS - END
 
               // NEXT VIDEO - START
@@ -407,7 +416,7 @@
               }
 
               function hideMenu() {
-                if ($("#curVideo").get(0).paused == false) {
+                if (curVideoDOM.paused == false) {
                   $('.video-bar').fadeOut();
                   $("#videoPlayerContainer").css('opacity', '1.0');
                   //clearTimeout(t);
