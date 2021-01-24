@@ -80,7 +80,6 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            /*useless?*/
             vertical-align: middle;
           }
 
@@ -203,7 +202,7 @@
               <div class="col-sm-2 col-md-2 col-lg-2">
                 <div>
                   <select id="languageSelector">
-                  {% for key, language in app.session.get("languages") %}
+                  {% for key, language in app.session.get("videoLanguage") %}
                     <option value="{{ key }}" data-url="{{ path('star-set-language', {'language': language}) }}">{{ language }}</option>
                   {% endfor %}
                   </select>
@@ -288,7 +287,10 @@
                 $('#expandButtonIcon').toggleClass("fa-expand");
                 $('#expandButtonIcon').toggleClass("fa-compress");
               });
+              // CONTROLS - END
 
+
+              // VIDEO EVENTS - START
               curVideo.on('play', function(e) {
                 $("#videoTitleBar").hide();
                 //$("#videoPlayerBar").hide(); // no toggle because of mousemove
@@ -300,8 +302,7 @@
                 $("#videoPlayerBar").show(); // no toggle because of mousemove
                 $("#videoPlayerContainer").css('opacity', '0.6');
               });
-              // CONTROLS - END
-
+              // VIDEO EVENTS - END
 
               // NEXT VIDEO - START
               curVideo.on('ended', function(e) {

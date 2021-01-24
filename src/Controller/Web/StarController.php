@@ -44,13 +44,6 @@ class StarController extends AbstractController
       $seasons = $this->manager->getRepository("App\Entity\Star\Season")->findAll();
       $series = $this->manager->getRepository("App\Entity\Star\Series")->findAll();
 
-      // TODO: later check for symfony solution
-      $videoLanguages = array(
-        "DE",
-        "EN",
-      );
-      $session->set("videoLanguages", $videoLanguages);
-
       return $this->render('star/index.html.twig', [
         'controller_name' => 'StarController',
         'episodes' => $episodes,
@@ -96,6 +89,8 @@ class StarController extends AbstractController
         $season = $this->manager->getRepository("App\Entity\Star\Season")
           ->find($curEpisode->getSeason());
       }
+
+      $this->initVideoLanguages($session);
 
       $session->set("curVideoId", $videoId);
       $session->set("nextVideoId", $nextId);
@@ -150,7 +145,7 @@ class StarController extends AbstractController
     public function starSetLanguage(SessionInterface $session, $language)
     {
       $videoLanguages = $session->get("videoLanguages", array());
-      $oldLanguage = $session->get("videoLanguage", "DE");
+      $oldLanguage = $session->get("videoLanguage", "de"); // later symfony?
 
       if (!in_array($language, $availableLanguages)) {
         $language = $oldLanguage;
@@ -195,5 +190,20 @@ class StarController extends AbstractController
       }
 
       return $nextId;
+    }
+
+    private function initVideoLanguages($session)
+    {
+      $videoLanguages = $session->get("videoLanguages");
+
+      if (empty($videoLanguages)) {
+        // TODO: later check for symfony solution
+        $videoLanguages = array(
+          "de",
+          "en",
+        );
+      }
+
+      $session->set("videoLanguages", $videoLanguages);
     }
 }
