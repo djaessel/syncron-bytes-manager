@@ -304,13 +304,9 @@
 
               $('body').on('click', '#curVideo', function(e) {
                 if (e.target.paused == false) {
-                  console.log("B");
-                  curVideoDOM.play();
-                  console.log("A");
-                } else {
-                  console.log("D");
                   curVideoDOM.pause();
-                  console.log("FF");
+                } else {
+                  curVideoDOM.play();
                   showMenu();
                 }
               });
