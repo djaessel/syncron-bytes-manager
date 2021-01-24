@@ -278,9 +278,6 @@
                 } else {
                     curVideoDOM.pause();
                 }
-
-                $('#playButtonIcon').toggleClass("fa-play");
-                $('#playButtonIcon').toggleClass("fa-pause");
               });
 
               $('#expandButton').on('click', function(){
@@ -307,16 +304,17 @@
 
 
               // VIDEO EVENTS - START
+              function tooglePlayButton() {
+                $('#playButtonIcon').toggleClass("fa-play");
+                $('#playButtonIcon').toggleClass("fa-pause");
+              }
+
               curVideo.on('play', function(e) {
-                $("#videoTitleBar").hide();
-                //$("#videoPlayerBar").hide(); // no toggle because of mousemove
-                $("#videoPlayerContainer").css('opacity', '1.0');
+                tooglePlayButton();
               });
 
               curVideo.on('pause', function(e) {
-                $("#videoTitleBar").show();
-                $("#videoPlayerBar").show(); // no toggle because of mousemove
-                $("#videoPlayerContainer").css('opacity', '0.6');
+                tooglePlayButton();
               });
               // VIDEO EVENTS - END
 
@@ -364,12 +362,21 @@
               // AUDIO BAR - END
 
 
-              $(document).on('mousemove', function(e) {
-                e.preventDefault();
+              $(document).mousemove(function(e){
+               $(".video-bar").show();
+               $("#videoPlayerContainer").css('opacity', '0.6');
 
-                if ($("#curVideo").get(0).paused == false) {
-                  $(".video-bar").show();
-                }
+               lastTimeMouseMoved = new Date().getTime();
+
+               var t=setTimeout(function(){
+                   var currentTime = new Date().getTime();
+                   if(currentTime - lastTimeMouseMoved > 1000){
+                     if ($("#curVideo").get(0).paused == false) {
+                       $('.video-bar').fadeOut();
+                       $("#videoPlayerContainer").css('opacity', '1.0');
+                     }
+                   }
+               }, 4000)
               });
 
 
