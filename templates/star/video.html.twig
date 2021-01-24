@@ -361,24 +361,35 @@
               });
               // AUDIO BAR - END
 
+              // MENU SHOW HIDE - START
+              function showMenu() {
+                $(".video-bar").show();
+                $("#videoPlayerContainer").css('opacity', '0.6');
+                document.documentElement.style.cursor = 'auto';
+              }
+
+              function hideMenu(t) {
+                if ($("#curVideo").get(0).paused == false) {
+                  $('.video-bar').fadeOut();
+                  $("#videoPlayerContainer").css('opacity', '1.0');
+                  clearTimeout(t);
+                  document.documentElement.style.cursor = 'none';
+                }
+              }
 
               $(document).mousemove(function(e){
-               $(".video-bar").show();
-               $("#videoPlayerContainer").css('opacity', '0.6');
+                showMenu();
 
-               lastTimeMouseMoved = new Date().getTime();
+                lastTimeMouseMoved = new Date().getTime();
 
-               var t = setTimeout(function(){
-                   var currentTime = new Date().getTime();
-                   if(currentTime - lastTimeMouseMoved > 1000){
-                     if ($("#curVideo").get(0).paused == false) {
-                       $('.video-bar').fadeOut();
-                       $("#videoPlayerContainer").css('opacity', '1.0');
-                       clearTimeout(t);
-                     }
-                   }
-               }, 4500);
+                var t = setTimeout(function(){
+                  var currentTime = new Date().getTime();
+                  if(currentTime - lastTimeMouseMoved > 1000){
+                    hideMenu(t);
+                  }
+                }, 4500);
               });
+              // MENU SHOW HIDE - END
 
 
               // autostart video
