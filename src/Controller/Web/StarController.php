@@ -151,7 +151,7 @@ class StarController extends AbstractController
 
       $language = $request->request->get('lang');
 
-      if (!in_array($language, $videoLanguages)) {
+      if (!array_key_exists($language, $videoLanguages)) {
         $language = $oldLanguage;
       }
 
