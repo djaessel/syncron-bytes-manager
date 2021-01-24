@@ -368,11 +368,11 @@
                 document.documentElement.style.cursor = 'auto';
               }
 
-              function hideMenu(t) {
+              function hideMenu() {
                 if ($("#curVideo").get(0).paused == false) {
                   $('.video-bar').fadeOut();
                   $("#videoPlayerContainer").css('opacity', '1.0');
-                  clearTimeout(t);
+                  //clearTimeout(t);
                   document.documentElement.style.cursor = 'none';
                 }
               }
@@ -381,13 +381,12 @@
                 showMenu();
 
                 lastTimeMouseMoved = new Date().getTime();
-
                 var t = setTimeout(function(){
                   var currentTime = new Date().getTime();
-                  if(currentTime - lastTimeMouseMoved > 1000){
-                    hideMenu(t);
+                  if(currentTime - lastTimeMouseMoved > 4000){
+                    hideMenu();
                   }
-                }, 4500);
+                }, 5000);
               });
               // MENU SHOW HIDE - END
 
