@@ -138,14 +138,16 @@ class StarController extends AbstractController
     }
 
     /**
-     * @Route("/star/set-language/{language}", name="star-set-language")
+     * @Route("/star/set-language", name="star-set-language")
      *
      * @param SessionInterface $session
      */
-    public function starSetLanguage(SessionInterface $session, $language)
+    public function starSetLanguage(SessionInterface $session, Request $request)
     {
       $videoLanguages = $session->get("videoLanguages", array());
       $oldLanguage = $session->get("videoLanguage", "de"); // later symfony?
+
+      $language = $request->request->get('lang');
 
       if (!in_array($language, $availableLanguages)) {
         $language = $oldLanguage;
@@ -199,8 +201,8 @@ class StarController extends AbstractController
       if (empty($videoLanguages)) {
         // TODO: later check for symfony solution
         $videoLanguages = array(
-          "de",
-          "en",
+          "de" => "Deutsch",
+          "en" => "English",
         );
       }
 

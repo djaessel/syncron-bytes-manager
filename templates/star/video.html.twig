@@ -201,9 +201,9 @@
 
               <div class="col-sm-2 col-md-2 col-lg-2">
                 <div>
-                  <select id="languageSelector">
-                  {% for key, language in app.session.get("videoLanguage") %}
-                    <option value="{{ key }}" data-url="{{ path('star-set-language', {'language': language}) }}">{{ language }}</option>
+                  <select id="languageSelector" class="form-control btn btn-default">
+                  {% for key, language in app.session.get("videoLanguages") %}
+                    <option value="{{ key }}" data-url="{{ path('star-set-language') }}">{{ language }}</option>
                   {% endfor %}
                   </select>
                 </div>
@@ -286,6 +286,16 @@
 
                 $('#expandButtonIcon').toggleClass("fa-expand");
                 $('#expandButtonIcon').toggleClass("fa-compress");
+              });
+
+              $('select').change(function () {
+                var optionSelected = $(this).find("option:selected");
+                var url = optionSelected.data("url");
+                $.post(url, {lang: optionSelected.val()}, function(data, status){
+                  if (data == "success") {
+                    location.reload(); // later just change player url
+                  }
+                });
               });
               // CONTROLS - END
 
