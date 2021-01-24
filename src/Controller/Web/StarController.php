@@ -146,16 +146,9 @@ class StarController extends AbstractController
      */
     public function starSetLanguage(SessionInterface $session, Request $request)
     {
-      $videoLanguages = $session->get("videoLanguages", array());
-      $oldLanguage = $session->get("videoLanguage", "de"); // later symfony?
-
       $language = $request->request->get('lang');
 
-      if (!array_key_exists($language, $videoLanguages)) {
-        $language = $oldLanguage;
-      }
-
-      $session->set("videoLanguage", $language);
+      $this->setVideoLanguage($session, $language);
 
       return new Response("success");
     }
@@ -196,6 +189,18 @@ class StarController extends AbstractController
       return $nextId;
     }
 
+    private function setVideoLanguage($session, $language = "0")
+    {
+      $videoLanguages = $session->get("videoLanguages", array());
+      $oldLanguage = $session->get("videoLanguage", "de"); // later symfony?
+
+      if (!array_key_exists($language, $videoLanguages)) {
+        $language = $oldLanguage;
+      }
+
+      $session->set("videoLanguage", $language);
+    }
+
     private function initVideoLanguages($session)
     {
       $videoLanguages = $session->get("videoLanguages");
@@ -209,5 +214,7 @@ class StarController extends AbstractController
       }
 
       $session->set("videoLanguages", $videoLanguages);
+
+      $this->setVideoLanguage($session);
     }
 }
