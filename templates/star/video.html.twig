@@ -85,16 +85,19 @@
             /*opacity: 1.0;*/
           /*}*/
 
-          .videoMediaClass {
-            /*display: block;*/
-            /*margin: 0 auto;*/
+          .video-media {
+            display: block;
+            margin: 0 auto;
+          }
+
+          .video-media video {
             position: absolute;
             z-index: -1;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: revert;
           }
 
           .titleFont {
@@ -187,8 +190,8 @@
 
             </div>
 
-            <div id="videoPlayerContainer">
-              <video id="curVideo" class="videoMediaClass">
+            <div id="videoPlayerContainer" class="video-media">
+              <video id="curVideo">
                 <source src="{{ videoPath ~ episode.path|replace({'%lang%': app.session.get("videoLanguage")}) }}.mp4" type="video/mp4">
               {#<source src="{{ audioPath ~ episode.path }}.ogg" type="audio/ogg">#}
                 <p>Your browser does not support the video tag.</p>
