@@ -80,7 +80,7 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            vertical-align: middle;
+            /*vertical-align: middle;*/
           }
 
           .titleFont {
@@ -200,7 +200,7 @@
               </div>
 
               <div class="col-sm-2 col-md-2 col-lg-2">
-                <div>
+                {#<div>
                   <select id="languageSelector" class="form-control btn btn-default">
                   {% for key, language in app.session.get("videoLanguages") %}
                     <option value="{{ key }}"
@@ -212,6 +212,26 @@
                     </option>
                   {% endfor %}
                   </select>
+                </div>#}
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle"
+                          type="button" data-toggle="dropdown">
+                          {{ app.session.get("videoLanguages")[app.session.get("videoLanguage")] }}
+                          <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    {% for key, language in app.session.get("videoLanguages") %}
+                      <li class="language-option">
+                        <a href="#" data-lang="{{ key }}"
+                             data-url="{{ path('star-set-language') }}">
+                          {% if app.session.get("videoLanguage") is same as (key) %}
+                          <small>Current </small>
+                          {% endif %}
+                          {{ language }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </div>
               </div>
 
@@ -269,6 +289,11 @@
                 $("#videoPlayerContainer").css('width', '90%');
               }
 
+              function toggleExpandButton() {
+                $('#expandButtonIcon').toggleClass("fa-expand");
+                $('#expandButtonIcon').toggleClass("fa-compress");
+              }
+
               var curVideo = $('#curVideo');
               var curVideoDOM = document.getElementById("curVideo");
 
@@ -287,14 +312,22 @@
                     closeFullscreen();
                 }
 
-                $('#expandButtonIcon').toggleClass("fa-expand");
-                $('#expandButtonIcon').toggleClass("fa-compress");
+                toggleExpandButton();
               });
 
               $('select').change(function () {
                 var optionSelected = $(this).find("option:selected");
                 var url = optionSelected.data("url");
                 $.post(url, {lang: optionSelected.val()}, function(data, status){
+                  if (data == "success") {
+                    location.reload(); // later just change player url
+                  }
+                });
+              });
+
+              $('.language-option a').click(function () {
+                var url = $(this).data("url");
+                $.post(url, {lang: $(this).data("lang")}, function(data, status){
                   if (data == "success") {
                     location.reload(); // later just change player url
                   }
