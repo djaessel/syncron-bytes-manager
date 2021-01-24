@@ -203,7 +203,13 @@
                 <div>
                   <select id="languageSelector" class="form-control btn btn-default">
                   {% for key, language in app.session.get("videoLanguages") %}
-                    <option value="{{ key }}" data-url="{{ path('star-set-language') }}">{{ language }}</option>
+                    <option value="{{ key }}"
+                            {% if app.session.get("videoLanguage") is same as (key) %}
+                            selected
+                            {% endif %}
+                            data-url="{{ path('star-set-language') }}">
+                      {{ language }}
+                    </option>
                   {% endfor %}
                   </select>
                 </div>
