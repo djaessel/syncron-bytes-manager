@@ -16,139 +16,24 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css') }}">
 
+        <!-- video page style -->
+        <link rel="stylesheet" href="{{ asset('css/video.css') }}">
+
+        <!-- (video) slider style -->
+        <link rel="stylesheet" href="{{ asset('css/slider.css') }}">
+
         <style>
-
-          /* TODO: export into css file */
-
-          /* html, body {
-            min-height: unset;
-            max-height: unset;
-          } */
-
-          html, body, .dark {
-            background-color: black;
-          }
-
-          .dark {
-            text-align: center;
-          }
-
-          .btn-primary {
-            background-color: #455;
-            border-color: #355;
-          }
-
-          .btn-primary:hover {
-            background-color: #355;
-          }
-
-
-          .bar-button {
-            color: white;
-            background-color: transparent;
-            border: 0;
-            text-align: center;
-            vertical-align: middle;
-          }
-
-          .bar-button:hover {
-            color: #455;
-          }
-
-          .video-bar {
-            position: absolute;
-            color: white;
-            font-size: 48px;
-            padding: 48px 64px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-            text-align: center;
-            /* for player and visibility opacity */
-            z-index: 10;
-          }
-
-          .video-bar-top {
-            top: 0;
-          }
-
-          .video-bar-bottom {
-            bottom: 0;
-            /*opacity: 0.0;*/
-            /*transition-property: opacity;*/
-            /*transition-delay: 0s;*/
-            /*transition-duration: 5s;*/
-          }
-
-          /*.video-bar-bottom:hover {*/
-            /*opacity: 1.0;*/
-          /*}*/
-
-          .video-media {
-            display: block;
-            margin: 0 auto;
-          }
-
-          .video-media video {
-            position: absolute;
-            z-index: -1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: revert;
-          }
-
-          .titleFont {
-            font-size: 28px;
-          }
-
-
-          .custom-bar {
-            cursor: pointer;
-            height: 24px;
-            outline: thin solid #355;
-            opacity: 0.5;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            margin: 22px 0px;
-          }
-
-          .custom-bar span {
-            background-color: #455;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: inherit;
-          }
 
           #custom-seekbar {
             background-color: #011;
-          }
-
-          #custom-seekbar span {
-            background-color: #455;
-            width: 0px;
           }
 
           #custom-audiobar {
             background-color: #101;
           }
 
-          #custom-audiobar span {
-            background-color: #535;
-            width: 100%;
-          }
-
-
-          .dropdown-toggle {
-            width: 100%;
-            margin-bottom: 12px;
-          }
-
         </style>
+
       {% endblock %}
 
     </head>
@@ -208,14 +93,14 @@
               </div>
 
               <div class="col-sm-7 col-md-7 col-lg-7">
-                <div id="custom-seekbar" class="custom-bar">
-                  <span></span>
+                <div id="custom-seekbar" class="slidercontainer">
+                  <input type="range" min="0" max="1000" value="0" class="slider" id="videoTime">
                 </div>
               </div>
 
               <div class="col-sm-1 col-md-1 col-lg-1">
-                <div id="custom-audiobar" class="custom-bar">
-                  <span></span>
+                <div id="custom-audiobar" class="slidercontainer">
+                  <input type="range" min="0" max="100" value="100" class="slider" id="videoVolume">
                 </div>
               </div>
 
@@ -264,186 +149,25 @@
         <!-- Bootstrap 3.3.7 -->
         <script src="{{ asset('AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+        <script src="{{ asset('js/fullscreen_easy.js') }}"></script>
+        <script src="{{ asset('js/video.js') }}"></script>
+
         <script type='text/javascript'>
 
             // TODO: get video_next.html style like button on image for video overlay like Netflix
-            // TODO: put into js file later
 
             $(function () {
-
-              // CONTROLS - START
-              var fullElem = document.documentElement;
-
-              function openFullscreen() {
-                if (fullElem.requestFullscreen) {
-                  fullElem.requestFullscreen();
-                } else if (fullElem.webkitRequestFullscreen) { /* Safari */
-                  fullElem.webkitRequestFullscreen();
-                } else if (fullElem.msRequestFullscreen) { /* IE11 */
-                  fullElem.msRequestFullscreen();
-                }
-              }
-
-              function closeFullscreen() {
-                if (document.exitFullscreen) {
-                  document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { /* Safari */
-                  document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { /* IE11 */
-                  document.msExitFullscreen();
-                }
-              }
-
-              function toggleExpandButton() {
-                $('#expandButtonIcon').toggleClass("fa-expand");
-                $('#expandButtonIcon').toggleClass("fa-compress");
-              }
-
-              var curVideo = $('#curVideo');
-              var curVideoDOM = document.getElementById("curVideo");
-
-              $('body').on('click', '#curVideo', function(e) {
-                if (e.target.paused == false) {
-                  curVideoDOM.pause();
-                } else {
-                  curVideoDOM.play();
-                  showMenu();
-                }
-              });
-
-              $('#playButton').on('click', function(){
-                if ($('#playButtonIcon').hasClass("fa-play")){
-                    curVideoDOM.play();
-                } else {
-                    curVideoDOM.pause();
-                }
-              });
-
-              $('#expandButton').on('click', function(){
-                if ($('#expandButtonIcon').hasClass("fa-expand")){
-                    openFullscreen();
-                } else {
-                    closeFullscreen();
-                }
-
-                toggleExpandButton();
-              });
-
-              $('select').change(function () {
-                var optionSelected = $(this).find("option:selected");
-                var url = optionSelected.data("url");
-                $.post(url, {lang: optionSelected.val()}, function(data, status){
-                  if (data == "success") {
-                    location.reload(); // later just change player url
-                  }
-                });
-              });
-
-              $('.language-option a').click(function () {
-                var url = $(this).data("url");
-                $.post(url, {lang: $(this).data("lang")}, function(data, status){
-                  if (data == "success") {
-                    location.reload(); // later just change player url
-                  }
-                });
-              });
-              // CONTROLS - END
-
-
-              // VIDEO EVENTS - START
-              function tooglePlayButton() {
-                $('#playButtonIcon').toggleClass("fa-play");
-                $('#playButtonIcon').toggleClass("fa-pause");
-              }
-
-              curVideo.on('play', function(e) {
-                tooglePlayButton();
-              });
-
-              curVideo.on('pause', function(e) {
-                tooglePlayButton();
-              });
-              // VIDEO EVENTS - END
-
-              // NEXT VIDEO - START
-              curVideo.on('ended', function(e) {
-                var url = $("#nextVid").data("url");
-                // FIXME: find better solution later + fix instant jump (sometimes)
-                // check controller code as well
-                window.location = url;
-              });
-              // NEXT VIDEO - START
-
-
-              // SEEK BAR - START
-              curVideoDOM.ontimeupdate = function(){
-                var percentage = (curVideoDOM.currentTime / curVideoDOM.duration) * 100;
-                $("#custom-seekbar span").css("width", percentage + "%");
-              };
-
-              $("#custom-seekbar").on("click", function(e){
-                  var offset = $(this).offset();
-                  var left = (e.pageX - offset.left);
-                  var totalWidth = $("#custom-seekbar").width();
-                  var percentage = (left / totalWidth);
-                  var vidTime = curVideoDOM.duration * percentage;
-                  curVideoDOM.currentTime = vidTime;
-              });
-              // SEEK BAR - END
-
-
-              // AUDIO BAR - START
-              curVideoDOM.onvolumechange = function(){
-                var percentage = curVideoDOM.volume * 100;
-                $("#custom-audiobar span").css("width", percentage + "%");
-              };
-
-              $("#custom-audiobar").on("click", function(e){
-                  var offset = $(this).offset();
-                  var left = (e.pageX - offset.left);
-                  var totalWidth = $("#custom-audiobar").width();
-                  var percentage = (left / totalWidth);
-                  var volume = 1.0 * percentage;
-                  curVideoDOM.volume = volume;
-              });
-              // AUDIO BAR - END
-
-              // MENU SHOW HIDE - START
-              function showMenu() {
-                $(".video-bar").show();
-                $("#videoPlayerContainer").css('opacity', '0.6');
-                document.documentElement.style.cursor = 'auto';
-              }
-
-              function hideMenu() {
-                if (curVideoDOM.paused == false) {
-                  $('.video-bar').fadeOut();
-                  $("#videoPlayerContainer").css('opacity', '1.0');
-                  //clearTimeout(t);
-                  document.documentElement.style.cursor = 'none';
-                }
-              }
-
-              $(document).mousemove(function(e){
-                showMenu();
-
-                lastTimeMouseMoved = new Date().getTime();
-                var t = setTimeout(function(){
-                  var currentTime = new Date().getTime();
-                  if(currentTime - lastTimeMouseMoved > 4000){
-                    hideMenu();
-                  }
-                }, 5000);
-              });
-              // MENU SHOW HIDE - END
-
 
               // autostart video
               // TODO: find way to load page within main to (maybe) use autoplay
               //curVideoDom.autoplay = true;
               //curVideoDom.load();
 
-          });
+              var duration = document.getElementById("curVideo").duration;
+              $("#videoTime").attr('max', duration);
+
+            });
+
         </script>
 
         {% endblock %}
