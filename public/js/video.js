@@ -103,7 +103,7 @@ $(function () {
   };
 
   $("#custom-audiobar").on("input", function(e){
-    curVideoDOM.volume = this.value / 100;
+    curVideoDOM.volume = this.value * 0.01;
   });
   // AUDIO BAR - END
 
