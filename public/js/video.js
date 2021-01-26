@@ -89,6 +89,11 @@ $(function () {
   // SEEK BAR - START
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
+
+    var playableTime = curVideoDOM.duration - curVideoDOM.currentTime;
+    var minutes = playableTime / 60;
+    var seconds = playableTime % 60;
+    $("#videoTimeDisplay").html("- " + minutes + ":" + seconds);
   };
 
   $("#videoTime").on("input", function(e){
