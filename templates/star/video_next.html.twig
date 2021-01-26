@@ -27,34 +27,24 @@
 
         <style>
 
-            /*html, body {
-              min-height: unset;
-              max-height: unset;
-            }*/
-
             html, body, .dark, .content-wrapper, .content {
               background-color: black;
             }
 
-            .dark {
-              max-height: 596px !important;
-            }
-
-            /* Container needed to position the button. Adjust the width as needed */
             .container {
-              position: relative;
-              width: auto;
-              margin-left: 0;
-              margin-right: 0;
-              padding-left: 0;
-              padding-right: 0;
+              display: block;
+              margin: 0 auto;
             }
 
             /* Make the image responsive */
             .container img {
               width: 100%;
-              height: auto;
-              overflow: hidden;
+              height: 100%;
+              position: absolute;
+              /*z-index: -1;*/
+              top: 0;
+              left: 0;
+              object-fit: cover;
             }
 
             /* Style the button and place it in the middle of the container/image */
@@ -82,11 +72,11 @@
 
           {% if app.session.get("nextVideoId") is null %}
             <a class="btn btn-primary" href="{{ path('star') }}">
-              {{ "Back to overview" }}
+              {{ "back_to_overview"|trans }}
             </a>
           {% else %}
             <a class="btn btn-primary" href="{{ path('star-video', {'videoId': app.session.get("nextVideoId")}) }}">
-              {{ "Next Episode" }}
+              {{ "next_episode"|trans }}
             </a>
           {% endif %}
         </div>

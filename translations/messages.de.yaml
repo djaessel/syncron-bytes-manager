@@ -21,3 +21,6 @@ passwords_are_different: Kennwörter stimmen nicht überein
 user_taken_or_other_error: Benutzer existiert bereits (oder interner Fehler)
 
 version_code: 0.3.0.2
+
+back_to_overview: Zurück zur Übersicht
+next_episode: Nächste Folge

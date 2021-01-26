@@ -21,3 +21,6 @@ passwords_are_different: Passwords are different
 user_taken_or_other_error: User already taken (or other intern error)
 
 version_code: 0.3.0.2
+
+back_to_overview: Back to overview
+next_episode: Next Episode
