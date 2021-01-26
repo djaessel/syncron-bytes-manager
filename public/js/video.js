@@ -86,6 +86,8 @@ $(function () {
 
 
   // SEEK BAR - START
+  $("#videoTime").attr("max", curVideoDOM.duration);
+
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
   };
