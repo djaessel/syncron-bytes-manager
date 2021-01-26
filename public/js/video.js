@@ -87,17 +87,31 @@ $(function () {
 
 
   // SEEK BAR - START
+  function formatTime(timeVal) {
+    if (timeVal < 10) {
+      timeVal = "0" + timeVal;
+    }
+    return timeVal;
+  }
+
+  function updateTimeDisplay(time) {
+    var minutes = Math.round(time / 60);
+    var seconds = Math.round(time % 60);
+    var displayedTime = "- " + formatTime(minutes) + ":" + formatTime(seconds);
+    $("#videoTimeDisplay").html(displayedTime);
+  }
+
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
-
     var playableTime = curVideoDOM.duration - curVideoDOM.currentTime;
-    var minutes = Math.round(playableTime / 60);
-    var seconds = Math.round(playableTime % 60);
-    $("#videoTimeDisplay").html("- " + minutes + ":" + seconds);
+    updateTimeDisplay(playableTime);
   };
 
   $("#videoTime").on("input", function(e){
     curVideoDOM.currentTime = $(this).val();
+    if ($("#videoTime").attr("max") == "1000") {
+      $("#videoTime").attr("max", curVideoDOM.duration);
+    }
   });
   // SEEK BAR - END
 
