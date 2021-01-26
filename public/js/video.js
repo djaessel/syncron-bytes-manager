@@ -87,11 +87,11 @@ $(function () {
 
   // SEEK BAR - START
   curVideoDOM.ontimeupdate = function(){
-    $("#custom-seekbar").value = curVideoDOM.currentTime;
+    $("#videoTime").val(curVideoDOM.currentTime);
   };
 
-  $("#custom-seekbar").on("input", function(e){
-    curVideoDOM.currentTime = this.value;
+  $("#videoTime").on("input", function(e){
+    curVideoDOM.currentTime = $(this).val();
   });
   // SEEK BAR - END
 
@@ -99,11 +99,11 @@ $(function () {
   // AUDIO BAR - START
   curVideoDOM.onvolumechange = function(){
     var percentage = curVideoDOM.volume * 100;
-    $("#custom-audiobar").value = percentage;
+    $("#videoVolume").val(percentage);
   };
 
-  $("#custom-audiobar").on("input", function(e){
-    curVideoDOM.volume = this.value * 0.01;
+  $("#videoVolume").on("input", function(e){
+    curVideoDOM.volume = $(this).val() * 0.01;
   });
   // AUDIO BAR - END
 
