@@ -91,8 +91,8 @@ $(function () {
     $("#videoTime").val(curVideoDOM.currentTime);
 
     var playableTime = curVideoDOM.duration - curVideoDOM.currentTime;
-    var minutes = $.round(playableTime / 60);
-    var seconds = $.round(playableTime % 60);
+    var minutes = Math.round(playableTime / 60);
+    var seconds = Math.round(playableTime % 60);
     $("#videoTimeDisplay").html("- " + minutes + ":" + seconds);
   };
 
