@@ -39,3 +39,15 @@
   background: #122;
   cursor: pointer;
 }
+
+.slider-green {
+  background-color: #455;
+}
+
+.slider-blue {
+  background-color: #1b4553;
+}
+
+.slider-gray {
+  background-color: #444b51;
+}

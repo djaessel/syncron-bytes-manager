@@ -68,6 +68,7 @@ $(function () {
 
   curVideo.on('play', function(e) {
     tooglePlayButton();
+    $("#videoTime").attr("max", curVideoDOM.duration);
   });
 
   curVideo.on('pause', function(e) {
@@ -86,8 +87,6 @@ $(function () {
 
 
   // SEEK BAR - START
-  $("#videoTime").attr("max", curVideoDOM.duration);
-
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
   };
