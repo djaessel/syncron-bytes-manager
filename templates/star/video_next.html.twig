@@ -41,7 +41,6 @@
               width: 100%;
               height: 100%;
               position: absolute;
-              /*z-index: -1;*/
               top: 0;
               left: 0;
               object-fit: cover;
@@ -68,7 +67,7 @@
       {% block body %}
 
         <div class="container dark">
-          <img src="{{ asset("images/stargate_dial.gif") }}" alt="Stargate Dial">
+          <img src="{{ asset("images/stargate-next-video.jpg") }}" alt="Stargate Dial">
 
           {% if app.session.get("nextVideoId") is null %}
             <a class="btn btn-primary" href="{{ path('star') }}">
