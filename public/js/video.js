@@ -103,9 +103,11 @@ $(function () {
 
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
-
-    var playedTimePercentage = curVideoDOM.currentTime / curVideoDOM.duration - 0.2;
-    $("#playedTime").css("width", playedTimePercentage + "%");
+    
+    var maxWidth = $("#videoTime").width();
+    var playedTimePercentage = curVideoDOM.currentTime / curVideoDOM.duration;
+    var newWidth = maxWidth * playedTimePercentage;
+    $("#playedTime").width(newWidth);
 
     var playableTime = curVideoDOM.duration - curVideoDOM.currentTime;
     updateTimeDisplay(playableTime);
