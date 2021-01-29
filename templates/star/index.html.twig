@@ -37,7 +37,7 @@
 
 {% block content %}
 
-  <div{# id="containerX" data-videoid="{{ app.session.get("curVideoId", "") }}"#}>
+  <div id="containerX">
 
     {% if app.session.get("curVideoId") is not empty %}
       <div id="curVideoX" data-url="{{ path('star-video', {'videoId': app.session.get("curVideoId")}) }}">

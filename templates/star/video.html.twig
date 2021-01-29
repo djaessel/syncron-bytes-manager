@@ -43,7 +43,7 @@
 
               <div class="col-sm-3 col-md-3 col-lg-3">
                 <a id="backButton" class="bar-button pull-left"
-                   href="{{ path('star') }}"> {# change href later maybe #}
+                   href="{{ path('star-video', {'videoId': app.session.get("previousVideoId", 0)}) }}">
                   <i class="fa fa-chevron-left"></i>
                 </a>
               </div>

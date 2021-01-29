@@ -19,32 +19,72 @@ class EpisodeRepository extends ServiceEntityRepository
         parent::__construct($registry, Episode::class);
     }
 
-    // /**
-    //  * @return Episode[] Returns an array of Episode objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return array
+     */
+    public function retrieveActualEpisodes()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+      $qb = $this->createQueryBuilder('e')
+          ->where('e.is_extra IS NOT 1')
+      ;
 
-    /*
-    public function findOneBySomeField($value): ?Episode
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+      $query = $qb->getQuery();
+      return $query->execute();
     }
+
+    /**
+     * @param int $videoId
+     * @return int
+     */
+    public function findPreviousId($videoId)
+    {
+      $previousId = 0; // null
+      $episodes = $this->retrieveActualEpisodes();
+
+      if ($videoId > 1) {
+          $curIndex = $this->indexOf($videoId, $episodes);
+          $preIndex = $curIndex - 1;
+
+          $previousId = $episodes[$preIndex]->getId();
+      }
+
+      return $previousId;
+    }
+
+    /**
+     * @param int $videoId
+     * @return int
+     */
+    public function findNextId($videoId)
+    {
+      $nextId = 0; // null
+      $episodes = $this->retrieveActualEpisodes();
+      $episodeCount = count($episodes);
+
+      $lastEpisode = $episodes[$episodeCount - 1];
+      if ($videoId < $lastEpisode->getId()) {
+        $curIndex = $this->indexOf($videoId, $episodes);
+        $nextIndex = $curIndex + 1;
+
+        $nextId = $episodes[$nextIndex]->getId();
+      }
+
+      return $nextId;
+    }
+
+    /**
+    * @param int $episodeId
+    * @param array $episodes
+    * @return int
     */
+    private function indexOf($episodeId, $episodes)
+    {
+      $index = -1;
+      foreach ($episodes as $key => $value) {
+        if ($value->getId() == $episodeId) {
+          $index = $key;
+        }
+      }
+      return $index;
+    }
 }

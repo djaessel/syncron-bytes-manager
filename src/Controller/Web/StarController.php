@@ -64,7 +64,6 @@ class StarController extends AbstractController
     {
       // FIXME: merge / link episodes, seasons and series via one to many in DB
       $season = null;
-      $episodes = $this->manager->getRepository("App\Entity\Star\Episode")->findAll();
 
       // removes filler if video next button click instead of wait
       $fillerActive = $session->get("fillerActive", false);
@@ -72,20 +71,14 @@ class StarController extends AbstractController
         $session->remove("fillerActive");
       }
 
-      $previousId = null;
-      $nextId = null;
+      $previousId = 0; // null
+      $nextId = 0; // null
 
-      $curEpisode = null;
-      // TODO: make with database call
-      foreach ($episodes as $key => $episode) {
-          if ($episode->getId() == $videoId) {
-              $curEpisode = $episode;
-          }
-      }
+      $curEpisode = $this->manager->getRepository("App\Entity\Star\Episode")->find($videoId);
 
       if (!empty($curEpisode)) {
-        $previousId = $this->findPreviousId($episodes, $videoId);
-        $nextId = $this->findNextId($episodes, $videoId);
+        $previousId = $this->findPreviousId($videoId);
+        $nextId = $this->findNextId($videoId);
 
         // FIXME: merge / link episodes, seasons and series via one to many in DB
         $season = $this->manager->getRepository("App\Entity\Star\Season")
@@ -153,41 +146,6 @@ class StarController extends AbstractController
       return new Response("success");
     }
 
-
-    /**
-     * TODO: Move to repository
-     */
-    private function findPreviousId($episodes, $videoId)
-    {
-      $previousId = null;
-
-      // TODO: check for actual IDs later
-
-      if ($videoId > 1) {
-          $previousId = $videoId - 1;
-      }
-
-      return $previousId;
-    }
-
-    /**
-     * TODO: Move to repository
-     */
-    private function findNextId($episodes, $videoId)
-    {
-      $nextId = null;
-
-      // TODO: check for actual IDs later
-
-      $episodeCount = count($episodes);
-      $latestEpisode = $episodes[$episodeCount - 1];
-
-      if ($videoId < $latestEpisode->getId()) {
-          $nextId = $videoId + 1;
-      }
-
-      return $nextId;
-    }
 
     private function setVideoLanguage($session, $language = "0")
     {
