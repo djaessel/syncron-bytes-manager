@@ -25,7 +25,8 @@ class EpisodeRepository extends ServiceEntityRepository
     public function retrieveActualEpisodes()
     {
       $qb = $this->createQueryBuilder('e')
-          ->where('e.is_extra IS NOT 1')
+          ->where('e.is_extra = 0')
+          ->orWhere('e.is_extra IS NULL')
       ;
 
       $query = $qb->getQuery();
