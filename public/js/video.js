@@ -119,6 +119,13 @@ $(function () {
       $("#videoTime").attr("max", curVideoDOM.duration);
     }
   });
+
+  $('#videoTime').hover(function() {
+    $('#playedTime').css('opacity', '1.0');
+  }, function() {
+    // on mouseout
+    $('#playedTime').css('opacity', '0.5');
+  });
   // SEEK BAR - END
 
 
