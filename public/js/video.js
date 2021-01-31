@@ -113,17 +113,17 @@ $(function () {
     $("#playedTime").width(newWidth);
 
     // buffer bar
-    var currentBuffer = curVideoDOM.buffered.end(0);
-    console.log(curVideoDOM.buffered);
-    for (var i = 0; i < curVideoDOM.buffered.length; i++) {
-      let x = curVideoDOM.buffered.end(i);
-      if (currentBuffer < x) {
-        currentBuffer = x;
-      }
-    }
-    var percentage = 100 * currentBuffer / duration;
-    var shownBuffer = maxWidth * percentage;
-    $('#bufferBar').width(shownBuffer);
+    //var currentBuffer = curVideoDOM.buffered.end(0);
+    //console.log(curVideoDOM.buffered);
+    //for (var i = 0; i < curVideoDOM.buffered.length; i++) {
+    //  let x = curVideoDOM.buffered.end(i);
+    //  if (currentBuffer < x) {
+    //    currentBuffer = x;
+    //  }
+    //}
+    //var percentage = 100 * currentBuffer / duration;
+    //var shownBuffer = maxWidth * percentage;
+    //$('#bufferBar').width(shownBuffer);
 
     var playableTime = duration - curVideoDOM.currentTime;
     updateTimeDisplay(playableTime);
