@@ -105,8 +105,9 @@ $(function () {
     $("#videoTime").val(curVideoDOM.currentTime);
 
     var duration = curVideoDOM.duration;
-
     var maxWidth = $("#videoTime").width();
+
+    // played time
     var playedTimePercentage = curVideoDOM.currentTime / duration;
     var newWidth = maxWidth * playedTimePercentage;
     $("#playedTime").width(newWidth);
@@ -114,7 +115,8 @@ $(function () {
     // buffer bar
     var currentBuffer = curVideoDOM.buffered.end(0);
     var percentage = 100 * currentBuffer / duration;
-    $('#bufferBar').css('width', percentage+'%');
+    var shownBuffer = maxWidth * percentage;
+    $('#bufferBar').width(shownBuffer);
 
     var playableTime = duration - curVideoDOM.currentTime;
     updateTimeDisplay(playableTime);
