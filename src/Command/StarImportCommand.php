@@ -16,6 +16,7 @@ class StarImportCommand extends BaseCommand
 {
     protected static $defaultName = 'start:import';
 
+    protected $isVerbose = false;
 
     /**
      * FileValidCheckCommand constructor.
@@ -31,6 +32,13 @@ class StarImportCommand extends BaseCommand
     {
         $this
             ->setDescription('import all star video related data')
+            ->addOption(
+              'verbose',
+              'v',
+              InputOption::VALUE_OPTIONAL,
+              'print additional info',
+              false,
+            )
             ->addArgument(
               'path',
               InputArgument::OPTIONAL,
@@ -49,6 +57,8 @@ class StarImportCommand extends BaseCommand
         $success = false;
 
         $path = $this->setPathForImport($input);
+
+        $this->isVerbose = $input->getOption("verbose");
 
         // database table names
         $tables = array(
@@ -69,7 +79,7 @@ class StarImportCommand extends BaseCommand
                 $done = $this->importCsvData($path, $name, $output);
                 if (!$done) {
                     $success = false;
-                    // TODO: add output for error
+                    $output->writeln("ERROR with ".$key.":".$name);
                 }
             }
         }
@@ -157,8 +167,9 @@ class StarImportCommand extends BaseCommand
             $csvData = $this->readAllCsvDataFromFile($pathX);
 
             foreach ($csvData as $key => $data) {
-                // TODO: add console output here
-                $output->writeln("Processing data: " . $name . "_" . $key);
+                if ($this->isVerbose) {
+                  $output->writeln("Processing data: " . $name . "_" . $key);
+                }
                 $this->handleDataByName($name, $data);
             }
 
@@ -166,7 +177,6 @@ class StarImportCommand extends BaseCommand
 
             $success = true;
         } catch (\Throwable $e) {
-            // TODO: something with the error
             $output->writeln($e->getMessage() . " : " . $e->getLine());
         }
 
