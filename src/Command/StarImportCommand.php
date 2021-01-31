@@ -33,13 +33,6 @@ class StarImportCommand extends BaseCommand
     {
         $this
             ->setDescription('import all star video related data')
-            ->addOption(
-              'verbose',
-              'v',
-              InputOption::VALUE_OPTIONAL,
-              'print additional info',
-              false,
-            )
             ->addArgument(
               'path',
               InputArgument::OPTIONAL,
