@@ -104,14 +104,19 @@ $(function () {
   curVideoDOM.ontimeupdate = function(){
     $("#videoTime").val(curVideoDOM.currentTime);
 
+    var duration = curVideoDOM.duration;
+
     var maxWidth = $("#videoTime").width();
-    var playedTimePercentage = curVideoDOM.currentTime / curVideoDOM.duration;
+    var playedTimePercentage = curVideoDOM.currentTime / duration;
     var newWidth = maxWidth * playedTimePercentage;
     $("#playedTime").width(newWidth);
 
-    console.log("Start: " + curVideoDOM.buffered.start(0) + " End: "  + curVideoDOM.buffered.end(0));
+    // buffer bar
+    var currentBuffer = curVideoDOM.buffered.end(0);
+    var percentage = 100 * currentBuffer / duration;
+    $('#bufferBar').css('width', percentage+'%');
 
-    var playableTime = curVideoDOM.duration - curVideoDOM.currentTime;
+    var playableTime = duration - curVideoDOM.currentTime;
     updateTimeDisplay(playableTime);
   };
 
