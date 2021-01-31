@@ -66,7 +66,7 @@ class StarImportCommand extends BaseCommand
             // import all new table data
             $path .= "/";
             foreach ($tables as $key => $name) {
-                $done = $this->importCsvData($path, $name);
+                $done = $this->importCsvData($path, $name, $output);
                 if (!$done) {
                     $success = false;
                     // TODO: add output for error
@@ -148,7 +148,7 @@ class StarImportCommand extends BaseCommand
     /**
      *
      */
-    private function importCsvData($path, $name)
+    private function importCsvData($path, $name, $output)
     {
         $success = false;
 
@@ -158,6 +158,7 @@ class StarImportCommand extends BaseCommand
 
             foreach ($csvData as $key => $data) {
                 // TODO: add console output here
+                $output->writeln("Processing data: " . $name . "_" . $key);
                 $this->handleDataByName($name, $data);
             }
 
@@ -166,6 +167,7 @@ class StarImportCommand extends BaseCommand
             $success = true;
         } catch (\Throwable $e) {
             // TODO: something with the error
+            $output->writeln($e->getMessage() . " : " . $e->getLine());
         }
 
         return $success;
