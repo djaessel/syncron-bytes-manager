@@ -18,3 +18,4 @@ Id;SeasonNumber;SeriesNumber;Title;StartYear;EndYear;FirstEpisode;LastEpisode
 17;1;3;"Universe";2009;2010;1;20
 18;2;3;"Universe";2010;2011;21;40
 19;1;4;"X-Files";1993;1994;1;24
+20;1;4;"X-Files";1994;1995;25;48
