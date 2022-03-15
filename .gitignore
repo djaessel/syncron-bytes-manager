@@ -26,5 +26,7 @@ build/
 
 public/downloads/WeTransferManager.7z
 
+composer.phar
+
 public/videos/*
 !public/videos/.gitignore
